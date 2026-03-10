@@ -1,0 +1,57 @@
+Feature,Importance
+"5. The most consumed type of caffeine drinks_coffee, tea",1.3063466651323183
+5. The most consumed type of caffeine drinks_soft strings,1.106022959890017
+9. Regularity of meal schedules_irregular,1.056897514717508
+"5. The most consumed type of caffeine drinks_coffee, soft strings",0.9953145429815267
+12. Sleep Quality Assessment_average,0.7331831655417056
+12. Sleep Quality Assessment_excellent,0.7135413928154795
+14. Number of hours of screen use per day_more than 8,0.7009700443017598
+2. Age_36+,0.6086274100174609
+12. Sleep Quality Assessment_good,0.5905516099456055
+8. Number of fast food per week_1-2,0.5781296280688526
+9. Regularity of meal schedules_regular,0.5711660610897062
+11. Average number of hours of sleep per night_less than 5,0.57036609043866
+12. Sleep Quality Assessment_bad,0.569449615137016
+13. Number of days of physical activity per week_1-2,0.5438758820496552
+4. Number of caffeine drinks per day_more than 4,0.518074512461625
+9. Regularity of meal schedules_semi-regular,0.48719167571016725
+8. Number of fast food per week_3-4,0.478215652192163
+14. Number of hours of screen use per day_6–8,0.46418673910795666
+4. Number of caffeine drinks per day_1-2,0.45521288997801757
+"5. The most consumed type of caffeine drinks_coffee, energy drinks",0.45482126604247175
+Current Status_other,0.4520186269343692
+6. Timing of caffeine consumption (most common time)_night,0.44032968295391167
+"5. The most consumed type of caffeine drinks_coffee, tea, soft strings",0.4100369670118877
+3. Gender_male,0.40069883879472357
+3. Gender_female,0.39923861671235994
+8. Number of fast food per week_more than 4,0.3959430328776671
+5. The most consumed type of caffeine drinks_coffee,0.39285359136908576
+6. Timing of caffeine consumption (most common time)_evening,0.37693713893594255
+11. Average number of hours of sleep per night_more than 8,0.3691562303268625
+10. Eat after 10 pm_sometimes,0.3688845011004547
+"5. The most consumed type of caffeine drinks_tea, soft strings",0.3570771951525975
+2. Age_23 - 27,0.3427226211363635
+10. Eat after 10 pm_mostly,0.3114506866506569
+8. Number of fast food per week_0,0.29748927908333983
+2. Age_18 - 22,0.2756351221943998
+13. Number of days of physical activity per week_0,0.2747588351715095
+7. Caffeine consumption after 8 pm_no,0.2572815505428244
+7. Caffeine consumption after 8 pm_yes,0.2558213284604591
+"5. The most consumed type of caffeine drinks_coffee, tea, energy drinks, soft strings",0.24571196432781642
+Current Status_student,0.23822052400537355
+Current Status_employee,0.21525832501135778
+14. Number of hours of screen use per day_less than 3,0.19398434523122818
+13. Number of days of physical activity per week_5+,0.18423346610094815
+6. Timing of caffeine consumption (most common time)_afternoon,0.17706226807167633
+4. Number of caffeine drinks per day_0,0.16945887353326738
+11. Average number of hours of sleep per night_7–8,0.15588270547830574
+"5. The most consumed type of caffeine drinks_coffee, energy drinks, soft strings",0.12912239983654258
+6. Timing of caffeine consumption (most common time)_morning,0.11220950197134293
+4. Number of caffeine drinks per day_3-4,0.10805747313202325
+13. Number of days of physical activity per week_3-4,0.08342335869483422
+10. Eat after 10 pm_no,0.055973592367435245
+11. Average number of hours of sleep per night_5–6,0.04678737671585653
+14. Number of hours of screen use per day_3–5,0.044259182044937395
+2. Age_28 - 35,0.01119055539566899
+5. The most consumed type of caffeine drinks_tea,0.006817730696038197
+5. The most consumed type of caffeine drinks_energy drinks,0.0
