@@ -3,6 +3,8 @@ from pathlib import Path
 
 import streamlit as st
 
+from database import create_user, init_db
+
 
 st.set_page_config(
     page_title="Sign Up | Riyalyze",
@@ -10,6 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+init_db()
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
@@ -97,31 +100,6 @@ st.markdown(
             max-width: 100% !important;
         }}
 
-        div[data-testid="stHorizontalBlock"] {{
-            align-items: center;
-            min-height: 100vh;
-            padding: 80px 10vw 60px;
-            gap: 24px;
-        }}
-
-        div[data-testid="column"]:first-of-type {{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }}
-
-        div[data-testid="column"]:nth-of-type(2) {{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 14px;
-        }}
-
-        div[data-testid="column"]:nth-of-type(2) > div {{
-            width: 100%;
-        }}
-
         .hero {{
             min-height: 100vh;
             display: grid;
@@ -175,20 +153,45 @@ st.markdown(
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 14px;
+            gap: 18px;
             animation: fadeUp 900ms ease-out both;
             animation-delay: 120ms;
         }}
 
-        .right h1 {{
+        .hero-title {{
             font-size: clamp(30px, 4.2vw, 48px);
             font-weight: 600;
-            margin: 0;
+            margin: 0 0 6px;
         }}
 
         .form-note {{
             color: var(--muted);
             margin: 0 0 6px;
+        }}
+
+        div[data-testid="stHorizontalBlock"] {{
+            align-items: center;
+            min-height: 100vh;
+            padding: 80px 10vw 60px;
+            gap: 24px;
+        }}
+
+        div[data-testid="column"]:first-of-type {{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }}
+
+        div[data-testid="column"]:nth-of-type(2) {{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 16px;
+        }}
+
+        div[data-testid="column"]:nth-of-type(2) > div {{
+            width: 100%;
         }}
 
         div[data-testid="stTextInput"] {{
@@ -219,7 +222,7 @@ st.markdown(
         }}
 
         div.stButton > button {{
-            min-width: min(480px, 80vw);
+            width: min(520px, 82vw);
             padding: 16px 28px;
             border-radius: 16px;
             border: none;
@@ -230,10 +233,6 @@ st.markdown(
             box-shadow: 0 12px 30px rgba(167, 53, 217, 0.35);
             cursor: pointer;
             transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
-        }}
-
-        div.stButton {{
-            margin-top: 6px;
         }}
 
         div.stButton > button:hover {{
@@ -281,67 +280,65 @@ st.markdown(
             }}
         }}
     </style>
+
     """,
     unsafe_allow_html=True,
 )
 
-container = st.container()
-with container:
-    col_left, col_right = st.columns([1.2, 1], gap="large")
+st.markdown(
+    f"""
+    """,
+    unsafe_allow_html=True,
+)
 
-    with col_left:
-        st.markdown(
-            f"""
-            <div class="left">
-                <div class="brand">
-                    {logo_html}
-                    <span>Riyalyze</span>
-                </div>
-                <div class="project-name">Dietary Habits DASHBOARD</div>
+left_col, right_col = st.columns([1.2, 1], gap="large")
+with left_col:
+    st.markdown(
+        f"""
+        <div class="left">
+            <div class="brand">
+                {logo_html}
+                <span>Riyalyze</span>
             </div>
-            """,
+            <div class="project-name">Dietary Habits DASHBOARD</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with right_col:
+    st.markdown('<h1 class="hero-title">Nice to see you!</h1>', unsafe_allow_html=True)
+    if st.session_state.signup_step == "email":
+        st.markdown(
+            '<p class="form-note">Enter your Email to Sign Up</p>',
             unsafe_allow_html=True,
         )
+        email = st.text_input("Email", placeholder="Sara@example.com")
+        if st.button("Continue", key="signup_continue"):
+            if not email or "@" not in email:
+                st.warning("Please enter a valid email.")
+            else:
+                st.session_state.signup_step = "password"
+                st.session_state.signup_email = email
+                st.rerun()
+    else:
+        st.markdown('<p class="form-note">Create your password</p>', unsafe_allow_html=True)
+        password = st.text_input("Password", type="password")
+        confirm = st.text_input("Confirm Password", type="password")
 
-    with col_right:
-        st.markdown("<div class='right'>", unsafe_allow_html=True)
-        st.markdown("<h1>Nice to see you!</h1>", unsafe_allow_html=True)
-
-        if st.session_state.signup_step == "email":
-            st.markdown(
-                "<p class='form-note'>Enter your Email to Sign Up</p>",
-                unsafe_allow_html=True,
-            )
-            email = st.text_input("Email", placeholder="Sara@example.com", key="signup_email")
-            if st.button("Continue", key="signup_continue"):
-                if not email or "@" not in email:
-                    st.warning("Please enter a valid email.")
+        if st.button("Sign Up", key="signup_submit"):
+            email = st.session_state.get("signup_email", "")
+            if not password or len(password) < 6:
+                st.warning("Password must be at least 6 characters.")
+            elif password != confirm:
+                st.error("Passwords do not match.")
+            else:
+                name_guess = email.split("@")[0].replace(".", " ").title() if email else "User"
+                user_id = create_user(name_guess, email, password)
+                if user_id is None:
+                    st.error("Email already exists. Please use another email.")
                 else:
-                    st.session_state.signup_step = "password"
-                    st.rerun()
-        else:
-            st.markdown(
-                "<p class='form-note'>Enter your new Password to Sign Up</p>",
-                unsafe_allow_html=True,
-            )
-            password = st.text_input(
-                "Password", placeholder="****", type="password", key="signup_password"
-            )
-            confirm = st.text_input(
-                "Confirm Password",
-                placeholder="****",
-                type="password",
-                key="signup_confirm",
-            )
-            if st.button("Sign Up", key="signup_submit"):
-                if not password or len(password) < 8:
-                    st.warning("Password must be at least 8 characters.")
-                elif password != confirm:
-                    st.error("Passwords do not match.")
-                else:
-                    st.success("Account details look good.")
-
-        st.markdown("</div>", unsafe_allow_html=True)
+                    st.success("Account created successfully. You can log in now.")
 
 st.markdown(
     """
