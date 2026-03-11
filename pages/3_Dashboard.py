@@ -118,11 +118,17 @@ html = f"""
         box-sizing: border-box;
     }}
 
-    body {{
+    html, body {{
         margin: 0;
+        padding: 0;
         background: #0F123B;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: #e8ecff;
+        min-height: 100vh;
+    }}
+
+    body {{
+        overflow-x: hidden;
     }}
 
     a {{
@@ -133,7 +139,7 @@ html = f"""
     .dash {{
         min-height: 100vh;
         display: grid;
-       grid-template-columns: 320px 1fr;
+        grid-template-columns: 320px 1fr;
         gap: 28px;
         padding: 42px 52px;
         background: #0F123B;
@@ -209,6 +215,7 @@ html = f"""
         display: grid;
         place-items: center;
         color: #fff;
+        flex-shrink: 0;
     }}
 
     .nav-item.active .nav-icon {{
@@ -220,17 +227,15 @@ html = f"""
         font-weight: 600;
     }}
 
-    .projection-column {{
-        padding-top: 112px;
-    }}
-
     .projection-card {{
         width: 100%;
+        max-width: 100%;
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.10);
         border-radius: 24px;
         padding: 18px 16px;
         box-shadow: inset 0 0 16px rgba(255,255,255,0.03);
+        margin-top: 6px;
     }}
 
     .projection-title {{
@@ -337,20 +342,26 @@ html = f"""
         color: #9aa6d1;
     }}
 
-    
-
-    @media (max-width: 1200px) {{
-        .dash {{
-            grid-template-columns: 280px 220px 1fr;
-        }}
+    .placeholder {{
+        min-height: 520px;
+        border-radius: 26px;
+        border: 1px dashed rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.02);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7f89b8;
+        font-size: 16px;
+        text-align: center;
+        padding: 20px;
     }}
 
     @media (max-width: 980px) {{
         .dash {{
             grid-template-columns: 1fr;
+            padding: 28px 20px;
         }}
 
-        .projection-column,
         .main-area {{
             padding-top: 0;
         }}
@@ -368,7 +379,7 @@ html = f"""
             <div class="divider"></div>
 
             <div class="nav">
-                <a class="nav-item {'active' if is_dashboard else ''}" href="#">
+                <a class="nav-item {'active' if is_dashboard else ''}" href="?tab=dashboard&risk={risk_level}">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 11.5L12 4L21 11.5V21H14.5V14.5H9.5V21H3V11.5Z" fill="white"/>
@@ -377,7 +388,7 @@ html = f"""
                     <div class="nav-label">Dashboard</div>
                 </a>
 
-                <a class="nav-item {'active' if is_profile else ''}" href="#">
+                <a class="nav-item {'active' if is_profile else ''}" href="?tab=profile&risk={risk_level}">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
@@ -386,68 +397,90 @@ html = f"""
                     <div class="nav-label">Profile</div>
                 </a>
             </div>
+
             <div class="projection-card">
-    <div class="projection-title">10-Year Projection</div>
-    <div class="projection-subtitle">
-        Visual lifestyle projection based on current risk level
-    </div>
+                <div class="projection-title">10-Year Projection</div>
+                <div class="projection-subtitle">
+                    Visual lifestyle projection based on current risk level
+                </div>
 
-    <div class="projection-body-wrap">
-        {projection_img_html}
-    </div>
+                <div class="projection-body-wrap">
+                    {projection_img_html}
+                </div>
 
-    <div class="risk-badge" style="background:{projection['badge']}">
-        {projection['title']}
-    </div>
+                <div class="risk-badge" style="background:{projection['badge']}">
+                    {projection['title']}
+                </div>
 
-    <div class="projection-mini">
-        <div class="mini-box">
-            <div class="mini-label">Projected Condition</div>
-            <div class="mini-value">{projection['status']}</div>
-        </div>
+                <div class="projection-mini">
+                    <div class="mini-box">
+                        <div class="mini-label">Projected Condition</div>
+                        <div class="mini-value">{projection['status']}</div>
+                    </div>
 
-        <div class="mini-box">
-            <div class="mini-label">Current Pattern</div>
-            <div class="mini-value">{projection['cluster']}</div>
-        </div>
-    </div>
-</div>
+                    <div class="mini-box">
+                        <div class="mini-label">Current Pattern</div>
+                        <div class="mini-value">{projection['cluster']}</div>
+                    </div>
+                </div>
+            </div>
         </aside>
 
+        <main class="main-area">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    {"Dashboard" if is_dashboard else "Profile"}
+                </div>
+                <div class="dashboard-subtitle">
+                    {"Your analytics overview will appear here." if is_dashboard else "Your personal information will appear here."}
+                </div>
+            </div>
 
-       
-
-           
+            <div class="placeholder"></div>
         </main>
     </div>
 </body>
 </html>
 """
+
 st.markdown("""
 <style>
+html, body, [class*="css"] {
+    background-color: #0F123B !important;
+}
+
 .stApp {
-    background-color: #0F123B;
+    background-color: #0F123B !important;
 }
 
 [data-testid="stAppViewContainer"] {
-    background-color: #0F123B;
+    background-color: #0F123B !important;
 }
 
 .main {
-    background-color: #0F123B;
+    background-color: #0F123B !important;
+}
+
+.block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 st.markdown("""
 <style>
-
 header {visibility: hidden;}
 footer {visibility: hidden;}
 
-[data-testid="stSidebarNav"] {
-    display: none;
+[data-testid="stSidebar"] {
+    display: none !important;
 }
 
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
+
 components.html(html, height=1100, scrolling=True)
