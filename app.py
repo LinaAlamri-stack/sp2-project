@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+from typing import Optional
 
 import streamlit as st
 
@@ -26,7 +27,7 @@ DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
 
-def _find_asset(names: list[str], directories: list[Path]) -> Path | None:
+def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
     for directory in directories:
         for base in names:
             for ext in (".png", ".jpg", ".jpeg", ".webp"):
@@ -36,7 +37,7 @@ def _find_asset(names: list[str], directories: list[Path]) -> Path | None:
     return None
 
 
-def _b64(path: Path | None) -> str | None:
+def _b64(path: Optional[Path]) -> Optional[str]:
     if not path or not path.exists():
         return None
     return base64.b64encode(path.read_bytes()).decode("utf-8")
