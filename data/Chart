@@ -1,1 +1,23 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
 
+# قراءة البيانات
+df = pd.read_csv("data/clustering_results.csv")
+
+st.subheader("Effect of Caffeine on Sleep Hours")
+
+# رسم Scatter Plot
+fig = px.scatter(
+    df,
+    x="caffeine_per_day",
+    y="sleep_hours",
+    trendline="ols",   # خط يوضح العلاقة
+    labels={
+        "caffeine_per_day": "Caffeine Cups per Day",
+        "sleep_hours": "Sleep Hours"
+    },
+    title="Relationship Between Caffeine Intake and Sleep"
+)
+
+st.plotly_chart(fig, use_container_width=True)
