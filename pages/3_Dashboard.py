@@ -95,7 +95,7 @@ def get_projection_content(level: str):
             "cluster": "High Screen Time Lifestyle",
             "message": "If your current habits remain unchanged, your projected lifestyle risk may gradually increase over time.",
             "recommendation": "Improve sleep consistency, reduce late-night eating, and lower screen exposure before bed.",
-            "badge": "#4DA8FF",
+            "badge": "#081028",
             "image": body_blue_b64,
         }
 
@@ -122,7 +122,7 @@ html = f"""
         margin: 0;
         padding: 0;
         background: #0F123B;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: 'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: #e8ecff;
         min-height: 100vh;
     }}
@@ -379,7 +379,7 @@ html = f"""
             <div class="divider"></div>
 
             <div class="nav">
-                <a class="nav-item {'active' if is_dashboard else ''}" href="?tab=dashboard&risk={risk_level}">
+                <a class="nav-item {'active' if is_dashboard else ''}" href="/Dashboard?tab=dashboard&risk={risk_level}" target="_top">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 11.5L12 4L21 11.5V21H14.5V14.5H9.5V21H3V11.5Z" fill="white"/>
@@ -388,7 +388,7 @@ html = f"""
                     <div class="nav-label">Dashboard</div>
                 </a>
 
-                <a class="nav-item {'active' if is_profile else ''}" href="?tab=profile&risk={risk_level}">
+                <a class="nav-item {'active' if is_profile else ''}" href="/Dashboard?tab=profile&risk={risk_level}" target="_top">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
@@ -483,4 +483,4 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-components.html(html, height=1100, scrolling=True)
+components.html(html, height=1000, scrolling=False)
