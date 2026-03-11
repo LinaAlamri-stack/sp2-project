@@ -21,3 +21,76 @@ fig = px.scatter(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+fig.update_layout(
+    template="plotly_dark",
+    paper_bgcolor="#0b1742",
+    plot_bgcolor="#0f1f5c",
+    font=dict(color="white"),
+)
+
+sleep_avg = df.groupby("caffeine_per_day")["sleep_hours"].mean().reset_index()
+
+fig = px.line(
+    sleep_avg,
+    x="caffeine_per_day",
+    y="sleep_hours",
+    markers=True,
+    title="Average Sleep vs Caffeine Intake"
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+fig.add_scatter(
+    x=[user_caffeine],
+    y=[user_sleep],
+    mode="markers+text",
+    text=["You"],
+    marker=dict(size=15, color="yellow"),
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================
+# CAFFEINE VS SLEEP CHART
+# =========================
+
+st.markdown('<div class="section-title">Caffeine vs Sleep Analysis</div>', unsafe_allow_html=True)
+
+fig_sleep = px.scatter(
+    cluster_data,
+    x="caffeine_per_day",
+    y="sleep_hours",
+    trendline="ols",
+    opacity=0.7,
+    labels={
+        "caffeine_per_day": "Caffeine Cups / Day",
+        "sleep_hours": "Sleep Hours"
+    }
+)
+
+# نقطة المستخدم
+fig_sleep.add_scatter(
+    x=[user_caffeine],
+    y=[user_sleep],
+    mode="markers+text",
+    text=["You"],
+    textposition="bottom center",
+    marker=dict(
+        size=16,
+        color="#FFD166",
+        symbol="diamond",
+        line=dict(color="white", width=2)
+    ),
+    name="You"
+)
+
+fig_sleep.update_layout(
+    template="plotly_dark",
+    paper_bgcolor="#0b1742",
+    plot_bgcolor="#0f1f5c",
+    font=dict(color="white"),
+    height=550
+)
+
+st.plotly_chart(fig_sleep, use_container_width=True)
