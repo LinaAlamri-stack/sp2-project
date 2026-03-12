@@ -338,7 +338,11 @@ with right_col:
                 if user_id is None:
                     st.error("Email already exists. Please use another email.")
                 else:
-                    st.success("Account created successfully. You can log in now.")
+                    st.session_state.user_id = user_id
+                    st.session_state.user_email = email.lower()
+                    st.query_params["uid"] = str(user_id)
+                    st.success("Account created successfully. Please complete the survey.")
+                    st.switch_page("pages/5_survey.py")
 
 st.markdown(
     """

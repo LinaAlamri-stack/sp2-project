@@ -324,8 +324,9 @@ with right_col:
         if user:
             st.session_state.user_id = user["id"]
             st.session_state.user_email = user["email"]
+            st.query_params["uid"] = str(user["id"])
             st.success("Logged in successfully.")
-            st.switch_page("pages/survey.py")
+            st.switch_page("pages/3_Dashboard.py")
         else:
             st.error("Invalid email or password.")
 

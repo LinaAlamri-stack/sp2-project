@@ -4,7 +4,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from database import get_user_by_id, init_db, update_user_profile
+from database import get_user_by_id, get_user_survey, init_db, update_user_profile
 
 
 st.set_page_config(
@@ -312,8 +312,16 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+params = st.query_params
+uid_param = params.get("uid")
+if isinstance(uid_param, list):
+    uid_param = uid_param[0] if uid_param else None
+if "user_id" not in st.session_state and uid_param and str(uid_param).isdigit():
+    st.session_state.user_id = int(uid_param)
+
 user_id = st.session_state.get("user_id")
 user = get_user_by_id(user_id) if user_id else None
+survey = get_user_survey(user_id) if user_id else None
 
 left_col, right_col = st.columns([0.32, 0.68], gap="large")
 with left_col:
@@ -356,7 +364,12 @@ with right_col:
         st.warning("Please log in to view your profile.")
     else:
         name = user.get("name") or ""
+        if not name or name.strip().lower() == "user":
+            name = (survey or {}).get("full_name") or name
         email = user.get("email") or ""
+        age = user.get("age")
+        if age is None:
+            age = (survey or {}).get("age")
         gender = user.get("gender") or "Female"
         weight = user.get("weight") or 0.0
         height = user.get("height") or 0.0
@@ -407,13 +420,14 @@ with right_col:
         # Separator
         st.markdown('<div class="section-sep"></div>', unsafe_allow_html=True)
 
-        if parsed_birth:
-            today = date.today()
-            age = today.year - parsed_birth.year - (
-                (today.month, today.day) < (parsed_birth.month, parsed_birth.day)
-            )
-        else:
-            age = "-"
+        if age is None:
+            if parsed_birth:
+                today = date.today()
+                age = today.year - parsed_birth.year - (
+                    (today.month, today.day) < (parsed_birth.month, parsed_birth.day)
+                )
+            else:
+                age = "-"
 
         st.markdown(
             f"""
