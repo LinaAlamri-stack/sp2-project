@@ -1,7 +1,11 @@
 import base64
 from pathlib import Path
 from typing import Optional
+import math
 
+import pandas as pd
+import plotly.express as px
+import plotly.io as pio
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -67,12 +71,12 @@ is_dashboard = tab == "dashboard"
 is_profile = tab == "profile"
 
 
-def get_projection_content(level: str):
+def get_projection_content(level: str, cluster_text: str):
     if level == "low":
         return {
             "title": "Low Future Risk",
             "status": "Stable",
-            "cluster": "Balanced Lifestyle",
+            "cluster": cluster_text,
             "message": "If you maintain your current habits, your projected lifestyle risk remains low over the next 10 years.",
             "recommendation": "Maintain your current sleep routine and continue your balanced habits.",
             "badge": "#39D98A",
@@ -82,7 +86,7 @@ def get_projection_content(level: str):
         return {
             "title": "High Future Risk",
             "status": "High Concern",
-            "cluster": "High Caffeine / Late Habits",
+            "cluster": cluster_text,
             "message": "If your current habits remain unchanged, your projected lifestyle pattern may move toward a higher long-term risk state.",
             "recommendation": "Reduce caffeine after 8 PM, lower screen exposure at night, and increase weekly physical activity.",
             "badge": "#FF4D6D",
@@ -92,7 +96,7 @@ def get_projection_content(level: str):
         return {
             "title": "Moderate Future Risk",
             "status": "Needs Improvement",
-            "cluster": "High Screen Time Lifestyle",
+            "cluster": cluster_text,
             "message": "If your current habits remain unchanged, your projected lifestyle risk may gradually increase over time.",
             "recommendation": "Improve sleep consistency, reduce late-night eating, and lower screen exposure before bed.",
             "badge": "#081028",
@@ -100,7 +104,249 @@ def get_projection_content(level: str):
         }
 
 
-projection = get_projection_content(risk_level)
+# =========================
+# USER DATA FROM SESSION
+# =========================
+user_caffeine = float(st.session_state.get("caffeine_per_day", 2))
+user_sleep = float(st.session_state.get("sleep_hours", 7))
+user_fast_food = float(st.session_state.get("fast_food_per_week", 2))
+user_activity = float(st.session_state.get("physical_activity_days", 3))
+user_screen = float(st.session_state.get("screen_hours", 6))
+user_sleep_quality = float(st.session_state.get("sleep_quality", 3))
+user_eat_late = float(st.session_state.get("eat_after_10pm", 0))
+user_caffeine_late = float(st.session_state.get("caffeine_after_8pm", 0))
+user_low_energy = float(st.session_state.get("low_energy_frequency", 3))
+
+risk_score = (
+    user_caffeine * 4
+    + user_fast_food * 3
+    + user_screen * 3
+    + max(0, 8 - user_sleep) * 4
+    + (5 - user_sleep_quality) * 5
+    + user_eat_late * 8
+    + user_caffeine_late * 8
+    + (user_low_energy - 1) * 4
+    - user_activity * 3
+)
+risk_score = max(0, min(round(risk_score), 100))
+
+if risk_score <= 30:
+    final_risk_level = "low"
+elif risk_score >= 60:
+    final_risk_level = "high"
+else:
+    final_risk_level = "moderate"
+
+# =========================
+# KPI DATA
+# =========================
+kpis = [
+    {
+        "label": "Your Caffeine Intake",
+        "value": f"{user_caffeine:.1f}",
+        "unit": "Cups/day",
+        "icon": "☕",
+        "pill_class": "green-pill",
+    },
+    {
+        "label": "Your Sleep Hours",
+        "value": f"{user_sleep:.1f}",
+        "unit": "Hours/Night",
+        "icon": "🌙",
+        "pill_class": "blue-pill",
+    },
+    {
+        "label": "Your Fast Food / Week",
+        "value": f"{user_fast_food:.1f}",
+        "unit": "Times/Week",
+        "icon": "🍟",
+        "pill_class": "yellow-pill",
+    },
+    {
+        "label": "Your Risk Score",
+        "value": str(risk_score),
+        "unit": "Score",
+        "icon": "✉️",
+        "pill_class": "pink-pill",
+    },
+]
+
+kpi_html = "".join(
+    f"""
+    <div class="kpi-card">
+        <div class="kpi-header-row">
+            <div class="kpi-title-wrap">
+                <div class="kpi-mini-icon">{item['icon']}</div>
+                <div class="kpi-title">{item['label']}</div>
+            </div>
+            <div class="kpi-dots">•••</div>
+        </div>
+        <div class="kpi-bottom-row">
+            <div class="kpi-number">{item['value']}</div>
+            <div class="kpi-pill {item['pill_class']}">{item['unit']}</div>
+        </div>
+    </div>
+    """
+    for item in kpis
+)
+
+# =========================
+# CLUSTER CHART DATA
+# =========================
+cluster_file = PROJECT_DIR / "data" / "clustering_results.csv"
+cluster_html = ""
+cluster_name_for_projection = "Lifestyle Cluster"
+
+if cluster_file.exists():
+    cluster_data = pd.read_csv(cluster_file)
+
+    feature_cols = [
+        "caffeine_per_day",
+        "fast_food_per_week",
+        "sleep_hours",
+        "physical_activity_days",
+        "screen_hours",
+        "sleep_quality",
+        "eat_after_10pm",
+        "caffeine_after_8pm",
+        "low_energy_frequency",
+    ]
+
+    user_row = {
+        "caffeine_per_day": user_caffeine,
+        "fast_food_per_week": user_fast_food,
+        "sleep_hours": user_sleep,
+        "physical_activity_days": user_activity,
+        "screen_hours": user_screen,
+        "sleep_quality": user_sleep_quality,
+        "eat_after_10pm": user_eat_late,
+        "caffeine_after_8pm": user_caffeine_late,
+        "low_energy_frequency": user_low_energy,
+    }
+
+    cluster_names = {
+        0: "Cluster A",
+        1: "Cluster B",
+        2: "Cluster C",
+    }
+
+    cluster_centers = cluster_data.groupby("cluster")[feature_cols].mean()
+    feature_means = cluster_data[feature_cols].mean()
+    feature_stds = cluster_data[feature_cols].std().replace(0, 1)
+
+    user_scaled = {
+        col: (user_row[col] - feature_means[col]) / feature_stds[col]
+        for col in feature_cols
+    }
+
+    centers_scaled = (cluster_centers - feature_means) / feature_stds
+
+    distances = {}
+    for cluster_id in centers_scaled.index:
+        distance = 0
+        for col in feature_cols:
+            distance += (user_scaled[col] - centers_scaled.loc[cluster_id, col]) ** 2
+        distances[cluster_id] = math.sqrt(distance)
+
+    user_cluster = min(distances, key=distances.get)
+    user_cluster_name = cluster_names.get(user_cluster, f"Cluster {user_cluster}")
+    cluster_name_for_projection = user_cluster_name
+
+    cluster_summary = (
+        cluster_data.groupby("cluster")
+        .agg(
+            caffeine_per_day=("caffeine_per_day", "mean"),
+            screen_hours=("screen_hours", "mean"),
+            user_count=("cluster", "size"),
+        )
+        .reset_index()
+    )
+
+    cluster_summary["cluster_name"] = cluster_summary["cluster"].map(cluster_names)
+    cluster_summary["label"] = (
+        cluster_summary["cluster_name"]
+        + "<br>Users: "
+        + cluster_summary["user_count"].astype(str)
+    )
+
+    fig = px.scatter(
+        cluster_summary,
+        x="caffeine_per_day",
+        y="screen_hours",
+        size="user_count",
+        color="cluster_name",
+        text="label",
+        size_max=55,
+        color_discrete_map={
+            "Cluster A": "#d94db5",
+            "Cluster B": "#2bb9e8",
+            "Cluster C": "#8b5cf6",
+        },
+        hover_data={
+            "caffeine_per_day": ":.2f",
+            "screen_hours": ":.2f",
+            "user_count": True,
+            "cluster_name": False,
+        },
+    )
+
+    fig.update_traces(
+        textposition="middle center",
+        marker=dict(
+            line=dict(color="white", width=2),
+            opacity=0.9,
+        ),
+        selector=dict(mode="markers"),
+    )
+
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#151a55",
+        plot_bgcolor="#151a55",
+        font=dict(color="white", size=14),
+        xaxis=dict(
+            title="Average Caffeine Intake (cups/day)",
+            showgrid=True,
+            gridcolor="rgba(255,255,255,0.10)",
+            zeroline=False,
+        ),
+        yaxis=dict(
+            title="Average Screen Hours",
+            showgrid=True,
+            gridcolor="rgba(255,255,255,0.10)",
+            zeroline=False,
+        ),
+        legend_title="",
+        margin=dict(l=20, r=20, t=10, b=20),
+        height=420,
+    )
+
+    chart_html = pio.to_html(fig, full_html=False, include_plotlyjs="cdn")
+
+    cluster_html = f"""
+    <div class="cluster-wrap">
+        <div class="cluster-title-row">
+            <div class="cluster-main-title">Cluster Comparison Chart</div>
+            <div class="cluster-user-group">You belong to: {user_cluster_name}</div>
+        </div>
+        <div class="cluster-chart-box">
+            {chart_html}
+        </div>
+    </div>
+    """
+else:
+    cluster_html = """
+    <div class="cluster-wrap">
+        <div class="cluster-title-row">
+            <div class="cluster-main-title">Cluster Comparison Chart</div>
+        </div>
+        <div class="cluster-empty-state">
+            clustering_results.csv not found inside the data folder.
+        </div>
+    </div>
+    """
+
+projection = get_projection_content(final_risk_level, cluster_name_for_projection)
 
 projection_img_html = (
     f"<img src='data:image/png;base64,{projection['image']}' class='projection-body-img' alt='Projection body' />"
@@ -342,18 +588,169 @@ html = f"""
         color: #9aa6d1;
     }}
 
-    .placeholder {{
+    .kpi-grid {{
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 8px;
+        margin-bottom: 18px;
+    }}
+
+    .kpi-card {{
+        background: rgba(22, 33, 94, 0.92);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 18px;
+        padding: 14px 16px;
+        min-height: 128px;
+        box-shadow: inset 0 0 18px rgba(255,255,255,0.03);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }}
+
+    .kpi-header-row {{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+    }}
+
+    .kpi-title-wrap {{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }}
+
+    .kpi-mini-icon {{
+        font-size: 14px;
+        line-height: 1;
+        flex-shrink: 0;
+    }}
+
+    .kpi-title {{
+        font-size: 11px;
+        color: #eef3ff;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: visible;
+    }}
+
+    .kpi-dots {{
+        font-size: 13px;
+        color: rgba(255,255,255,0.75);
+        letter-spacing: 1px;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }}
+
+    .kpi-bottom-row {{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }}
+
+    .kpi-number {{
+        font-size: 18px;
+        font-weight: 800;
+        color: white;
+        line-height: 1;
+    }}
+
+    .kpi-pill {{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        color: white;
+        line-height: 1;
+    }}
+
+    .green-pill {{
+        background: #35c98b;
+    }}
+
+    .blue-pill {{
+        background: #2f8fff;
+    }}
+
+    .yellow-pill {{
+        background: #cfae59;
+        color: #fff8e7;
+    }}
+
+    .pink-pill {{
+        background: #8b6aa8;
+    }}
+
+    .cluster-wrap {{
+        width: 100%;
         min-height: 520px;
         border-radius: 26px;
         border: 1px dashed rgba(255,255,255,0.14);
         background: rgba(255,255,255,0.02);
+        padding: 18px 18px 12px;
+        overflow: hidden;
+    }}
+
+    .cluster-title-row {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }}
+
+    .cluster-main-title {{
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+    }}
+
+    .cluster-user-group {{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        background: rgba(182, 40, 226, 0.22);
+        border: 1px solid rgba(255,255,255,0.10);
+    }}
+
+    .cluster-chart-box {{
+        width: 100%;
+        height: 450px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #151a55;
+    }}
+
+    .cluster-empty-state {{
+        width: 100%;
+        min-height: 420px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #7f89b8;
-        font-size: 16px;
+        color: #9aa6d1;
+        font-size: 15px;
         text-align: center;
         padding: 20px;
+    }}
+
+    @media (max-width: 1200px) {{
+        .kpi-grid {{
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }}
     }}
 
     @media (max-width: 980px) {{
@@ -364,6 +761,24 @@ html = f"""
 
         .main-area {{
             padding-top: 0;
+        }}
+
+        .cluster-chart-box {{
+            height: 420px;
+        }}
+    }}
+
+    @media (max-width: 640px) {{
+        .kpi-grid {{
+            grid-template-columns: 1fr;
+        }}
+
+        .kpi-title {{
+            white-space: normal;
+        }}
+
+        .cluster-title-row {{
+            align-items: flex-start;
         }}
     }}
 </style>
@@ -436,7 +851,11 @@ html = f"""
                 </div>
             </div>
 
-            <div class="placeholder"></div>
+            <div class="kpi-grid">
+                {kpi_html}
+            </div>
+
+            {cluster_html}
         </main>
     </div>
 </body>
@@ -483,4 +902,4 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-components.html(html, height=1000, scrolling=False)
+components.html(html, height=1120, scrolling=False)
