@@ -10,6 +10,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from database import get_user_by_id, get_user_survey, init_db, update_user_projection
+from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
 
 st.set_page_config(
     page_title="Dashboard | Riyalyze",
@@ -427,6 +428,29 @@ else:
         </div>
     </div>
     """
+
+fig_risk = build_risk_level_fig()
+fig_trend = build_caffeine_sleep_fig()
+
+risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs=False)
+trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs=False)
+
+charts_html = f"""
+<div class="survey-charts">
+    <div class="chart-card">
+        <div class="chart-title">Risk level distribution</div>
+        <div class="chart-box">
+            {risk_html}
+        </div>
+    </div>
+    <div class="chart-card">
+        <div class="chart-title">Caffeine vs Sleep Trends</div>
+        <div class="chart-box">
+            {trend_html}
+        </div>
+    </div>
+</div>
+"""
 
 projection = get_projection_content(final_risk_level, cluster_name_for_projection)
 projection_title = (survey or {}).get("projection_title") or projection["title"]
@@ -853,7 +877,7 @@ html = f"""
         width: 100%;
         min-height: 520px;
         border-radius: 26px;
-        border: 1px dashed rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.02);
         padding: 18px 18px 12px;
         overflow: hidden;
@@ -907,6 +931,34 @@ html = f"""
         padding: 20px;
     }}
 
+    .survey-charts {{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+    }}
+
+    .chart-card {{
+        background: rgba(22, 33, 94, 0.92);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: inset 0 0 18px rgba(255,255,255,0.03);
+        min-height: 320px;
+    }}
+
+    .chart-title {{
+        font-size: 16px;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 8px;
+    }}
+
+    .chart-box {{
+        width: 100%;
+        height: 100%;
+    }}
+
     @media (max-width: 1200px) {{
         .kpi-grid {{
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -925,6 +977,10 @@ html = f"""
 
         .cluster-chart-box {{
             height: 420px;
+        }}
+
+        .survey-charts {{
+            grid-template-columns: 1fr;
         }}
     }}
 
@@ -1011,7 +1067,7 @@ html = f"""
                 </div>
             </div>
 
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html if is_dashboard else "<div class='profile-center'>" + profile_html + "</div>"}
+            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html if is_dashboard else "<div class='profile-center'>" + profile_html + "</div>"}
         </main>
     </div>
 </body>
@@ -1058,4 +1114,4 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-components.html(html, height=1120, scrolling=False)
+components.html(html, height=1650, scrolling=False)
