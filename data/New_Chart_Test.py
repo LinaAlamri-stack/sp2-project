@@ -5,7 +5,7 @@ import streamlit as st
 # =========================
 # LOAD DATA
 # =========================
-df = pd.read_csv("data/survey_data.csv")
+df = pd.read_csv("survey_data.csv")
 
 # =========================
 # PAGE CONFIG
