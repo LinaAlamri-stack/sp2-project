@@ -1,120 +1,112 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import os
 
-# 1. Page Configuration
-st.set_page_config(page_title="Caffeine & Sleep Insights", layout="wide", initial_sidebar_state="collapsed")
+# 1. إعدادات الصفحة
+st.set_page_config(page_title="Health Habits Dashboard", layout="wide", initial_sidebar_state="collapsed")
 
-# 2. Advanced Custom CSS for the "Modern/Neon" Dashboard look
+# 2. تصميم CSS المخصص (نفس التصميم الأصلي)
 st.markdown("""
     <style>
-    /* Main Background - Deep Dark Navy */
     .main { background-color: #060914; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
-    
-    /* Headings and Subheadings */
-    h1 { color: #ffffff !important; font-weight: 700; }
+    h1 { color: #ffffff !important; }
     .stSubheader { color: #ffffff !important; font-weight: 600; }
-    
-    /* Custom Styling for Statistic Cards */
-    .metric-card {
-        background-color: #0d1225;
-        border: 1px solid #1d2645;
-        border-radius: 15px;
-        padding: 25px;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,255,255,0.05);
-        margin-bottom: 10px;
-    }
-    
-    .metric-value {
-        font-size: 38px;
-        font-weight: bold;
-        margin-top: 5px;
-    }
-    
-    .metric-label {
-        font-size: 14px;
-        color: #a0a0a0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    /* Chart Containers */
-    [data-testid="stVerticalBlock"] > div:has(div.stPlotlyChart) {
+    [data-testid="stVerticalBlock"] > div:has(div.stPlotlyChart),
+    div[data-testid="stMetricValue"] {
         background-color: #0d1225;
         border-radius: 15px;
-        padding: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,255,255,0.03);
+        margin-bottom: 20px;
     }
+    div[data-testid="metric-container"] { background-color: transparent !important; border: none !important; }
+    div[data-testid="stMetricLabel"] { color: #a0a0a0 !important; font-size: 16px; }
+    div[data-testid="stMetricValue"] { color: #33CCFF !important; font-size: 32px; }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Dynamic Data Loading
-@st.cache_data(ttl=10) # Auto-refresh every 10 seconds for new survey entries
+# 3. تحميل البيانات
+@st.cache_data(ttl=10)
 def load_data():
-    try:
-        return pd.read_csv("data/survey_data.csv")
-    except:
-        return pd.read_csv("survey_data.csv")
+    paths = ["data/survey_data.csv", "survey_data.csv", "../data/survey_data.csv"]
+    for path in paths:
+        if os.path.exists(path):
+            return pd.read_csv(path)
+    return None
 
 df = load_data()
 
-# 4. Dashboard Header
-st.title("☕ Caffeine & Sleep Analytics")
-st.markdown("Real-time monitoring of user habits and health correlations.")
+# 4. العنوان الرئيسي
+st.title("User Habits & Health Analytics")
+st.markdown("Caffeine Consumption & Sleep Analysis")
 st.markdown("---")
 
-# 5. LIVE PARTICIPANT METRICS (English KPIs)
+# 5. --- إصلاح المؤشرات العلوية (المطلوب الأساسي) ---
 st.subheader("Live Participant Metrics")
-col_a, col_b, col_c = st.columns(3)
 
-if '3. Gender' in df.columns:
-    total_users = len(df)
-    males = len(df[df['3. Gender'] == 'Male'])
-    females = len(df[df['3. Gender'] == 'Female'])
+total_users = len(df)
+# نستخدم iloc للوصول لثالث عمود (Gender) بغض النظر عن اسمه الطويل
+male_count = len(df[df.iloc[:, 2] == 'Male']) 
+female_count = len(df[df.iloc[:, 2] == 'Female'])
 
-    with col_a:
-        st.markdown(f'<div class="metric-card"><div class="metric-label">Total Participants</div><div class="metric-value" style="color:#33CCFF;">{total_users}</div></div>', unsafe_allow_html=True)
-    with col_b:
-        st.markdown(f'<div class="metric-card"><div class="metric-label">Male Participants</div><div class="metric-value" style="color:#FFFF66;">{males}</div></div>', unsafe_allow_html=True)
-    with col_c:
-        st.markdown(f'<div class="metric-card"><div class="metric-label">Female Participants</div><div class="metric-value" style="color:#FF66FF;">{females}</div></div>', unsafe_allow_html=True)
+kpi1, kpi2, kpi3 = st.columns(3)
+kpi1.metric(label="Total Participants", value=total_users)
+kpi2.metric(label="Male Participants", value=male_count)
+kpi3.metric(label="Female Participants", value=female_count)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 6. INTERACTIVE CHARTS (Row 1)
+# 6. --- الحفاظ على التشارتس الستة الأصلية (ROW 1 & ROW 2) ---
 col1, col2 = st.columns(2)
 
 with col1:
-    st.subheader("Gender Distribution")
-    fig_gender = px.pie(df, names='3. Gender', hole=0.6, color_discrete_sequence=['#33CCFF', '#FFFF66'])
-    fig_gender.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='white', margin=dict(t=10, b=10))
+    st.subheader("Gender Distribution (Original)")
+    # نفس الدائرة الأصلية بالأزرق والأصفر
+    fig_gender = px.pie(df, names=df.columns[2], hole=0.5, color_discrete_sequence=['#33CCFF', '#FFFF66'])
+    fig_gender.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
     st.plotly_chart(fig_gender, use_container_width=True)
 
 with col2:
-    st.subheader("Daily Cups Consumption")
-    if '4. Number of cups per day' in df.columns:
-        fig_cups = px.histogram(df, x='4. Number of cups per day', color='3. Gender', barmode='group', color_discrete_sequence=['#33CCFF', '#CC33FF'])
-        fig_cups.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='white', xaxis_title="Cups Per Day", yaxis_title="Count")
-        st.plotly_chart(fig_cups, use_container_width=True)
+    st.subheader("Daily Cups Consumption (Histogram)")
+    # نفس الهستوجرام الأصلي
+    fig_cups = px.histogram(df, x=df.columns[3], color=df.columns[2], barmode='group', color_discrete_sequence=['#33CCFF', '#CC33FF'])
+    fig_cups.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
+    st.plotly_chart(fig_cups, use_container_width=True)
 
 st.markdown("---")
 
-# 7. INTERACTIVE CHARTS (Row 2)
 col3, col4 = st.columns(2)
 
 with col3:
-    st.subheader("Intake Timing")
-    if '6. Timing of last cup' in df.columns:
-        fig_timing = px.bar(df, x='6. Timing of last cup', color_discrete_sequence=['#FF66FF'])
-        fig_timing.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='white', xaxis_title="Time of Day", yaxis_title="Users")
-        st.plotly_chart(fig_timing, use_container_width=True)
+    st.subheader("Caffeine Intake Timing")
+    # نفس التشارت الأصلي
+    fig_timing = px.bar(df, x=df.columns[5], color_discrete_sequence=['#FF66FF'])
+    fig_timing.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
+    st.plotly_chart(fig_timing, use_container_width=True)
 
 with col4:
-    st.subheader("Sleep Quality Score")
-    if '12. Sleep Quality' in df.columns:
-        fig_sleep = px.histogram(df, x='12. Sleep Quality', color_discrete_sequence=['#33CCFF'])
-        fig_sleep.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='white', xaxis_title="Quality Level", yaxis_title="Count")
-        st.plotly_chart(fig_sleep, use_container_width=True)
+    st.subheader("Sleep Quality Score Distribution")
+    # نفس التشارت الأصلي
+    fig_sleep = px.histogram(df, x=df.columns[11], color_discrete_sequence=['#33CCFF'])
+    fig_sleep.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
+    st.plotly_chart(fig_sleep, use_container_width=True)
 
+# 7. --- الحفاظ على التشارتس الجديدة (ROW 3) ---
+st.markdown("---")
+st.subheader("Deep Dive: Age & Status")
+col5, col6 = st.columns(2)
+
+with col5:
+    st.subheader("Age Group Distribution")
+    fig_age = px.bar(df, x=df.columns[1], color_discrete_sequence=['#CC33FF'])
+    fig_age.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
+    st.plotly_chart(fig_age, use_container_width=True)
+
+with col6:
+    st.subheader("Drink Type Preferences")
+    fig_drink = px.pie(df, names=df.columns[4], hole=0.5)
+    fig_drink.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e0e0e0')
+    st.plotly_chart(fig_drink, use_container_width=True)
 # Auto-Refresh Hint
 st.info("💡 Data refreshes automatically every 10 seconds as new users submit the survey.")
