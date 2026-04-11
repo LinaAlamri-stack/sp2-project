@@ -1,6 +1,6 @@
 import streamlit as st
-from model import load_data, get_metrics
-from view import setup_page, render_header, render_metrics, render_charts, render_footer
+from pages.NewChart.model import load_data, get_metrics
+from pages.NewChart.view import setup_page, render_header, render_metrics, render_charts, render_footer
 
 @st.cache_data(ttl=10)
 def get_data():
@@ -24,5 +24,5 @@ def main():
     render_footer()
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
