@@ -5,9 +5,9 @@ import math
 
 import pandas as pd
 import plotly.express as px
-import plotly.io as pio
 import streamlit as st
 import streamlit.components.v1 as components
+import plotly.io as pio
 
 from database import get_user_by_id, get_user_survey, init_db, update_user_projection
 from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
@@ -20,7 +20,7 @@ st.set_page_config(
 
 init_db()
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(_file_).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
@@ -34,6 +34,37 @@ def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
                     return candidate
     return None
 
+
+# ===== NEW CHART QUICK ADD =====
+import pandas as pd
+import plotly.express as px
+import plotly.io as pio
+
+try:
+    df = pd.read_csv("data/survey_data.csv")
+
+    fig1 = px.pie(df, names=df.columns[2])
+    fig2 = px.histogram(df, x=df.columns[3])
+
+    chart1 = pio.to_html(fig1, full_html=False, include_plotlyjs="cdn")
+    chart2 = pio.to_html(fig2, full_html=False, include_plotlyjs="cdn")
+
+    newchart_html = f"""
+    <div class="survey-charts">
+        <div class="chart-card">
+            <div class="chart-title">Gender Distribution</div>
+            {chart1}
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title">Caffeine Consumption</div>
+            {chart2}
+        </div>
+    </div>
+    """
+
+except:
+    newchart_html = "<h3 style='color:red'>No Data Found</h3>"
 
 def _b64(path: Optional[Path]) -> Optional[str]:
     if not path or not path.exists():
@@ -76,7 +107,7 @@ if isinstance(risk_level, list):
     risk_level = risk_level[0] if risk_level else None
 risk_level = (risk_level or "moderate").lower()
 
-is_dashboard = tab == "dashboard"
+is_dashboard = True
 is_profile = tab == "profile"
 
 user_id = st.session_state.get("user_id")
@@ -432,8 +463,8 @@ else:
 fig_risk = build_risk_level_fig()
 fig_trend = build_caffeine_sleep_fig()
 
-risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs=False)
-trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs=False)
+risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs="cdn")
+trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs="cdn")
 
 charts_html = f"""
 <div class="survey-charts">
@@ -1067,7 +1098,7 @@ html = f"""
                 </div>
             </div>
 
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html if is_dashboard else "<div class='profile-center'>" + profile_html + "</div>"}
+            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html + newchart_html if is_dashboard else ""}
         </main>
     </div>
 </body>
