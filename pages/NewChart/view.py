@@ -45,3 +45,6 @@ def render_charts(df):
 
 def render_footer():
     st.info("💡 Data refreshes automatically every 10 seconds.")
+
+def render_footer():
+    st.info("💡 Data refreshes automatically every 10 seconds.")
