@@ -22,7 +22,7 @@ if page in {"signup", "sign-up", "2_signup"}:
     st.switch_page("pages/2_Signup.py")
 
 
-PROJECT_DIR = Path(__file__).parent
+PROJECT_DIR = Path(_file_).parent
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
@@ -272,7 +272,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 import base64
 from pathlib import Path
 from typing import Optional
@@ -294,8 +293,8 @@ st.set_page_config(
 )
 
 init_db()
-from pathlib import Path
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+
+PROJECT_DIR = Path(_file_).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
@@ -311,132 +310,35 @@ def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
 
 
 # ===== NEW CHART QUICK ADD =====
-# ===== MERGED HEALTH ANALYTICS (YOUR CODE INSIDE HUDA DASHBOARD) =====
+import pandas as pd
+import plotly.express as px
 import plotly.io as pio
 
 try:
     df = pd.read_csv("data/survey_data.csv")
 
-    # ===== KPIs =====
-    total_users = len(df)
-    male_count = len(df[df.iloc[:, 2] == 'Male'])
-    female_count = len(df[df.iloc[:, 2] == 'Female'])
+    fig1 = px.pie(df, names=df.columns[2])
+    fig2 = px.histogram(df, x=df.columns[3])
 
-    # ===== CHARTS =====
-    fig_gender = px.pie(
-        df,
-        names=df.columns[2],
-        hole=0.5,
-        color_discrete_sequence=['#33CCFF', '#FFFF66']
-    )
+    chart1 = pio.to_html(fig1, full_html=False, include_plotlyjs="cdn")
+    chart2 = pio.to_html(fig2, full_html=False, include_plotlyjs="cdn")
 
-    fig_cups = px.histogram(
-        df,
-        x=df.columns[3],
-        color=df.columns[2],
-        barmode='group',
-        color_discrete_sequence=['#33CCFF', '#CC33FF']
-    )
-
-    fig_timing = px.bar(
-        df,
-        x=df.columns[5],
-        color_discrete_sequence=['#FF66FF']
-    )
-
-    fig_sleep = px.histogram(
-        df,
-        x=df.columns[11],
-        color_discrete_sequence=['#33CCFF']
-    )
-
-    fig_age = px.bar(
-        df,
-        x=df.columns[1],
-        color_discrete_sequence=['#CC33FF']
-    )
-
-    fig_drink = px.pie(
-        df,
-        names=df.columns[4],
-        hole=0.5
-    )
-
-    # ===== CONVERT TO HTML =====
-    chart1 = pio.to_html(fig_gender, full_html=False, include_plotlyjs="cdn")
-    chart2 = pio.to_html(fig_cups, full_html=False, include_plotlyjs="cdn")
-    chart3 = pio.to_html(fig_timing, full_html=False, include_plotlyjs="cdn")
-    chart4 = pio.to_html(fig_sleep, full_html=False, include_plotlyjs="cdn")
-    chart5 = pio.to_html(fig_age, full_html=False, include_plotlyjs="cdn")
-    chart6 = pio.to_html(fig_drink, full_html=False, include_plotlyjs="cdn")
-
-    # ===== HTML OUTPUT =====
     newchart_html = f"""
-    <div class="kpi-grid">
-
-        <div class="kpi-card">
-            <div class="kpi-title">Total Participants</div>
-            <div class="kpi-number">{total_users}</div>
-        </div>
-
-        <div class="kpi-card">
-            <div class="kpi-title">Male Participants</div>
-            <div class="kpi-number">{male_count}</div>
-        </div>
-
-        <div class="kpi-card">
-            <div class="kpi-title">Female Participants</div>
-            <div class="kpi-number">{female_count}</div>
-        </div>
-
-    </div>
-
     <div class="survey-charts">
-
         <div class="chart-card">
             <div class="chart-title">Gender Distribution</div>
             {chart1}
         </div>
 
         <div class="chart-card">
-            <div class="chart-title">Daily Cups Consumption</div>
+            <div class="chart-title">Caffeine Consumption</div>
             {chart2}
         </div>
-
-    </div>
-
-    <div class="survey-charts">
-
-        <div class="chart-card">
-            <div class="chart-title">Caffeine Intake Timing</div>
-            {chart3}
-        </div>
-
-        <div class="chart-card">
-            <div class="chart-title">Sleep Quality Distribution</div>
-            {chart4}
-        </div>
-
-    </div>
-
-    <div class="survey-charts">
-
-        <div class="chart-card">
-            <div class="chart-title">Age Group Distribution</div>
-            {chart5}
-        </div>
-
-        <div class="chart-card">
-            <div class="chart-title">Drink Preferences</div>
-            {chart6}
-        </div>
-
     </div>
     """
 
 except:
     newchart_html = "<h3 style='color:red'>No Data Found</h3>"
-    {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html + newchart_html if is_dashboard else ""}
 
 def _b64(path: Optional[Path]) -> Optional[str]:
     if not path or not path.exists():
@@ -1518,4 +1420,3 @@ footer {visibility: hidden;}
 """, unsafe_allow_html=True)
 
 components.html(html, height=1650, scrolling=False)
-
