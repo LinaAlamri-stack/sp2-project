@@ -11,6 +11,7 @@ import plotly.express as px
 import streamlit as st
 import streamlit.components.v1 as components
 import plotly.io as pio
+import NewChart.view as nview
 
 import streamlit as st
 
@@ -1485,7 +1486,7 @@ html = f"""
                 </div>
             </div>
 
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html + newchart_html if is_dashboard else ""}
+            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html + newchart_html + nview.render_charts(df)  if is_dashboard else ""}
         </main>
     </div>
 </body>
