@@ -295,7 +295,8 @@ st.set_page_config(
 
 init_db()
 
-PROJECT_DIR = Path(_file_).resolve().parents[1]
+from pathlib import Path
+PROJECT_DIR = Path(__file__).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
