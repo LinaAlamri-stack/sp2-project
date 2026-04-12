@@ -22,7 +22,7 @@ if page in {"signup", "sign-up", "2_signup"}:
     st.switch_page("pages/2_Signup.py")
 
 
-PROJECT_DIR = Path(_file_).parent
+PROJECT_DIR = Path(__file__).parent
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
