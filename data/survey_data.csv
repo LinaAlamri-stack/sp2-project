@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Timestamp,Current Status,2. Age,3. Gender,4. Number of caffeine drinks per day,5. The most consumed type of caffeine drinks,6. Timing of caffeine consumption (most common time),7. Caffeine consumption after 8 pm,8. Number of fast food per week,9. Regularity of meal schedules,10. Eat after 10 pm,11. Average number of hours of sleep per night,12. Sleep Quality Assessment,13. Number of days of physical activity per week,14. Number of hours of screen use per day,15. How often do you feel low energy during the day?
 2/4/2026 15:32:15,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,more than 4,Semi-regular,Sometimes,more than 8,good,0,more than 8,mostly
 2/4/2026 15:34:14,Student,18 - 22,Female,0,tea,Afternoon,no ,1-2,Irregular,Sometimes,7–8,good,3-4,more than 8,mostly
@@ -236,3 +237,243 @@ Timestamp,Current Status,2. Age,3. Gender,4. Number of caffeine drinks per day,5
 2/23/2026 21:08:39,Student,23 - 27,Male,1-2,"Coffee, Energy drinks",Evening,yes ,1-2,Semi-regular,mostly,5–6,average ,5+,more than 8,Sometimes
 2/27/2026 13:00:28,Employee,36+,Female,1-2,"Coffee, tea",Morning,yes ,0,Irregular,Sometimes,5–6,average ,1-2,less than 3,mostly
 3/1/2026 18:45:21,Employee,28 - 35,Male,1-2,Coffee,Morning,no,3-4,Semi-regular,sometimes,less than 5,bad,3-4,more than 8,Sometimes
+=======
+gitTimestamp,Current Status,2. Age,3. Gender,4. Number of caffeine drinks per day,5. The most consumed type of caffeine drinks,6. Timing of caffeine consumption (most common time),7. Caffeine consumption after 8 pm,8. Number of fast food per week,9. Regularity of meal schedules,10. Eat after 10 pm,11. Average number of hours of sleep per night,12. Sleep Quality Assessment,13. Number of days of physical activity per week,14. Number of hours of screen use per day,15. How often do you feel low energy during the day?
+2/4/2026 15:32:15,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,more than 4,Semi-regular,Sometimes,more than 8,good,0,more than 8,mostly
+2/4/2026 15:34:14,Student,18 - 22,Female,0,tea,Afternoon,no ,1-2,Irregular,Sometimes,7–8,good,3-4,more than 8,mostly
+2/4/2026 15:42:18,Employee,28 - 35,Female,1-2,"Coffee, Soft strings",Morning,yes ,more than 4,Semi-regular,Sometimes,5–6,average,1-2,more than 8,Sometimes
+2/4/2026 15:49:20,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Night,yes ,1-2,Irregular,mostly,5–6,bad ,3-4,more than 8,mostly
+2/4/2026 15:53:41,Student,28 - 35,Female,1-2,Coffee,Evening,yes ,more than 4,Regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/4/2026 15:54:53,Student,23 - 27,Female,0,Coffee,Afternoon,no ,1-2,Irregular,mostly,5–6,average ,1-2,more than 8,Sometimes
+2/4/2026 15:56:53,Student,18 - 22,Male,1-2,"Coffee, Energy drinks",Morning,no ,0,Regular,Sometimes,7–8,Excellent,5+,3–5,Sometimes
+2/4/2026 16:10:57,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,more than 4,Semi-regular,Sometimes,5–6,average ,3-4,6–8,Sometimes
+2/4/2026 16:13:56,Employee,28 - 35,Male,3-4,Coffee,Morning,yes ,more than 4,Irregular,mostly,less than 5,bad ,5+,more than 8,mostly
+2/4/2026 16:20:15,Student,18 - 22,Male,1-2,"Coffee, tea",Morning,no ,3-4,Semi-regular,Sometimes,5–6,bad ,0,more than 8,mostly
+2/4/2026 16:20:22,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,no ,1-2,Regular,mostly,7–8,good,3-4,3–5,Rarely
+2/4/2026 16:22:16,Other,23 - 27,Female,1-2,Coffee,Morning,no ,1-2,Semi-regular,no ,7–8,good,3-4,6–8,mostly
+2/4/2026 16:22:57,Student,18 - 22,Male,0,tea,Night,yes ,1-2,Semi-regular,Sometimes,7–8,good,1-2,6–8,Sometimes
+2/4/2026 16:24:19,Student,23 - 27,Male,1-2,Coffee,Morning,no ,1-2,Semi-regular,Sometimes,7–8,good,3-4,3–5,Sometimes
+2/4/2026 16:24:56,Other,23 - 27,Male,1-2,Coffee,Morning,no ,3-4,Irregular,Sometimes,7–8,bad ,1-2,6–8,mostly
+2/4/2026 16:35:22,Student,18 - 22,Female,1-2,"Coffee, tea",Evening,no ,0,Semi-regular,mostly,7–8,average ,1-2,6–8,mostly
+2/4/2026 17:03:14,Student,23 - 27,Female,1-2,Coffee,Evening,no ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/4/2026 18:16:25,Employee,28 - 35,Female,3-4,Coffee,Morning,yes ,more than 4,Irregular,mostly,5–6,bad ,0,6–8,mostly
+2/4/2026 18:49:56,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Night,yes ,1-2,Semi-regular,Sometimes,7–8,average ,5+,more than 8,mostly
+2/4/2026 18:56:58,Employee,28 - 35,Female,0,tea,Night,no ,3-4,Irregular,Sometimes,5–6,Excellent,0,6–8,Sometimes
+2/4/2026 18:59:33,Other,23 - 27,Female,3-4,"Coffee, Energy drinks, Soft strings",Morning,no ,3-4,Irregular,Sometimes,7–8,average ,0,more than 8,mostly
+2/4/2026 19:02:43,Employee,23 - 27,Female,3-4,"Coffee, Energy drinks",Morning,yes ,1-2,Regular,Sometimes,5–6,average ,3-4,6–8,Sometimes
+2/4/2026 19:05:54,Other,36+,Female,3-4,"Coffee, Soft strings",Morning,no ,more than 4,Irregular,Sometimes,more than 8,average ,0,more than 8,mostly
+2/4/2026 19:09:42,Employee,23 - 27,Female,1-2,Coffee,Morning,yes ,3-4,Irregular,Sometimes,7–8,good,1-2,more than 8,mostly
+2/4/2026 19:13:56,Other,23 - 27,Female,3-4,"Coffee, Energy drinks",Morning,yes ,more than 4,Irregular,mostly,5–6,average ,1-2,more than 8,mostly
+2/4/2026 19:21:34,Student,18 - 22,Male,1-2,Coffee,Morning,yes ,more than 4,Irregular,Sometimes,7–8,average ,0,3–5,mostly
+2/4/2026 19:25:00,Employee,23 - 27,Female,1-2,"Coffee, Soft strings",Morning,no ,3-4,Semi-regular,Sometimes,5–6,good,0,6–8,mostly
+2/4/2026 19:25:14,Student,18 - 22,Male,0,Soft strings,Night,yes ,more than 4,Semi-regular,Sometimes,7–8,good,0,more than 8,Sometimes
+2/4/2026 19:39:52,Employee,23 - 27,Female,1-2,"Coffee, Energy drinks",Evening,yes ,3-4,Irregular,mostly,more than 8,good,3-4,more than 8,Sometimes
+2/4/2026 19:40:17,Other,23 - 27,Female,1-2,Coffee,Afternoon,no ,more than 4,Irregular,Sometimes,more than 8,average ,1-2,more than 8,mostly
+2/4/2026 20:23:38,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,mostly,5–6,good,0,6–8,Sometimes
+2/4/2026 20:45:01,Student,18 - 22,Male,1-2,Coffee,Afternoon,no ,more than 4,Semi-regular,mostly,7–8,Excellent,0,6–8,Sometimes
+2/4/2026 21:20:07,Employee,23 - 27,Female,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,Sometimes,5–6,good,1-2,more than 8,Sometimes
+2/4/2026 22:06:09,Other,36+,Female,1-2,Coffee,Evening,no ,1-2,Irregular,no ,7–8,bad ,0,less than 3,Rarely
+2/4/2026 22:07:12,Student,23 - 27,Female,1-2,"Coffee, Energy drinks",Evening,no ,1-2,Irregular,mostly,5–6,average ,1-2,6–8,Sometimes
+2/4/2026 22:52:39,Student,23 - 27,Female,3-4,"Coffee, Energy drinks, Soft strings",Afternoon,yes ,1-2,Irregular,mostly,7–8,bad ,3-4,more than 8,mostly
+2/4/2026 23:41:59,Employee,23 - 27,Female,1-2,Coffee,Morning,no ,3-4,Semi-regular,Sometimes,7–8,Excellent,1-2,more than 8,Sometimes
+2/5/2026 1:54:23,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Irregular,Sometimes,7–8,Excellent,3-4,6–8,mostly
+2/5/2026 5:05:51,Other,18 - 22,Male,1-2,"Coffee, tea",Morning,yes ,3-4,Semi-regular,Sometimes,7–8,average ,1-2,more than 8,Sometimes
+2/5/2026 13:15:03,Employee,28 - 35,Female,1-2,"Coffee, tea",Afternoon,no ,1-2,Irregular,no ,7–8,average ,0,more than 8,mostly
+2/5/2026 16:10:24,Student,23 - 27,Female,1-2,Coffee,Evening,yes ,3-4,Irregular,mostly,more than 8,average ,1-2,6–8,Sometimes
+2/5/2026 16:13:19,Other,36+,Male,1-2,"Coffee, tea",Evening,yes ,1-2,Semi-regular,no ,5–6,good,3-4,3–5,Sometimes
+2/5/2026 16:14:18,Employee,28 - 35,Female,3-4,Coffee,Morning,yes ,1-2,Regular,mostly,5–6,average ,5+,6–8,Rarely
+2/5/2026 16:20:48,Other,23 - 27,Female,1-2,Coffee,Morning,no ,1-2,Regular,no ,7–8,good,3-4,6–8,Sometimes
+2/5/2026 16:24:56,Employee,36+,Male,1-2,"Coffee, tea",Night,yes ,1-2,Regular,no ,5–6,good,1-2,less than 3,Sometimes
+2/5/2026 16:27:11,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,no ,5–6,good,1-2,6–8,Sometimes
+2/5/2026 16:31:41,Other,36+,Male,1-2,Coffee,Morning,yes ,0,Semi-regular,no ,5–6,average ,0,3–5,Sometimes
+2/5/2026 16:48:45,Other,36+,Male,1-2,Coffee,Evening,no ,more than 4,Semi-regular,mostly,5–6,average ,1-2,3–5,Sometimes
+2/5/2026 16:48:55,Employee,36+,Male,3-4,"Coffee, tea",Evening,yes ,1-2,Irregular,mostly,5–6,average ,1-2,more than 8,Sometimes
+2/5/2026 16:49:52,Employee,36+,Male,1-2,Coffee,Morning,no ,0,Regular,no ,5–6,good,1-2,less than 3,Sometimes
+2/5/2026 16:51:01,Employee,36+,Male,3-4,"Coffee, tea",Evening,yes ,0,Semi-regular,no ,7–8,Excellent,1-2,6–8,Sometimes
+2/5/2026 16:52:12,Student,18 - 22,Male,1-2,tea,Morning,no ,1-2,Irregular,no ,5–6,average ,1-2,6–8,Sometimes
+2/5/2026 16:53:16,Other,36+,Male,3-4,tea,Evening,yes ,0,Semi-regular,Sometimes,7–8,good,1-2,less than 3,Sometimes
+2/5/2026 16:53:32,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,0,Semi-regular,Sometimes,5–6,good,3-4,3–5,Sometimes
+2/5/2026 16:55:15,Employee,36+,Female,1-2,Coffee,Morning,no ,3-4,Irregular,no ,5–6,good,0,more than 8,mostly
+2/5/2026 16:56:08,Employee,36+,Male,3-4,tea,Evening,yes ,1-2,Irregular,no ,5–6,bad ,0,more than 8,Sometimes
+2/5/2026 16:57:33,Student,18 - 22,Female,1-2,Coffee,Morning,no ,1-2,Semi-regular,no ,7–8,Excellent,1-2,6–8,Sometimes
+2/5/2026 16:57:38,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Morning,yes ,1-2,Irregular,Sometimes,more than 8,average ,1-2,more than 8,Rarely
+2/5/2026 17:01:04,Employee,36+,Male,1-2,tea,Morning,no ,1-2,Regular,no ,7–8,Excellent,3-4,3–5,Rarely
+2/5/2026 17:07:05,Employee,36+,Male,1-2,Coffee,Morning,no ,0,Regular,Sometimes,5–6,good,0,6–8,Rarely
+2/5/2026 17:07:06,Student,18 - 22,Female,1-2,Coffee,Morning,no ,more than 4,Semi-regular,no ,5–6,average ,0,more than 8,mostly
+2/5/2026 17:08:03,Employee,23 - 27,Female,1-2,"Coffee, Energy drinks",Morning,yes ,1-2,Semi-regular,no ,5–6,average ,3-4,more than 8,mostly
+2/5/2026 17:08:21,Other,23 - 27,Female,1-2,Coffee,Afternoon,yes ,1-2,Semi-regular,Sometimes,5–6,average ,0,more than 8,Sometimes
+2/5/2026 17:14:29,Other,23 - 27,Female,1-2,"Coffee, tea",Evening,no ,1-2,Semi-regular,Sometimes,more than 8,Excellent,0,more than 8,mostly
+2/5/2026 17:22:39,Employee,36+,Female,1-2,Coffee,Morning,no ,1-2,Regular,Sometimes,5–6,good,0,3–5,Sometimes
+2/5/2026 17:26:20,Employee,36+,Female,1-2,tea,Morning,no ,3-4,Irregular,Sometimes,5–6,average ,3-4,more than 8,mostly
+2/5/2026 17:26:33,Other,23 - 27,Male,1-2,Coffee,Night,yes ,more than 4,Irregular,mostly,7–8,bad ,0,6–8,mostly
+2/5/2026 17:38:09,Student,18 - 22,Female,1-2,"tea, Soft strings",Afternoon,no ,1-2,Irregular,no ,7–8,Excellent,3-4,more than 8,Sometimes
+2/5/2026 17:44:10,Employee,36+,Male,1-2,"Coffee, tea",Afternoon,no ,1-2,Semi-regular,no ,7–8,good,1-2,6–8,Sometimes
+2/5/2026 17:54:24,Employee,36+,Male,1-2,"Coffee, tea",Evening,yes ,1-2,Irregular,Sometimes,less than 5,good,0,less than 3,mostly
+2/5/2026 18:10:19,Other,36+,Male,1-2,tea,Afternoon,yes ,1-2,Regular,mostly,7–8,good,0,3–5,Rarely
+2/5/2026 18:58:29,Employee,36+,Female,1-2,Coffee,Evening,no ,1-2,Semi-regular,Sometimes,7–8,good,0,less than 3,Sometimes
+2/5/2026 18:58:54,Employee,36+,Male,1-2,"Coffee, tea",Morning,yes ,1-2,Irregular,Sometimes,5–6,average ,0,6–8,Sometimes
+2/5/2026 19:18:48,Employee,28 - 35,Male,1-2,tea,Evening,no ,3-4,Irregular,no ,7–8,Excellent,1-2,more than 8,Sometimes
+2/5/2026 19:31:11,Employee,36+,Male,more than 4,"Coffee, tea",Afternoon,yes ,1-2,Semi-regular,Sometimes,7–8,good,3-4,3–5,Rarely
+2/5/2026 19:31:44,Employee,36+,Male,3-4,"Coffee, tea, Soft strings",Evening,yes ,1-2,Semi-regular,no ,7–8,good,0,less than 3,Sometimes
+2/5/2026 19:34:31,Employee,28 - 35,Female,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/5/2026 19:38:37,Employee,36+,Male,1-2,tea,Evening,yes ,more than 4,Semi-regular,mostly,5–6,good,1-2,more than 8,Sometimes
+2/5/2026 19:40:07,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Morning,yes ,1-2,Semi-regular,no ,5–6,average ,1-2,more than 8,mostly
+2/5/2026 19:48:14,Employee,36+,Male,0,"Coffee, tea",Evening,no ,1-2,Semi-regular,no ,5–6,average ,0,3–5,Rarely
+2/5/2026 19:50:00,Employee,36+,Male,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,6–8,Sometimes
+2/5/2026 19:50:02,Employee,36+,Male,3-4,Coffee,Morning,no ,1-2,Regular,no ,5–6,good,1-2,6–8,Sometimes
+2/5/2026 19:51:38,Employee,28 - 35,Male,3-4,"Coffee, Soft strings",Morning,no ,3-4,Irregular,Sometimes,5–6,average ,0,more than 8,mostly
+2/5/2026 20:03:19,Employee,36+,Female,3-4,"Coffee, tea",Morning,no ,0,Irregular,Sometimes,less than 5,bad ,0,more than 8,mostly
+2/5/2026 20:10:24,Other,36+,Female,1-2,"Coffee, Soft strings",Morning,no ,3-4,Semi-regular,Sometimes,5–6,average ,1-2,6–8,mostly
+2/5/2026 20:19:20,Employee,36+,Male,3-4,"Coffee, tea",Evening,yes ,3-4,Semi-regular,Sometimes,7–8,average ,0,6–8,Sometimes
+2/5/2026 20:31:48,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Regular,no ,7–8,good,0,3–5,Sometimes
+2/5/2026 20:34:19,Employee,28 - 35,Male,3-4,"Coffee, tea",Morning,yes ,1-2,Regular,no ,7–8,good,3-4,more than 8,Rarely
+2/5/2026 20:42:48,Student,18 - 22,Female,1-2,Coffee,Night,yes ,1-2,Irregular,Sometimes,5–6,average ,1-2,3–5,mostly
+2/5/2026 20:43:01,Student,18 - 22,Female,1-2,"Coffee, tea",Evening,yes ,3-4,Semi-regular,Sometimes,7–8,average ,3-4,6–8,Sometimes
+2/5/2026 21:00:28,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Morning,yes ,3-4,Irregular,Sometimes,5–6,average ,1-2,6–8,Sometimes
+2/5/2026 21:08:23,Student,18 - 22,Female,1-2,"Coffee, tea",Evening,no ,1-2,Semi-regular,Sometimes,5–6,good,1-2,more than 8,Sometimes
+2/5/2026 21:10:39,Student,18 - 22,Female,1-2,Coffee,Evening,no ,1-2,Semi-regular,Sometimes,more than 8,good,5+,more than 8,Sometimes
+2/5/2026 21:12:26,Student,18 - 22,Female,1-2,Coffee,Afternoon,no ,1-2,Regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/5/2026 21:12:43,Student,18 - 22,Male,1-2,"Coffee, tea",Afternoon,no ,3-4,Irregular,Sometimes,7–8,average ,3-4,6–8,Sometimes
+2/5/2026 21:16:04,Student,18 - 22,Female,1-2,Coffee,Evening,no ,3-4,Regular,no ,7–8,good,5+,more than 8,mostly
+2/5/2026 21:16:09,Student,18 - 22,Female,0,Soft strings,Night,yes ,3-4,Regular,Sometimes,5–6,average ,3-4,6–8,Rarely
+2/5/2026 21:18:29,Student,18 - 22,Female,1-2,tea,Afternoon,yes ,1-2,Regular,Sometimes,7–8,Excellent,5+,3–5,Rarely
+2/5/2026 21:27:46,Student,18 - 22,Female,0,Soft strings,Evening,no ,1-2,Irregular,mostly,7–8,good,0,more than 8,Sometimes
+2/5/2026 21:40:23,Employee,36+,Male,3-4,"Coffee, tea",Afternoon,yes ,0,Irregular,Sometimes,5–6,average ,0,6–8,mostly
+2/5/2026 21:52:46,Student,18 - 22,Female,0,"Coffee, Soft strings",Evening,no ,1-2,Irregular,no ,7–8,good,1-2,more than 8,mostly
+2/5/2026 22:01:45,Employee,36+,Male,more than 4,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,7–8,Excellent,1-2,6–8,Sometimes
+2/5/2026 22:02:45,Employee,28 - 35,Male,1-2,Coffee,Afternoon,yes ,more than 4,Irregular,mostly,7–8,good,0,more than 8,mostly
+2/5/2026 22:02:46,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Night,yes ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,6–8,Rarely
+2/5/2026 22:08:46,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,mostly,less than 5,average ,3-4,3–5,Sometimes
+2/5/2026 22:11:56,Employee,36+,Male,3-4,Coffee,Morning,yes ,1-2,Semi-regular,Sometimes,5–6,bad ,1-2,more than 8,Sometimes
+2/5/2026 22:12:45,Employee,36+,Male,1-2,Coffee,Morning,no ,1-2,Semi-regular,mostly,7–8,average ,1-2,3–5,Sometimes
+2/5/2026 22:15:34,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,no ,5–6,good,1-2,less than 3,Rarely
+2/5/2026 22:16:23,Employee,36+,Male,1-2,Coffee,Morning,no ,0,Semi-regular,no ,5–6,average ,1-2,3–5,Sometimes
+2/5/2026 22:21:38,Other,36+,Male,3-4,Coffee,Afternoon,yes ,3-4,Irregular,mostly,more than 8,good,1-2,less than 3,Rarely
+2/5/2026 22:27:17,Employee,36+,Male,more than 4,tea,Evening,yes ,0,Semi-regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/5/2026 22:29:38,Employee,28 - 35,Female,1-2,"Coffee, tea",Evening,yes ,1-2,Regular,Sometimes,5–6,average ,1-2,3–5,mostly
+2/5/2026 22:34:36,Student,18 - 22,Female,1-2,Soft strings,Evening,yes ,3-4,Semi-regular,mostly,7–8,average ,1-2,3–5,Sometimes
+2/5/2026 22:37:03,Employee,36+,Female,3-4,"Coffee, tea",Morning,yes ,0,Regular,Sometimes,less than 5,average ,3-4,6–8,Sometimes
+2/5/2026 22:37:35,Employee,23 - 27,Female,1-2,Coffee,Morning,yes ,3-4,Regular,mostly,5–6,average ,3-4,6–8,mostly
+2/5/2026 22:37:37,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Evening,yes ,1-2,Semi-regular,Sometimes,7–8,good,1-2,3–5,Sometimes
+2/5/2026 22:39:39,Student,18 - 22,Female,0,Coffee,Morning,no ,1-2,Regular,Sometimes,more than 8,good,3-4,6–8,Sometimes
+2/5/2026 22:39:47,Other,28 - 35,Female,1-2,Coffee,Afternoon,no ,1-2,Semi-regular,Sometimes,5–6,bad ,0,6–8,Rarely
+2/5/2026 22:39:58,Employee,28 - 35,Female,1-2,"Coffee, Soft strings",Morning,no ,1-2,Semi-regular,Sometimes,7–8,Excellent,3-4,more than 8,Sometimes
+2/5/2026 22:44:11,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Afternoon,no ,0,Semi-regular,Sometimes,less than 5,average ,0,3–5,Sometimes
+2/5/2026 22:44:44,Student,18 - 22,Female,1-2,"Coffee, tea",Afternoon,no ,3-4,Semi-regular,Sometimes,5–6,good,1-2,6–8,Sometimes
+2/5/2026 22:45:38,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,5–6,good,1-2,6–8,Sometimes
+2/5/2026 22:45:43,Student,18 - 22,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,5–6,good,1-2,6–8,Sometimes
+2/5/2026 22:45:59,Student,18 - 22,Female,1-2,"Coffee, tea",Evening,no ,1-2,Semi-regular,Sometimes,more than 8,Excellent,1-2,more than 8,Sometimes
+2/5/2026 22:51:44,Employee,28 - 35,Male,1-2,tea,Morning,yes ,more than 4,Semi-regular,Sometimes,5–6,good,3-4,3–5,Sometimes
+2/5/2026 22:53:17,Other,23 - 27,Female,1-2,"Coffee, tea",Evening,yes ,1-2,Semi-regular,Sometimes,7–8,average ,0,3–5,Sometimes
+2/5/2026 22:54:49,Student,18 - 22,Female,1-2,"Coffee, tea",Night,yes ,1-2,Irregular,mostly,5–6,bad ,0,more than 8,Sometimes
+2/5/2026 22:57:37,Employee,36+,Male,1-2,"Coffee, tea",Afternoon,no ,0,Regular,no ,5–6,good,3-4,less than 3,Sometimes
+2/5/2026 22:59:52,Other,36+,Female,1-2,"Coffee, Energy drinks, Soft strings",Evening,yes ,1-2,Irregular,mostly,7–8,average ,0,3–5,Sometimes
+2/5/2026 23:08:17,Employee,36+,Female,3-4,Coffee,Morning,no ,1-2,Semi-regular,no ,less than 5,average ,0,less than 3,Sometimes
+2/5/2026 23:13:17,Employee,36+,Female,1-2,Coffee,Morning,yes ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,less than 3,Sometimes
+2/5/2026 23:19:40,Employee,36+,Male,1-2,Coffee,Evening,yes ,1-2,Regular,mostly,7–8,good,5+,6–8,Rarely
+2/5/2026 23:36:01,Employee,36+,Female,3-4,"Coffee, tea",Morning,no ,0,Semi-regular,no ,5–6,average ,1-2,6–8,Sometimes
+2/5/2026 23:37:02,Employee,28 - 35,Male,1-2,Coffee,Morning,no ,1-2,Irregular,mostly,5–6,average ,0,6–8,mostly
+2/5/2026 23:37:05,Employee,28 - 35,Female,1-2,Coffee,Morning,no ,3-4,Semi-regular,no ,5–6,average ,3-4,more than 8,mostly
+2/5/2026 23:37:20,Employee,28 - 35,Male,1-2,"Coffee, Soft strings",Morning,no ,more than 4,Semi-regular,Sometimes,5–6,average ,3-4,6–8,Sometimes
+2/5/2026 23:37:30,Employee,28 - 35,Male,1-2,"Coffee, tea",Morning,yes ,3-4,Irregular,mostly,5–6,bad ,1-2,6–8,mostly
+2/5/2026 23:37:34,Employee,23 - 27,Male,1-2,"Coffee, tea, Soft strings",Morning,yes ,more than 4,Irregular,mostly,7–8,average ,1-2,6–8,Sometimes
+2/5/2026 23:41:28,Other,28 - 35,Female,1-2,"Coffee, Soft strings",Afternoon,no ,3-4,Irregular,Sometimes,7–8,good,1-2,6–8,Sometimes
+2/5/2026 23:41:57,Employee,23 - 27,Male,1-2,tea,Evening,no ,more than 4,Regular,no ,5–6,good,1-2,6–8,Sometimes
+2/5/2026 23:41:58,Employee,36+,Male,1-2,tea,Morning,no ,1-2,Semi-regular,Sometimes,7–8,good,3-4,less than 3,Sometimes
+2/5/2026 23:42:15,Employee,28 - 35,Male,more than 4,"Coffee, tea",Afternoon,yes ,more than 4,Irregular,Sometimes,7–8,average ,3-4,3–5,mostly
+2/5/2026 23:42:37,Employee,36+,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,mostly,5–6,average ,1-2,more than 8,mostly
+2/5/2026 23:43:38,Employee,28 - 35,Male,more than 4,tea,Night,yes ,1-2,Irregular,Sometimes,5–6,average ,0,more than 8,Sometimes
+2/5/2026 23:45:25,Employee,28 - 35,Male,more than 4,tea,Afternoon,yes ,more than 4,Irregular,mostly,more than 8,bad ,0,3–5,Sometimes
+2/5/2026 23:48:49,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,0,Regular,no ,5–6,good,0,3–5,Rarely
+2/5/2026 23:49:07,Student,18 - 22,Female,1-2,Coffee,Evening,no ,3-4,Semi-regular,mostly,5–6,average ,1-2,6–8,Sometimes
+2/5/2026 23:49:31,Student,18 - 22,Female,1-2,Coffee,Morning,yes ,1-2,Irregular,mostly,7–8,Excellent,1-2,more than 8,Sometimes
+2/5/2026 23:51:03,Employee,36+,Female,1-2,Coffee,Afternoon,no ,1-2,Semi-regular,Sometimes,5–6,average ,0,3–5,mostly
+2/5/2026 23:51:45,Other,36+,Female,1-2,"Coffee, Soft strings",Morning,yes ,1-2,Regular,no ,7–8,Excellent,5+,6–8,Rarely
+2/5/2026 23:53:55,Employee,28 - 35,Male,1-2,Coffee,Morning,no ,3-4,Semi-regular,Sometimes,7–8,Excellent,3-4,more than 8,Sometimes
+2/5/2026 23:56:24,Employee,36+,Male,more than 4,"Coffee, tea",Evening,yes ,0,Semi-regular,Sometimes,less than 5,bad ,0,less than 3,Sometimes
+2/6/2026 0:04:12,Employee,28 - 35,Male,1-2,"Coffee, tea, Soft strings",Morning,no ,3-4,Semi-regular,Sometimes,7–8,average ,3-4,more than 8,Sometimes
+2/6/2026 0:04:44,Student,18 - 22,Female,1-2,"Coffee, Soft strings",Evening,yes ,3-4,Irregular,mostly,7–8,good,1-2,6–8,Sometimes
+2/6/2026 0:09:32,Student,18 - 22,Female,3-4,"Coffee, tea",Evening,no ,1-2,Semi-regular,Sometimes,5–6,average ,0,6–8,Sometimes
+2/6/2026 0:10:11,Employee,28 - 35,Female,1-2,Coffee,Morning,no ,3-4,Regular,Sometimes,5–6,average ,0,more than 8,Sometimes
+2/6/2026 0:14:05,Student,18 - 22,Female,1-2,Coffee,Morning,no ,1-2,Regular,Sometimes,less than 5,average ,1-2,3–5,Sometimes
+2/6/2026 0:26:20,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,Sometimes,7–8,average ,1-2,3–5,Sometimes
+2/6/2026 0:29:39,Other,36+,Male,3-4,tea,Evening,yes ,0,Irregular,Sometimes,5–6,good,1-2,less than 3,Rarely
+2/6/2026 0:55:19,Employee,28 - 35,Male,1-2,"Coffee, tea",Evening,yes ,3-4,Semi-regular,mostly,5–6,good,1-2,6–8,Sometimes
+2/6/2026 1:10:47,Other,28 - 35,Female,1-2,Coffee,Afternoon,yes ,1-2,Semi-regular,Sometimes,less than 5,good,0,3–5,Sometimes
+2/6/2026 1:21:55,Employee,28 - 35,Male,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,3–5,mostly
+2/6/2026 1:50:38,Other,23 - 27,Female,1-2,"Coffee, Energy drinks",Evening,yes ,1-2,Regular,Sometimes,7–8,average ,5+,more than 8,Rarely
+2/6/2026 2:05:43,Employee,36+,Female,1-2,tea,Evening,yes ,0,Regular,no ,5–6,average ,1-2,6–8,Sometimes
+2/6/2026 2:16:19,Employee,36+,Female,1-2,Coffee,Morning,no ,0,Semi-regular,Sometimes,5–6,average ,1-2,3–5,Sometimes
+2/6/2026 2:29:57,Employee,36+,Female,1-2,"Coffee, tea",Morning,yes ,0,Regular,Sometimes,less than 5,good,0,less than 3,Sometimes
+2/6/2026 2:53:28,Employee,36+,Male,3-4,Coffee,Morning,yes ,0,Semi-regular,Sometimes,less than 5,bad ,3-4,3–5,Sometimes
+2/6/2026 3:40:38,Other,23 - 27,Male,1-2,Coffee,Evening,no ,3-4,Semi-regular,Sometimes,5–6,good,3-4,3–5,Sometimes
+2/6/2026 4:12:18,Other,23 - 27,Male,1-2,"Coffee, tea",Evening,no ,3-4,Irregular,mostly,more than 8,average ,3-4,6–8,mostly
+2/6/2026 4:16:34,Other,28 - 35,Female,1-2,Coffee,Evening,yes ,1-2,Irregular,Sometimes,less than 5,average ,1-2,3–5,mostly
+2/6/2026 4:54:14,Other,28 - 35,Female,1-2,Coffee,Evening,yes ,1-2,Irregular,mostly,less than 5,average ,0,more than 8,mostly
+2/6/2026 5:00:06,Employee,36+,Female,1-2,Coffee,Morning,no ,3-4,Semi-regular,Sometimes,less than 5,average ,0,3–5,Sometimes
+2/6/2026 5:18:10,Student,18 - 22,Female,0,tea,Afternoon,no ,1-2,Semi-regular,no ,7–8,Excellent,1-2,less than 3,Sometimes
+2/6/2026 5:26:12,Employee,36+,Female,more than 4,Coffee,Morning,yes ,0,Semi-regular,Sometimes,7–8,good,0,more than 8,Sometimes
+2/6/2026 5:26:41,Other,23 - 27,Female,1-2,Coffee,Afternoon,yes ,3-4,Regular,no ,7–8,good,1-2,more than 8,mostly
+2/6/2026 5:27:18,Other,23 - 27,Female,1-2,"Coffee, tea",Morning,yes ,1-2,Semi-regular,Sometimes,less than 5,average ,3-4,more than 8,mostly
+2/6/2026 5:55:10,Other,36+,Female,more than 4,"Coffee, tea",Morning,no ,1-2,Semi-regular,Sometimes,more than 8,good,1-2,6–8,Sometimes
+2/6/2026 6:18:30,Employee,36+,Female,3-4,Coffee,Morning,no ,more than 4,Irregular,no ,5–6,bad ,0,less than 3,Rarely
+2/6/2026 6:23:39,Employee,36+,Female,0,"tea, Soft strings",Evening,no ,1-2,Semi-regular,no ,5–6,average ,0,3–5,Sometimes
+2/6/2026 6:38:26,Employee,36+,Female,3-4,Coffee,Morning,no ,0,Irregular,Sometimes,5–6,good,1-2,less than 3,Sometimes
+2/6/2026 6:50:19,Employee,23 - 27,Male,1-2,"Coffee, tea",Afternoon,no ,1-2,Irregular,mostly,5–6,average ,0,3–5,mostly
+2/6/2026 6:58:30,Employee,23 - 27,Male,0,tea,Afternoon,no ,1-2,Semi-regular,Sometimes,5–6,average ,0,6–8,mostly
+2/6/2026 8:20:30,Employee,36+,Male,1-2,"Coffee, tea",Evening,no ,1-2,Regular,Sometimes,7–8,good,1-2,3–5,Sometimes
+2/6/2026 9:38:59,Other,28 - 35,Male,1-2,Coffee,Afternoon,no ,1-2,Irregular,Sometimes,more than 8,average ,1-2,less than 3,Sometimes
+2/6/2026 10:01:35,Employee,28 - 35,Male,3-4,Coffee,Morning,yes ,1-2,Regular,mostly,7–8,good,3-4,6–8,Sometimes
+2/6/2026 10:05:31,Other,23 - 27,Female,1-2,"Coffee, tea",Morning,no ,1-2,Irregular,mostly,7–8,good,1-2,6–8,Sometimes
+2/6/2026 10:24:03,Employee,28 - 35,Female,1-2,Soft strings,Evening,yes ,3-4,Irregular,Sometimes,5–6,bad ,0,6–8,Sometimes
+2/6/2026 10:55:03,Student,23 - 27,Male,3-4,tea,Morning,yes ,3-4,Regular,mostly,less than 5,bad ,1-2,less than 3,mostly
+2/6/2026 11:00:07,Employee,23 - 27,Female,1-2,"Coffee, tea",Evening,yes ,3-4,Irregular,Sometimes,5–6,good,0,6–8,Sometimes
+2/6/2026 11:06:18,Employee,28 - 35,Male,1-2,Coffee,Evening,no ,1-2,Irregular,Sometimes,5–6,bad ,0,more than 8,Sometimes
+2/6/2026 11:56:16,Employee,36+,Female,0,tea,Morning,yes ,1-2,Semi-regular,Sometimes,5–6,average ,0,3–5,Sometimes
+2/6/2026 12:00:11,Employee,36+,Male,3-4,Coffee,Morning,no ,1-2,Irregular,Sometimes,5–6,average ,0,less than 3,Sometimes
+2/6/2026 12:11:14,Employee,28 - 35,Female,1-2,Coffee,Morning,no ,0,Regular,no ,5–6,bad ,3-4,more than 8,Sometimes
+2/6/2026 12:15:30,Employee,23 - 27,Female,1-2,Coffee,Afternoon,yes ,more than 4,Irregular,Sometimes,less than 5,bad ,0,more than 8,mostly
+2/6/2026 13:18:20,Employee,23 - 27,Male,1-2,Soft strings,Afternoon,yes ,3-4,Regular,no ,5–6,average ,0,more than 8,Sometimes
+2/6/2026 14:15:55,Employee,28 - 35,Female,1-2,Coffee,Afternoon,no ,3-4,Irregular,Sometimes,5–6,bad ,0,6–8,mostly
+2/6/2026 14:53:04,Employee,36+,Female,1-2,tea,Afternoon,no ,more than 4,Irregular,mostly,5–6,bad ,0,more than 8,mostly
+2/6/2026 15:25:26,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Morning,yes ,3-4,Semi-regular,Sometimes,more than 8,good,5+,less than 3,Rarely
+2/6/2026 16:12:33,Employee,36+,Female,1-2,Coffee,Morning,no ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,6–8,Sometimes
+2/6/2026 17:11:00,Employee,23 - 27,Male,1-2,"Coffee, tea",Afternoon,yes ,more than 4,Irregular,mostly,7–8,average ,1-2,more than 8,mostly
+2/6/2026 17:26:38,Employee,36+,Male,3-4,Coffee,Morning,no ,1-2,Semi-regular,mostly,5–6,good,5+,less than 3,Sometimes
+2/6/2026 17:46:36,Employee,28 - 35,Male,3-4,"Coffee, tea, Energy drinks, Soft strings",Evening,yes ,1-2,Irregular,mostly,5–6,average ,3-4,6–8,Rarely
+2/6/2026 18:41:25,Other,36+,Female,1-2,Coffee,Morning,no ,1-2,Irregular,Sometimes,5–6,average ,1-2,less than 3,mostly
+2/6/2026 19:03:18,Employee,36+,Male,1-2,"Coffee, tea",Afternoon,yes ,1-2,Regular,Sometimes,7–8,average ,1-2,6–8,Rarely
+2/6/2026 20:20:09,Employee,36+,Male,1-2,Coffee,Morning,yes ,1-2,Semi-regular,mostly,5–6,average ,0,6–8,mostly
+2/6/2026 20:22:05,Student,18 - 22,Female,1-2,"Coffee, tea, Soft strings",Evening,yes ,1-2,Semi-regular,Sometimes,7–8,average ,5+,6–8,Sometimes
+2/6/2026 20:23:03,Student,28 - 35,Female,3-4,"Coffee, tea, Energy drinks, Soft strings",Morning,no ,3-4,Regular,no ,7–8,good,3-4,6–8,Sometimes
+2/6/2026 20:36:41,Employee,36+,Male,1-2,"Coffee, tea",Evening,yes ,1-2,Semi-regular,no ,less than 5,average ,0,more than 8,mostly
+2/6/2026 21:29:39,Employee,28 - 35,Male,more than 4,Coffee,Morning,yes ,1-2,Semi-regular,no ,7–8,Excellent,5+,more than 8,Sometimes
+2/6/2026 22:50:47,Employee,36+,Male,1-2,"Coffee, tea",Evening,no ,0,Semi-regular,Sometimes,5–6,average ,0,more than 8,Sometimes
+2/6/2026 23:12:12,Other,28 - 35,Male,3-4,"Coffee, tea",Evening,yes ,1-2,Semi-regular,mostly,5–6,average ,0,more than 8,mostly
+2/6/2026 23:12:45,Employee,36+,Male,1-2,"Coffee, tea",Morning,no ,1-2,Semi-regular,Sometimes,5–6,average ,0,less than 3,Sometimes
+2/7/2026 0:31:58,Employee,36+,Male,3-4,"Coffee, tea",Morning,no ,1-2,Semi-regular,mostly,5–6,good,0,more than 8,Sometimes
+2/7/2026 0:57:54,Other,23 - 27,Male,0,tea,Evening,no ,1-2,Semi-regular,no ,5–6,good,3-4,more than 8,Rarely
+2/7/2026 3:11:04,Student,18 - 22,Male,1-2,"Coffee, Energy drinks, Soft strings",Evening,no ,1-2,Semi-regular,mostly,5–6,bad ,5+,6–8,Sometimes
+2/7/2026 3:35:01,Employee,18 - 22,Female,0,Energy drinks,Morning,no ,1-2,Regular,Sometimes,less than 5,bad ,5+,less than 3,mostly
+2/7/2026 3:41:38,Employee,18 - 22,Female,1-2,"Coffee, tea, Soft strings",Evening,yes ,more than 4,Irregular,mostly,more than 8,good,0,6–8,mostly
+2/7/2026 10:02:41,Employee,36+,Male,0,Coffee,Morning,no ,0,Irregular,Sometimes,5–6,Excellent,0,6–8,Sometimes
+2/7/2026 14:02:07,Student,18 - 22,Female,1-2,"Coffee, tea, Soft strings",Night,yes ,1-2,Irregular,mostly,less than 5,bad ,1-2,more than 8,mostly
+2/7/2026 15:02:10,Student,18 - 22,Female,3-4,"Coffee, Energy drinks",Afternoon,yes ,more than 4,Irregular,mostly,7–8,average ,3-4,more than 8,mostly
+2/7/2026 21:46:25,Employee,28 - 35,Female,1-2,"Coffee, Soft strings",Morning,no ,1-2,Semi-regular,Sometimes,5–6,average ,0,less than 3,Sometimes
+2/8/2026 7:22:15,Other,23 - 27,Female,3-4,tea,Morning,no ,1-2,Semi-regular,Sometimes,5–6,bad ,0,6–8,mostly
+2/8/2026 7:50:43,Employee,36+,Female,more than 4,"Coffee, tea, Soft strings",Morning,no ,more than 4,Regular,no ,less than 5,average ,3-4,6–8,mostly
+2/8/2026 18:43:24,Student,18 - 22,Female,0,tea,Evening,yes ,1-2,Irregular,Sometimes,5–6,good,1-2,less than 3,Sometimes
+2/12/2026 19:52:33,Other,28 - 35,Female,1-2,"Coffee, tea",Evening,no ,1-2,Semi-regular,Sometimes,less than 5,average ,3-4,3–5,mostly
+2/12/2026 22:57:55,Student,18 - 22,Female,1-2,Coffee,Morning,no ,more than 4,Irregular,Sometimes,5–6,bad ,0,more than 8,mostly
+2/17/2026 15:22:22,Student,18 - 22,Female,1-2,"Coffee, Energy drinks",Night,yes ,3-4,Irregular,mostly,5–6,bad ,3-4,more than 8,mostly
+2/17/2026 15:26:01,Student,23 - 27,Female,1-2,tea,Afternoon,no ,1-2,Regular,Sometimes,7–8,Excellent,3-4,more than 8,Rarely
+2/17/2026 15:34:46,Student,18 - 22,Female,3-4,"Coffee, tea, Soft strings",Afternoon,yes ,3-4,Semi-regular,mostly,more than 8,average ,0,more than 8,Sometimes
+2/17/2026 15:41:49,Student,18 - 22,Female,1-2,Coffee,Morning,no ,1-2,Semi-regular,Sometimes,5–6,average ,1-2,more than 8,Sometimes
+2/17/2026 15:53:10,Student,18 - 22,Female,0,"Coffee, Soft strings",Afternoon,yes ,1-2,Regular,Sometimes,more than 8,Excellent,1-2,more than 8,mostly
+2/17/2026 16:31:10,Student,23 - 27,Female,1-2,Coffee,Afternoon,no ,0,Semi-regular,mostly,5–6,average ,1-2,6–8,Sometimes
+2/18/2026 1:31:05,Other,23 - 27,Female,1-2,"Coffee, tea",Evening,yes ,1-2,Semi-regular,Sometimes,7–8,average ,1-2,6–8,Sometimes
+2/19/2026 5:35:09,Student,18 - 22,Male,1-2,Coffee,Morning,no ,3-4,Semi-regular,mostly,7–8,Excellent,0,6–8,Sometimes
+2/23/2026 21:08:39,Student,23 - 27,Male,1-2,"Coffee, Energy drinks",Evening,yes ,1-2,Semi-regular,mostly,5–6,average ,5+,more than 8,Sometimes
+2/27/2026 13:00:28,Employee,36+,Female,1-2,"Coffee, tea",Morning,yes ,0,Irregular,Sometimes,5–6,average ,1-2,less than 3,mostly
+3/1/2026 18:45:21,Employee,28 - 35,Male,1-2,Coffee,Morning,no,3-4,Semi-regular,sometimes,less than 5,bad,3-4,more than 8,Sometimes
+>>>>>>> 8ffb8efaa5980e7fe38ac44df8db45e383255acb
