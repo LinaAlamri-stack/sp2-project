@@ -329,10 +329,7 @@ try:
     fig1 = px.pie(
         df,
         names=df.columns[2]
-        names=df.columns[2]
     )
-
-    fig2 = px.histogram(
     fig2 = px.histogram(
         df,
         x=df.columns[3]
@@ -342,7 +339,7 @@ try:
         template="plotly_dark",
         paper_bgcolor="#16215E",
         plot_bgcolor="#16215E",
-        font=dict(color="white")
+        font=dict(color="white"),
         x=df.columns[3]
     )
 
