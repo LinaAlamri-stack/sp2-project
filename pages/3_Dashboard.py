@@ -854,6 +854,7 @@ fig_trend = build_caffeine_sleep_fig()
 risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs="cdn")
 trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs="cdn")
 
+(nchart1,nchart2) = nview.render_charts(df)
 charts_html = f"""
 <div class="survey-charts">
     <div class="chart-card">
@@ -869,9 +870,25 @@ charts_html = f"""
         </div>
     </div>
 </div>
+
+<div class="survey-charts">
+    <div class="chart-card">
+        <div class="chart-title">Gender Distribution</div>
+        <div class="chart-box">
+            {nchart1}
+        </div>
+    </div>
+    <div class="chart-card">
+        <div class="chart-title">Number of cups trends</div>
+        <div class="chart-box">
+            {nchart2}
+        </div>
+    </div>
+</div>
+
+
 """
 
-(nchart1,nchart2) = nview.render_charts(df)
 
 projection = get_projection_content(final_risk_level, cluster_name_for_projection)
 projection_title = (survey or {}).get("projection_title") or projection["title"]
@@ -1296,7 +1313,7 @@ html = f"""
 
     .cluster-wrap {{
         width: 100%;
-        min-height: 520px;
+        max-height: 450px;
         border-radius: 26px;
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.02);
@@ -1357,13 +1374,15 @@ html = f"""
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
         margin-top: 18px;
+        grid-auto-rows:auto;
     }}
+
 
     .chart-card {{
         background: rgba(22, 33, 94, 0.92);
         border: 1px solid rgba(255,255,255,0.10);
         border-radius: 20px;
-        padding: 16px;
+        padding: 10px;
         box-shadow: inset 0 0 18px rgba(255,255,255,0.03);
         min-height: 320px;
     }}
@@ -1372,12 +1391,16 @@ html = f"""
         font-size: 16px;
         font-weight: 700;
         color: white;
-        margin-bottom: 8px;
+        margin-bottom: 2px;
     }}
 
     .chart-box {{
         width: 100%;
         height: 100%;
+    }}
+    .chart-box div {{
+      height:350px;
+      padding: 5px !important;
     }}
 
     @media (max-width: 1200px) {{
@@ -1487,12 +1510,9 @@ html = f"""
                     {"Your analytics overview will appear here." if is_dashboard else "Your personal information will appear here."}
                 </div>
             </div>
-
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html + newchart_html  if is_dashboard else ""}
-            {
-             "<div class='kpi-grid'> this is a test " + nchart1 + "</div>" 
-            }
-        </main>
+           
+            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html +  charts_html  if is_dashboard else ""}
+           
     </div>
 </body>
 </html>
