@@ -227,6 +227,20 @@ st.markdown(
             text-decoration: none !important;
         }}
 
+        div[data-testid="stHorizontalBlock"]:first-of-type > div:first-child div[data-testid="stButton"] button {{
+            width: 46px !important;
+            min-width: 46px !important;
+            height: 46px !important;
+            border-radius: 50% !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            background: rgba(255,255,255,0.05) !important;
+            color: #fff !important;
+            font-size: 20px !important;
+            padding: 0 !important;
+            margin-left: 0 !important;
+            margin-right: auto !important;
+        }}
+
         .progress-wrap {{
             display: flex;
             justify-content: center;
@@ -273,6 +287,14 @@ st.markdown(
             margin-bottom: 10px;
         }}
 
+        .center-col {{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }}
+
         div[data-testid="stButton"] {{
             display: flex;
             justify-content: center;
@@ -295,6 +317,12 @@ st.markdown(
             margin-top: 0;
         }}
 
+        .center-col div[data-testid="stButton"] {{
+            width: min(620px, 88vw);
+            margin-left: auto;
+            margin-right: auto;
+        }}
+
         div[data-testid="stButton"] button:hover {{
             filter: brightness(0.97);
         }}
@@ -308,8 +336,69 @@ st.markdown(
             display: block;
         }}
 
+        div[data-testid="stRadio"] {{
+            width: min(620px, 88vw);
+            margin: 0 auto;
+        }}
+
+        div[data-testid="stRadio"] > label {{
+            display: none;
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] {{
+            gap: 14px;
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label {{
+            width: min(620px, 88vw);
+            min-height: 56px;
+            margin: 0 auto;
+            border-radius: 999px;
+            background: var(--option-bg);
+            color: var(--option-text);
+            border: none;
+            padding: 14px 22px;
+            justify-content: center;
+            transform: translateY(0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            transition:
+                background-color 220ms ease,
+                transform 220ms ease,
+                box-shadow 220ms ease,
+                filter 220ms ease;
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label:hover {{
+            background: #e0e4eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+            filter: brightness(0.99);
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label:has(input:checked) {{
+            background: #8e96a3;
+            box-shadow:
+                inset 0 0 0 1px rgba(14, 24, 56, 0.22),
+                0 8px 18px rgba(0, 0, 0, 0.12);
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label:has(input:checked):hover {{
+            background: #858e9c;
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label p {{
+            color: var(--option-text) !important;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+        }}
+
+        div[data-testid="stRadio"] [role="radiogroup"] label > div:first-child {{
+            display: none;
+        }}
+
         .bottom-brand {{
-            margin-top: 36px;
+            margin-top: 42px;
             display: flex;
             justify-content: center;
         }}
@@ -329,11 +418,15 @@ progress_html = "".join(
     for i in range(TOTAL)
 )
 
+top_left, top_center, top_right = st.columns([1, 2, 1], gap="large")
+with top_left:
+    if step > 0:
+        if st.button("←", key="survey_back", help="Previous question"):
+            st.session_state.survey_step = max(0, step - 1)
+            st.rerun()
+
 st.markdown(
     f"""
-    <div class="top-bar">
-        {f"<a class='back-btn' href='?step={step-1}'>←</a>" if step > 0 else ""}
-    </div>
     <div class="progress-wrap">
         <div class="progress">{progress_html}</div>
     </div>
@@ -397,24 +490,35 @@ with center_col:
                         st.session_state.survey_step = step + 1
                         st.rerun()
     else:
-        for idx, option in enumerate(question["options"]):
-            if st.button(option, key=f"opt_{step}_{idx}"):
-                st.session_state.survey_answers[question["key"]] = option
+        answer_key = f"radio_{question['key']}"
+        existing_answer = st.session_state.survey_answers.get(question["key"])
+        if answer_key not in st.session_state:
+            st.session_state[answer_key] = existing_answer
+
+        def _handle_option_change() -> None:
+            selected_option = st.session_state.get(answer_key)
+            if not selected_option:
+                return
+            st.session_state.survey_answers[question["key"]] = selected_option
+            if step < TOTAL - 1:
+                st.session_state.survey_step = step + 1
+
+        st.radio(
+            "Choose one option",
+            question["options"],
+            key=answer_key,
+            label_visibility="collapsed",
+            on_change=_handle_option_change,
+        )
+
+        if st.session_state.get(answer_key) and step < TOTAL - 1:
+            if st.button("Continue", key=f"continue_{question['key']}"):
+                st.session_state.survey_answers[question["key"]] = st.session_state.get(answer_key)
                 if step < TOTAL - 1:
                     st.session_state.survey_step = step + 1
                     st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
-st.markdown(
-    f"""
-    <div class="bottom-brand">
-        <div class="brand">{logo_html}<span>Riyalyze</span></div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
 
-if step == TOTAL - 1:
-    with center_col:
+    if step == TOTAL - 1:
         submitted = st.button("Submit", type="primary")
         if submitted:
             answers = st.session_state.survey_answers
@@ -492,4 +596,13 @@ if step == TOTAL - 1:
                 st.success("Assessment submitted successfully!")
                 st.switch_page("pages/3_Dashboard.py")
 
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+st.markdown(
+    f"""
+    <div class="bottom-brand">
+        <div class="brand">{logo_html}<span>Riyalyze</span></div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
