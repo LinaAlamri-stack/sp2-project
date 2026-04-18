@@ -50,13 +50,13 @@ def render_charts(df):
         chart1 = pio.to_html(fig_gender, full_html=False, include_plotlyjs="cdn")
 
     with col2:
-        fig_cups = px.histogram(df, x=df.columns[4],color="4. Number of caffeine drinks per day",
+        fig_cups = px.histogram(df, x=df.columns[4],color="Number of caffeine drinks per day",
         color_discrete_map={"1-2": "#3B82F6", "3-4": "#EC4899","0":"#EEFFAA"},
         template="plotly_dark")
         fig_cups.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        showlegend=True)
+        showlegend=False)
         #st.plotly_chart(fig_cups, use_container_width=True)
         chart2 = pio.to_html(fig_cups, full_html=False, include_plotlyjs="cdn")
     return (chart1,chart2)
