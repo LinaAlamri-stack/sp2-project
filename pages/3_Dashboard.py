@@ -1,12 +1,6 @@
 import base64
 from pathlib import Path
 from typing import Optional
-<<<<<<< HEAD
-
-import streamlit as st
-import streamlit.components.v1 as components
-
-=======
 import base64
 from pathlib import Path
 from typing import Optional
@@ -99,120 +93,6 @@ from risk_charts import (
     get_total_user_count,
     build_risk_level_fig,
 )
->>>>>>> feature-huda
-
-st.set_page_config(
-    page_title="Dashboard | Riyalyze",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-
-<<<<<<< HEAD
-=======
-init_db()
-
->>>>>>> feature-huda
-PROJECT_DIR = Path(__file__).resolve().parents[1]
-DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
-ASSETS_DIR = PROJECT_DIR / "assets"
-
-
-def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
-    for directory in directories:
-        for base in names:
-            for ext in (".png", ".jpg", ".jpeg", ".webp"):
-                candidate = directory / f"{base}{ext}"
-                if candidate.exists():
-                    return candidate
-    return None
-
-
-<<<<<<< HEAD
-=======
-# ===== NEW CHART QUICK ADD =====
-
-try:
-    data_file = PROJECT_DIR / "data" / "survey_data.csv"
-
-    df = pd.read_csv(data_file)
-
-    fig1 = px.pie(
-        df,
-        names=df.columns[2]
-    )
-    fig2 = px.histogram(
-        df,
-        x=df.columns[3]
-    )
-
-    fig1.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="#16215E",
-        plot_bgcolor="#16215E",
-        font=dict(color="white"),
-        x=df.columns[3]
-    )
-
-    fig1.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="#16215E",
-        plot_bgcolor="#16215E",
-        font=dict(color="white")
-    )
-
-    fig2.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="#16215E",
-        plot_bgcolor="#16215E",
-        font=dict(color="white")
-    )
-
-    chart1 = pio.to_html(fig1, full_html=False, include_plotlyjs="cdn")
-    chart2 = pio.to_html(fig2, full_html=False, include_plotlyjs="cdn")
-    fig2.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="#16215E",
-        plot_bgcolor="#16215E",
-        font=dict(color="white")
-    )
-
-    chart1 = pio.to_html(fig1, full_html=False, include_plotlyjs="cdn")
-    chart2 = pio.to_html(fig2, full_html=False, include_plotlyjs="cdn")
-
-    newchart_html = f"""
-    <div class="survey-charts">
-
-        <div class="chart-card">
-            <div class="chart-title">Gender Distribution</div>
-            <div class="chart-box">
-                {chart1}
-            </div>
-            <div class="chart-box">
-                {chart1}
-            </div>
-        </div>
-
-        <div class="chart-card">
-            <div class="chart-title">Daily Cups Consumption</div>
-            <div class="chart-box">
-                {chart2}
-            </div>
-        </div>
-
-    </div>
-    """
-
-except Exception as e:
-    newchart_html = f"<h3 style='color:red'>Somthing went wrong</h3>"
-
-from database import get_user_by_id, get_user_survey, init_db, update_user_projection
-from risk_charts import (
-    build_caffeine_cups_fig,
-    build_caffeine_sleep_fig,
-    build_gender_fig,
-    get_total_user_count,
-    build_risk_level_fig,
-)
 
 st.set_page_config(
     page_title="Dashboard | Riyalyze",
@@ -269,7 +149,6 @@ except Exception as e:
     st.error(e)
     newchart_html = "<h3 style='color:red'>{e}</h3>"
 
->>>>>>> feature-huda
 def _b64(path: Optional[Path]) -> Optional[str]:
     if not path or not path.exists():
         return None
@@ -295,14 +174,11 @@ logo_html = (
 )
 
 params = st.query_params
-<<<<<<< HEAD
-=======
 uid_param = params.get("uid")
 if isinstance(uid_param, list):
     uid_param = uid_param[0] if uid_param else None
 if "user_id" not in st.session_state and uid_param and str(uid_param).isdigit():
     st.session_state.user_id = int(uid_param)
->>>>>>> feature-huda
 
 tab = params.get("tab")
 if isinstance(tab, list):
@@ -317,10 +193,6 @@ risk_level = (risk_level or "moderate").lower()
 is_dashboard = tab == "dashboard"
 is_profile = tab == "profile"
 
-<<<<<<< HEAD
-
-def get_projection_content(level: str):
-=======
 user_id = st.session_state.get("user_id")
 if user_id and not uid_param:
     params["uid"] = str(user_id)
@@ -329,16 +201,11 @@ survey = get_user_survey(user_id) if user_id else None
 
 
 def get_projection_content(level: str, cluster_text: str):
->>>>>>> feature-huda
     if level == "low":
         return {
             "title": "Low Future Risk",
             "status": "Stable",
-<<<<<<< HEAD
-            "cluster": "Balanced Lifestyle",
-=======
             "cluster": cluster_text,
->>>>>>> feature-huda
             "message": "If you maintain your current habits, your projected lifestyle risk remains low over the next 10 years.",
             "recommendation": "Maintain your current sleep routine and continue your balanced habits.",
             "badge": "#39D98A",
@@ -348,11 +215,7 @@ def get_projection_content(level: str, cluster_text: str):
         return {
             "title": "High Future Risk",
             "status": "High Concern",
-<<<<<<< HEAD
-            "cluster": "High Caffeine / Late Habits",
-=======
             "cluster": cluster_text,
->>>>>>> feature-huda
             "message": "If your current habits remain unchanged, your projected lifestyle pattern may move toward a higher long-term risk state.",
             "recommendation": "Reduce caffeine after 8 PM, lower screen exposure at night, and increase weekly physical activity.",
             "badge": "#FF4D6D",
@@ -362,24 +225,14 @@ def get_projection_content(level: str, cluster_text: str):
         return {
             "title": "Moderate Future Risk",
             "status": "Needs Improvement",
-<<<<<<< HEAD
-            "cluster": "High Screen Time Lifestyle",
-            "message": "If your current habits remain unchanged, your projected lifestyle risk may gradually increase over time.",
-            "recommendation": "Improve sleep consistency, reduce late-night eating, and lower screen exposure before bed.",
-            "badge": "#4DA8FF",
-=======
             "cluster": cluster_text,
             "message": "If your current habits remain unchanged, your projected lifestyle risk may gradually increase over time.",
             "recommendation": "Improve sleep consistency, reduce late-night eating, and lower screen exposure before bed.",
             "badge": "#081028",
->>>>>>> feature-huda
             "image": body_blue_b64,
         }
 
 
-<<<<<<< HEAD
-projection = get_projection_content(risk_level)
-=======
 # =========================
 # USER DATA (PREFER DB, FALLBACK SESSION)
 # =========================
@@ -747,7 +600,6 @@ if user_id and (survey is not None):
         projection_status=projection_status,
         projection_cluster=projection_cluster,
     )
->>>>>>> feature-huda
 
 projection_img_html = (
     f"<img src='data:image/png;base64,{projection['image']}' class='projection-body-img' alt='Projection body' />"
@@ -755,14 +607,6 @@ projection_img_html = (
     else "<div class='projection-body-fallback'>Body Image</div>"
 )
 
-<<<<<<< HEAD
-dashboard_href = f"?tab=dashboard&risk={risk_level}"
-profile_href = f"?tab=profile&risk={risk_level}"
-
-
-
-=======
->>>>>>> feature-huda
 html = f"""
 <!DOCTYPE html>
 <html>
@@ -777,14 +621,6 @@ html = f"""
         margin: 0;
         padding: 0;
         background: #0F123B;
-<<<<<<< HEAD
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        color: #e8ecff;
-    }}
-
-    body {{
-        min-height: 100vh;
-=======
         font-family: 'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: #e8ecff;
         min-height: 100vh;
@@ -792,7 +628,6 @@ html = f"""
 
     body {{
         overflow-x: hidden;
->>>>>>> feature-huda
     }}
 
     a {{
@@ -800,25 +635,15 @@ html = f"""
         text-decoration: none;
     }}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> feature-huda
     .dash {{
         min-height: 100vh;
         display: grid;
         grid-template-columns: 320px 1fr;
         gap: 28px;
-<<<<<<< HEAD
-        padding: 38px 46px 34px;
-        background: #0F123B;
-        align-items: start;
-=======
         padding: 25px;
         background: #0F123B;
         align-items: start;
         margin-top: -1.5rem;
->>>>>>> feature-huda
     }}
 
     .sidebar {{
@@ -874,21 +699,18 @@ html = f"""
         border-radius: 24px;
         border: 1px solid transparent;
         transition: all 180ms ease;
-<<<<<<< HEAD
-=======
         width: 100%;
         background: transparent;
         color: inherit;
         text-align: left;
         cursor: pointer;
         font: inherit;
->>>>>>> feature-huda
     }}
 
     .nav-item.active {{
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.22);
-        box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 0 18px rgba(255,255,255,0.05);
     }}
 
     .nav-icon {{
@@ -913,19 +735,13 @@ html = f"""
 
     .projection-card {{
         width: 100%;
-<<<<<<< HEAD
-=======
         max-width: 100%;
->>>>>>> feature-huda
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.10);
         border-radius: 24px;
         padding: 18px 16px;
         box-shadow: inset 0 0 16px rgba(255,255,255,0.03);
-<<<<<<< HEAD
-=======
         margin-top: 6px;
->>>>>>> feature-huda
     }}
 
     .projection-title {{
@@ -1009,13 +825,6 @@ html = f"""
     }}
 
     .main-area {{
-<<<<<<< HEAD
-        padding-top: 2px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        min-width: 0;
-=======
         padding-top: 36px;
         display: flex;
         flex-direction: column;
@@ -1038,16 +847,12 @@ html = f"""
         display: flex;
         justify-content: center;
         width: 100%;
->>>>>>> feature-huda
     }}
 
     .dashboard-header {{
         display: flex;
         flex-direction: column;
         gap: 6px;
-<<<<<<< HEAD
-        margin-bottom: 6px;
-=======
     }}
 
     .dashboard-topbar {{
@@ -1086,47 +891,17 @@ html = f"""
         color: #ffffff;
         font-weight: 800;
         line-height: 1;
->>>>>>> feature-huda
     }}
 
     .dashboard-title {{
         font-size: 28px;
         font-weight: 700;
         color: white;
-<<<<<<< HEAD
-        margin: 0;
-=======
->>>>>>> feature-huda
     }}
 
     .dashboard-subtitle {{
         font-size: 14px;
         color: #9aa6d1;
-<<<<<<< HEAD
-        margin: 0;
-    }}
-
-    .placeholder {{
-        min-height: 720px;
-        border-radius: 26px;
-        border: 1px dashed rgba(255,255,255,0.14);
-        background: rgba(255,255,255,0.02);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #7f89b8;
-        font-size: 16px;
-        text-align: center;
-        padding: 20px;
-        width: 100%;
-    }}
-
-    @media (max-width: 1200px) {{
-        .dash {{
-            grid-template-columns: 300px 1fr;
-            gap: 22px;
-            padding: 30px 28px;
-=======
     }}
 
     .profile-panel {{
@@ -1351,7 +1126,6 @@ html = f"""
         grid-auto-rows:auto;
     }}
 
-
     .chart-card {{
         background: rgba(22, 33, 94, 0.92);
         border: 1px solid rgba(255,255,255,0.10);
@@ -1377,28 +1151,166 @@ html = f"""
       padding: 5px !important;
     }}
 
+    .chatbot-card {{
+        width: 100%;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 24px;
+        padding: 18px 16px;
+        box-shadow: inset 0 0 16px rgba(255,255,255,0.03);
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }}
+
+    .chatbot-header {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }}
+
+    .chatbot-icon {{
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #B628E2, #6E4CFF);
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+    }}
+
+    .chatbot-title {{
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+    }}
+
+    .chatbot-subtitle {{
+        font-size: 11px;
+        color: #9aa6d1;
+        margin-top: 2px;
+    }}
+
+    .chatbot-messages {{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 160px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }}
+
+    .chatbot-messages::-webkit-scrollbar {{
+        width: 4px;
+    }}
+
+    .chatbot-messages::-webkit-scrollbar-track {{
+        background: transparent;
+    }}
+
+    .chatbot-messages::-webkit-scrollbar-thumb {{
+        background: rgba(255,255,255,0.15);
+        border-radius: 999px;
+    }}
+
+    .msg-user {{
+        align-self: flex-end;
+        background: linear-gradient(135deg, #B628E2, #6E4CFF);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 14px 14px 4px 14px;
+        font-size: 12px;
+        max-width: 85%;
+        line-height: 1.4;
+    }}
+
+    .msg-bot {{
+        align-self: flex-start;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.10);
+        color: #e8ecff;
+        padding: 8px 12px;
+        border-radius: 14px 14px 14px 4px;
+        font-size: 12px;
+        max-width: 90%;
+        line-height: 1.5;
+    }}
+
+    .chatbot-input-wrap {{
+        position: relative;
+        width: 100%;
+    }}
+
+    .chatbot-input {{
+        width: 100%;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: white;
+        font-size: 13px;
+        outline: none;
+        font-family: inherit;
+        box-sizing: border-box;
+    }}
+
+    .chatbot-input:focus {{
+        border-color: rgba(182, 40, 226, 0.5);
+        background: rgba(255,255,255,0.08);
+    }}
+
+    .chatbot-placeholder {{
+        position: absolute;
+        top: 50%;
+        left: 14px;
+        transform: translateY(-50%);
+        color: #5a6490;
+        font-size: 13px;
+        pointer-events: none;
+        transition: opacity 0.15s;
+    }}
+
+    .chatbot-suggestions {{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }}
+
+    .suggest-btn {{
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 999px;
+        color: #c8d0f0;
+        padding: 8px 14px;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+        transition: all 150ms ease;
+    }}
+
+    .suggest-btn:hover {{
+        background: rgba(182, 40, 226, 0.15);
+        border-color: rgba(182, 40, 226, 0.4);
+        color: white;
+    }}
+
     @media (max-width: 1200px) {{
         .kpi-grid {{
             grid-template-columns: repeat(2, minmax(0, 1fr));
->>>>>>> feature-huda
         }}
     }}
 
     @media (max-width: 980px) {{
         .dash {{
             grid-template-columns: 1fr;
-<<<<<<< HEAD
-            padding: 24px 18px;
-=======
             padding: 28px 20px;
->>>>>>> feature-huda
         }}
 
         .main-area {{
             padding-top: 0;
         }}
-<<<<<<< HEAD
-=======
 
         .cluster-chart-box {{
             height: 420px;
@@ -1421,7 +1333,6 @@ html = f"""
         .cluster-title-row {{
             align-items: flex-start;
         }}
->>>>>>> feature-huda
     }}
 </style>
 </head>
@@ -1436,37 +1347,23 @@ html = f"""
             <div class="divider"></div>
 
             <div class="nav">
-<<<<<<< HEAD
-                <a class="nav-item {'active' if is_dashboard else ''}" href="{dashboard_href}" target="_top">
-=======
                 <button type="button" class="nav-item {'active' if is_dashboard else ''}" data-tab-button="dashboard" onclick="switchTab('dashboard')">
->>>>>>> feature-huda
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 11.5L12 4L21 11.5V21H14.5V14.5H9.5V21H3V11.5Z" fill="white"/>
                         </svg>
                     </div>
                     <div class="nav-label">Dashboard</div>
-<<<<<<< HEAD
-                </a>
-
-                <a class="nav-item {'active' if is_profile else ''}" href="{profile_href}" target="_top">
-=======
                 </button>
 
                 <button type="button" class="nav-item {'active' if is_profile else ''}" data-tab-button="profile" onclick="switchTab('profile')">
->>>>>>> feature-huda
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
                         </svg>
                     </div>
                     <div class="nav-label">Profile</div>
-<<<<<<< HEAD
-                </a>
-=======
                 </button>
->>>>>>> feature-huda
             </div>
 
             <div class="projection-card">
@@ -1480,48 +1377,57 @@ html = f"""
                 </div>
 
                 <div class="risk-badge" style="background:{projection['badge']}">
-<<<<<<< HEAD
-                    {projection['title']}
-=======
                     {projection_title}
->>>>>>> feature-huda
                 </div>
 
                 <div class="projection-mini">
                     <div class="mini-box">
                         <div class="mini-label">Projected Condition</div>
-<<<<<<< HEAD
-                        <div class="mini-value">{projection['status']}</div>
-=======
                         <div class="mini-value">{projection_status}</div>
->>>>>>> feature-huda
                     </div>
 
-                    <div class="mini-box">
+                   <div class="mini-box">
                         <div class="mini-label">Current Pattern</div>
-<<<<<<< HEAD
-                        <div class="mini-value">{projection['cluster']}</div>
-=======
                         <div class="mini-value">{projection_cluster}</div>
->>>>>>> feature-huda
                     </div>
                 </div>
             </div>
-        </aside>
 
-<<<<<<< HEAD
-        <section class="main-area">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">{'Dashboard' if is_dashboard else 'Profile'}</h1>
-                <p class="dashboard-subtitle">
-                    {'Your health behavior dashboard overview' if is_dashboard else 'User profile overview'}
-                </p>
+            <div class="chatbot-card">
+                <div class="chatbot-header">
+                    <div class="chatbot-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="4" width="20" height="14" rx="4" fill="white" opacity="0.9"/>
+                            <circle cx="8" cy="11" r="1.5" fill="#B628E2"/>
+                            <circle cx="12" cy="11" r="1.5" fill="#B628E2"/>
+                            <circle cx="16" cy="11" r="1.5" fill="#B628E2"/>
+                            <path d="M12 18v3M9 21h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="12" cy="2" r="1.5" fill="white"/>
+                            <line x1="12" y1="3.5" x2="12" y2="4" stroke="white" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="chatbot-title">Health Analytics Chatbot</div>
+                        <div class="chatbot-subtitle">Hi! Ask me about your health insights</div>
+                    </div>
+                </div>
+
+                <div class="chatbot-messages" id="chatbot-messages"></div>
+
+                <div class="chatbot-input-wrap">
+                    <span class="chatbot-placeholder" id="chatbot-placeholder">Ask anything about your health ...</span>
+                    <input class="chatbot-input" id="chatbot-input" type="text" onkeydown="handleChatKey(event)" oninput="togglePlaceholder()"/>
+                </div>
+
+                <div class="chatbot-suggestions">
+                    <button class="suggest-btn" onclick="sendSuggestion('How to reduce risk?')">How to reduce risk?</button>
+                    <button class="suggest-btn" onclick="sendSuggestion('Best diet for me?')">Best diet for me?</button>
+                    <button class="suggest-btn" onclick="sendSuggestion('Improve sleep?')">Improve sleep?</button>
+                </div>
             </div>
 
-            
-        </section>
-    </div>
-=======
+        </aside>
+
         <main class="main-area">
             <div id="dashboard-panel" class="tab-panel {'active' if is_dashboard else ''}">
                 <div class="dashboard-header">
@@ -1556,24 +1462,66 @@ function switchTab(tabName) {{
         button.classList.toggle('active', isActive);
     }});
 }}
+
+const botResponses = {{
+    "risk": "Your risk score is {risk_score}/100 ({final_risk_level} level). Focus on sleep, reducing caffeine, and more activity to lower it.",
+    "diet": "Based on your profile, reduce fast food to under 2x/week and avoid eating after 10 PM for better health.",
+    "sleep": "You're getting {user_sleep}h of sleep. Aim for 7-8 hours. Avoid caffeine after 6 PM and screens before bed.",
+    "caffeine": "You consume {user_caffeine} cups/day. Try to reduce to 2 cups max, all before 2 PM.",
+    "activity": "You're active {user_activity} days/week. Try to reach at least 4 days with 30-min walks.",
+    "default": "I can help with your risk score, sleep, diet, caffeine, or activity. What would you like to know?"
+}};
+
+function getBotReply(text) {{
+    const t = text.toLowerCase();
+    if (t.includes("risk") || t.includes("score")) return botResponses.risk;
+    if (t.includes("diet") || t.includes("food") || t.includes("eat")) return botResponses.diet;
+    if (t.includes("sleep")) return botResponses.sleep;
+    if (t.includes("caffeine") || t.includes("coffee")) return botResponses.caffeine;
+    if (t.includes("activity") || t.includes("exercise") || t.includes("workout")) return botResponses.activity;
+    return botResponses.default;
+}}
+
+function appendMessage(text, type) {{
+    const container = document.getElementById('chatbot-messages');
+    const div = document.createElement('div');
+    div.className = type === 'user' ? 'msg-user' : 'msg-bot';
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}}
+
+function sendSuggestion(text) {{
+    appendMessage(text, 'user');
+    setTimeout(() => appendMessage(getBotReply(text), 'bot'), 400);
+    document.querySelectorAll('.suggest-btn').forEach(b => b.style.display = 'none');
+}}
+
+function handleChatKey(e) {{
+    if (e.key === 'Enter') {{
+        const input = document.getElementById('chatbot-input');
+        const text = input.value.trim();
+        if (!text) return;
+        appendMessage(text, 'user');
+        setTimeout(() => appendMessage(getBotReply(text), 'bot'), 400);
+        input.value = '';
+        document.getElementById('chatbot-placeholder').style.opacity = '1';
+        document.querySelectorAll('.suggest-btn').forEach(b => b.style.display = 'none');
+    }}
+}}
+
+function togglePlaceholder() {{
+    const input = document.getElementById('chatbot-input');
+    const ph = document.getElementById('chatbot-placeholder');
+    ph.style.opacity = input.value ? '0' : '1';
+}}
 </script>
->>>>>>> feature-huda
 </body>
 </html>
 """
 
-st.markdown("""
+st.markdown(""""
 <style>
-<<<<<<< HEAD
-html, body, [data-testid="stAppViewContainer"], .stApp, .main {
-    background-color: #0F123B !important;
-}
-
-header, footer {
-    visibility: hidden;
-}
-
-=======
 html, body, [class*="css"] {
     background-color: #0F123B !important;
 }
@@ -1602,31 +1550,10 @@ st.markdown("""
 header {visibility: hidden;}
 footer {visibility: hidden;}
 
->>>>>>> feature-huda
 [data-testid="stSidebar"] {
     display: none !important;
 }
-
-[data-testid="stSidebarNav"] {
-    display: none !important;
-}
-<<<<<<< HEAD
-
-.block-container {
-    padding: 0 !important;
-    max-width: 100% !important;
-}
-
-iframe {
-    border: none !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-components.html(html, height=980, scrolling=False)
-=======
 </style>
 """, unsafe_allow_html=True)
 
 components.html(html, height=1650, scrolling=False)
->>>>>>> feature-huda
