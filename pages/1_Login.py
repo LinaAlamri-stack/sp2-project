@@ -1,33 +1,25 @@
 import base64
 from pathlib import Path
-from typing import Optional
 
 import streamlit as st
 
+from database import init_db, verify_user
+
 
 st.set_page_config(
-    page_title="Riyalyze | Dietary Habits Dashboard",
+    page_title="Login | Riyalyze",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-params = st.query_params
-page = params.get("page")
-if isinstance(page, list):
-    page = page[0] if page else None
-page = (page or "").strip().lower()
-if page in {"login", "1_login"}:
-    st.switch_page("pages/1_Login.py")
-if page in {"signup", "sign-up", "2_signup"}:
-    st.switch_page("pages/2_Signup.py")
+init_db()
 
-
-PROJECT_DIR = Path(__file__).parent
+PROJECT_DIR = Path(__file__).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
 ASSETS_DIR = PROJECT_DIR / "assets"
 
 
-def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
+def _find_asset(names: list[str], directories: list[Path]) -> Path | None:
     for directory in directories:
         for base in names:
             for ext in (".png", ".jpg", ".jpeg", ".webp"):
@@ -37,7 +29,7 @@ def _find_asset(names: list[str], directories: list[Path]) -> Optional[Path]:
     return None
 
 
-def _b64(path: Optional[Path]) -> Optional[str]:
+def _b64(path: Path | None) -> str | None:
     if not path or not path.exists():
         return None
     return base64.b64encode(path.read_bytes()).decode("utf-8")
@@ -158,56 +150,99 @@ st.markdown(
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 22px;
+            gap: 18px;
             animation: fadeUp 900ms ease-out both;
             animation-delay: 120ms;
         }}
 
-        .right h1 {{
+        .hero-title {{
             font-size: clamp(30px, 4.2vw, 48px);
             font-weight: 600;
-            margin: 0;
+            margin: 0 0 6px;
         }}
 
-        .cta {{
-            display: inline-flex;
+        div[data-testid="stHorizontalBlock"] {{
             align-items: center;
+            min-height: 100vh;
+            padding: 80px 10vw 60px;
+            gap: 24px;
+        }}
+
+        div[data-testid="column"]:first-of-type {{
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            min-width: 320px;
-            padding: 14px 28px;
+        }}
+
+        div[data-testid="column"]:nth-of-type(2) {{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 16px;
+        }}
+
+        div[data-testid="column"]:nth-of-type(2) > div {{
+            width: 100%;
+        }}
+
+        .hero-title {{
+            font-size: clamp(30px, 4.2vw, 48px);
+            font-weight: 600;
+            margin: 0 0 6px;
+        }}
+
+        .form-note {{
+            color: var(--muted);
+            margin: 0 0 6px;
+        }}
+
+        div[data-testid="stTextInput"] {{
+            width: min(480px, 80vw);
+            margin-bottom: 12px;
+        }}
+
+        div[data-testid="stTextInput"] label {{
+            font-size: 14px;
+            color: #d6dcff;
+            letter-spacing: 0.04em;
+        }}
+
+        div[data-testid="stTextInput"] input {{
+            width: 100%;
+            background: rgba(16, 25, 53, 0.7);
+            border: 1px solid rgba(167, 53, 217, 0.25);
             border-radius: 16px;
+            padding: 16px 18px;
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }}
+
+        div[data-testid="stTextInput"] input::placeholder {{
+            color: rgba(232, 236, 255, 0.45);
+        }}
+
+        div.stButton > button {{
+            width: min(520px, 82vw);
+            padding: 16px 28px;
+            border-radius: 16px;
+            border: none;
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: #f8f2ff;
-            text-decoration: none;
             font-weight: 500;
+            font-size: 16px;
             box-shadow: 0 12px 30px rgba(167, 53, 217, 0.35);
-            transition: transform 200ms ease, box-shadow 200ms ease;
-            animation: fadeUp 900ms ease-out both;
+            cursor: pointer;
+            transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+            margin-top: 6px;
         }}
 
-        .cta .cta-text {{
-            color: #ffffff;
-            font-size: 18px;
-        }}
-
-        .cta .cta-action {{
-            color: #101935;
-            font-weight: 600;
-            margin-left: 6px;
-        }}
-
-
-        .cta:nth-of-type(1) {{
-            animation-delay: 220ms;
-        }}
-
-        .cta:nth-of-type(2) {{
-            animation-delay: 320ms;
-        }}
-
-        .cta:hover {{
+        div.stButton > button:hover {{
             transform: translateY(-2px);
-            box-shadow: 0 18px 36px rgba(161, 66, 244, 0.45);
+            box-shadow: 0 18px 36px rgba(167, 53, 217, 0.45);
+            filter: brightness(1.05);
         }}
 
         .footer {{
@@ -250,7 +285,20 @@ st.markdown(
         }}
     </style>
 
-    <div class="hero">
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    f"""
+    """,
+    unsafe_allow_html=True,
+)
+
+left_col, right_col = st.columns([1.2, 1], gap="large")
+with left_col:
+    st.markdown(
+        f"""
         <div class="left">
             <div class="brand">
                 {logo_html}
@@ -258,16 +306,57 @@ st.markdown(
             </div>
             <div class="project-name">Dietary Habits DASHBOARD</div>
         </div>
-        <div class="right">
-            <h1>Nice to see you!</h1>
-            <a class="cta" href="/?page=login"><span class="cta-text">Already have an account?</span><span class="cta-action">Log In</span></a>
-            <a class="cta" href="/?page=signup"><span class="cta-text">New here?</span><span class="cta-action">Sign Up</span></a>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with right_col:
+    st.markdown('<h1 class="hero-title">Nice to see you!</h1>', unsafe_allow_html=True)
+
+    st.markdown(
+        '<p class="form-note">Enter your Email and password to Log In</p>',
+        unsafe_allow_html=True,
+    )
+
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+
+    st.markdown(
+        """
+        <div style="width:min(480px,80vw); text-align:right; margin-top:-6px; margin-bottom:10px;">
+            <a href="/ResetPassword"
+            target="_self"
+            style="
+                color:#A735D9;
+                text-decoration:none;
+                font-weight:600;
+                font-size:14px;
+            ">
+                Forgot Password?
+            </a>
         </div>
-    </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if st.button("Log In"):
+        user = verify_user(email, password)
+
+        if user:
+            st.session_state.user_id = user["id"]
+            st.session_state.user_email = user["email"]
+            st.success("Logged in successfully.")
+            st.switch_page("pages/survey.py")
+        else:
+            st.error("Invalid email or password.")
+    
+
+st.markdown(
+    """
     <div class="footer">
         <span>© 2026, Made by Riyalyze Team</span>
-        <a href="#">Github</a>
-        <a href="#">License</a>
+        <a href="/">Github</a>
+        <a href="/">License</a>
     </div>
     """,
     unsafe_allow_html=True,

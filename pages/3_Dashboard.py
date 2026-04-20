@@ -9,16 +9,12 @@ import plotly.io as pio
 import streamlit as st
 import streamlit.components.v1 as components
 
-from database import get_user_by_id, get_user_survey, init_db, update_user_projection
-from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
 
 st.set_page_config(
     page_title="Dashboard | Riyalyze",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
-
-init_db()
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DESKTOP_RIYALYZE_DIR = Path.home() / "Desktop" / "Riyalyze"
@@ -60,11 +56,6 @@ logo_html = (
 )
 
 params = st.query_params
-uid_param = params.get("uid")
-if isinstance(uid_param, list):
-    uid_param = uid_param[0] if uid_param else None
-if "user_id" not in st.session_state and uid_param and str(uid_param).isdigit():
-    st.session_state.user_id = int(uid_param)
 
 tab = params.get("tab")
 if isinstance(tab, list):
@@ -78,12 +69,6 @@ risk_level = (risk_level or "moderate").lower()
 
 is_dashboard = tab == "dashboard"
 is_profile = tab == "profile"
-
-user_id = st.session_state.get("user_id")
-if user_id and not uid_param:
-    params["uid"] = str(user_id)
-user = get_user_by_id(user_id) if user_id else None
-survey = get_user_survey(user_id) if user_id else None
 
 
 def get_projection_content(level: str, cluster_text: str):
@@ -120,45 +105,37 @@ def get_projection_content(level: str, cluster_text: str):
 
 
 # =========================
-# USER DATA (PREFER DB, FALLBACK SESSION)
+# USER DATA FROM SESSION
 # =========================
-user_caffeine = float((survey or {}).get("caffeine_per_day", st.session_state.get("caffeine_per_day", 2)))
-user_sleep = float((survey or {}).get("sleep_hours", st.session_state.get("sleep_hours", 7)))
-user_fast_food = float((survey or {}).get("fast_food_per_week", st.session_state.get("fast_food_per_week", 2)))
-user_activity = float((survey or {}).get("physical_activity_days", st.session_state.get("physical_activity_days", 3)))
-user_screen = float((survey or {}).get("screen_hours", st.session_state.get("screen_hours", 6)))
-user_sleep_quality = float((survey or {}).get("sleep_quality", st.session_state.get("sleep_quality", 3)))
-user_eat_late = float((survey or {}).get("eat_after_10pm", st.session_state.get("eat_after_10pm", 0)))
-user_caffeine_late = float((survey or {}).get("caffeine_after_8pm", st.session_state.get("caffeine_after_8pm", 0)))
-user_low_energy = float((survey or {}).get("low_energy_frequency", st.session_state.get("low_energy_frequency", 3)))
+user_caffeine = float(st.session_state.get("caffeine_per_day", 2))
+user_sleep = float(st.session_state.get("sleep_hours", 7))
+user_fast_food = float(st.session_state.get("fast_food_per_week", 2))
+user_activity = float(st.session_state.get("physical_activity_days", 3))
+user_screen = float(st.session_state.get("screen_hours", 6))
+user_sleep_quality = float(st.session_state.get("sleep_quality", 3))
+user_eat_late = float(st.session_state.get("eat_after_10pm", 0))
+user_caffeine_late = float(st.session_state.get("caffeine_after_8pm", 0))
+user_low_energy = float(st.session_state.get("low_energy_frequency", 3))
 
-saved_risk_score = (survey or {}).get("risk_score")
-if saved_risk_score is not None:
-    risk_score = int(saved_risk_score)
-else:
-    risk_score = (
-        user_caffeine * 4
-        + user_fast_food * 3
-        + user_screen * 3
-        + max(0, 8 - user_sleep) * 4
-        + (5 - user_sleep_quality) * 5
-        + user_eat_late * 8
-        + user_caffeine_late * 8
-        + (user_low_energy - 1) * 4
-        - user_activity * 3
-    )
-    risk_score = max(0, min(round(risk_score), 100))
+risk_score = (
+    user_caffeine * 4
+    + user_fast_food * 3
+    + user_screen * 3
+    + max(0, 8 - user_sleep) * 4
+    + (5 - user_sleep_quality) * 5
+    + user_eat_late * 8
+    + user_caffeine_late * 8
+    + (user_low_energy - 1) * 4
+    - user_activity * 3
+)
+risk_score = max(0, min(round(risk_score), 100))
 
-saved_risk_level = (survey or {}).get("risk_level")
-if saved_risk_level:
-    final_risk_level = str(saved_risk_level).lower()
+if risk_score <= 30:
+    final_risk_level = "low"
+elif risk_score >= 60:
+    final_risk_level = "high"
 else:
-    if risk_score <= 30:
-        final_risk_level = "low"
-    elif risk_score >= 60:
-        final_risk_level = "high"
-    else:
-        final_risk_level = "moderate"
+    final_risk_level = "moderate"
 
 # =========================
 # KPI DATA
@@ -213,65 +190,12 @@ kpi_html = "".join(
     for item in kpis
 )
 
-user_name = (user or {}).get("name") or ""
-survey_name = (survey or {}).get("full_name")
-profile_name = (
-    user_name
-    if user_name and user_name.strip().lower() != "user"
-    else (survey_name or user_name or "User")
-)
-profile_email = (user or {}).get("email") or "Not available"
-profile_age = (user or {}).get("age") if (user or {}).get("age") is not None else (survey or {}).get("age")
-profile_gender = (user or {}).get("gender") or "-"
-profile_weight = (user or {}).get("weight")
-profile_height = (user or {}).get("height")
-
-def _fmt_value(value):
-    return "-" if value is None or value == "" else str(value)
-
-profile_html = f"""
-<div class="profile-panel">
-    <div class="profile-head">
-        <div class="avatar">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
-            </svg>
-        </div>
-        <div>
-            <div class="profile-name">{profile_name}</div>
-            <div class="profile-email">{profile_email}</div>
-        </div>
-    </div>
-
-    <div class="field">
-        <label>Full Name</label>
-        <div class="field-box">{profile_name}</div>
-    </div>
-    <div class="field">
-        <label>Age</label>
-        <div class="field-box">{_fmt_value(profile_age)}</div>
-    </div>
-    <div class="field">
-        <label>Gender</label>
-        <div class="field-box">{profile_gender}</div>
-    </div>
-    <div class="field">
-        <label>Weight (kg)</label>
-        <div class="field-box">{_fmt_value(profile_weight)}</div>
-    </div>
-    <div class="field">
-        <label>Height (cm)</label>
-        <div class="field-box">{_fmt_value(profile_height)}</div>
-    </div>
-</div>
-"""
-
 # =========================
 # CLUSTER CHART DATA
 # =========================
 cluster_file = PROJECT_DIR / "data" / "clustering_results.csv"
 cluster_html = ""
-cluster_name_for_projection = (survey or {}).get("projection_cluster") or "Lifestyle Cluster"
+cluster_name_for_projection = "Lifestyle Cluster"
 
 if cluster_file.exists():
     cluster_data = pd.read_csv(cluster_file)
@@ -327,13 +251,6 @@ if cluster_file.exists():
     user_cluster = min(distances, key=distances.get)
     user_cluster_name = cluster_names.get(user_cluster, f"Cluster {user_cluster}")
     cluster_name_for_projection = user_cluster_name
-    if user_id:
-        update_user_projection(
-            user_id,
-            projection_cluster=cluster_name_for_projection,
-            risk_score=risk_score,
-            risk_level=final_risk_level,
-        )
 
     cluster_summary = (
         cluster_data.groupby("cluster")
@@ -429,43 +346,7 @@ else:
     </div>
     """
 
-fig_risk = build_risk_level_fig()
-fig_trend = build_caffeine_sleep_fig()
-
-risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs=False)
-trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs=False)
-
-charts_html = f"""
-<div class="survey-charts">
-    <div class="chart-card">
-        <div class="chart-title">Risk level distribution</div>
-        <div class="chart-box">
-            {risk_html}
-        </div>
-    </div>
-    <div class="chart-card">
-        <div class="chart-title">Caffeine vs Sleep Trends</div>
-        <div class="chart-box">
-            {trend_html}
-        </div>
-    </div>
-</div>
-"""
-
 projection = get_projection_content(final_risk_level, cluster_name_for_projection)
-projection_title = (survey or {}).get("projection_title") or projection["title"]
-projection_status = (survey or {}).get("projection_status") or projection["status"]
-projection_cluster = (survey or {}).get("projection_cluster") or projection["cluster"]
-
-if user_id and (survey is not None):
-    update_user_projection(
-        user_id,
-        risk_score=risk_score,
-        risk_level=final_risk_level,
-        projection_title=projection_title,
-        projection_status=projection_status,
-        projection_cluster=projection_cluster,
-    )
 
 projection_img_html = (
     f"<img src='data:image/png;base64,{projection['image']}' class='projection-body-img' alt='Projection body' />"
@@ -690,16 +571,6 @@ html = f"""
         gap: 18px;
     }}
 
-    .main-area.profile-mode {{
-        align-items: stretch;
-    }}
-
-    .profile-center {{
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }}
-
     .dashboard-header {{
         display: flex;
         flex-direction: column;
@@ -715,61 +586,6 @@ html = f"""
     .dashboard-subtitle {{
         font-size: 14px;
         color: #9aa6d1;
-    }}
-
-    .profile-panel {{
-        width: min(560px, 70vw);
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        margin-top: 10px;
-    }}
-
-    .profile-head {{
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 8px;
-    }}
-
-    .avatar {{
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #B628E2, #6E4CFF);
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-weight: 700;
-    }}
-
-    .profile-name {{
-        font-size: 20px;
-        color: #dbe6ff;
-    }}
-
-    .profile-email {{
-        font-size: 14px;
-        color: #92ADC9;
-    }}
-
-    .field {{
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }}
-
-    .field label {{
-        color: #92ADC9;
-        font-size: 14px;
-    }}
-
-    .field-box {{
-        background: #0E1838;
-        color: #6E7488;
-        padding: 14px 16px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.04);
     }}
 
     .kpi-grid {{
@@ -877,7 +693,7 @@ html = f"""
         width: 100%;
         min-height: 520px;
         border-radius: 26px;
-        border: 1px solid rgba(255,255,255,0.10);
+        border: 1px dashed rgba(255,255,255,0.14);
         background: rgba(255,255,255,0.02);
         padding: 18px 18px 12px;
         overflow: hidden;
@@ -931,34 +747,6 @@ html = f"""
         padding: 20px;
     }}
 
-    .survey-charts {{
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-        margin-top: 18px;
-    }}
-
-    .chart-card {{
-        background: rgba(22, 33, 94, 0.92);
-        border: 1px solid rgba(255,255,255,0.10);
-        border-radius: 20px;
-        padding: 16px;
-        box-shadow: inset 0 0 18px rgba(255,255,255,0.03);
-        min-height: 320px;
-    }}
-
-    .chart-title {{
-        font-size: 16px;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 8px;
-    }}
-
-    .chart-box {{
-        width: 100%;
-        height: 100%;
-    }}
-
     @media (max-width: 1200px) {{
         .kpi-grid {{
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -977,10 +765,6 @@ html = f"""
 
         .cluster-chart-box {{
             height: 420px;
-        }}
-
-        .survey-charts {{
-            grid-template-columns: 1fr;
         }}
     }}
 
@@ -1010,7 +794,7 @@ html = f"""
             <div class="divider"></div>
 
             <div class="nav">
-                <a class="nav-item {'active' if is_dashboard else ''}" href="/Dashboard?tab=dashboard&risk={risk_level}&uid={user_id or ''}" target="_top">
+                <a class="nav-item {'active' if is_dashboard else ''}" href="/Dashboard?tab=dashboard&risk={risk_level}" target="_top">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 11.5L12 4L21 11.5V21H14.5V14.5H9.5V21H3V11.5Z" fill="white"/>
@@ -1019,7 +803,7 @@ html = f"""
                     <div class="nav-label">Dashboard</div>
                 </a>
 
-                <a class="nav-item {'active' if is_profile else ''}" href="/Dashboard?tab=profile&risk={risk_level}&uid={user_id or ''}" target="_top">
+                <a class="nav-item {'active' if is_profile else ''}" href="/Dashboard?tab=profile&risk={risk_level}" target="_top">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
@@ -1040,24 +824,24 @@ html = f"""
                 </div>
 
                 <div class="risk-badge" style="background:{projection['badge']}">
-                    {projection_title}
+                    {projection['title']}
                 </div>
 
                 <div class="projection-mini">
                     <div class="mini-box">
                         <div class="mini-label">Projected Condition</div>
-                        <div class="mini-value">{projection_status}</div>
+                        <div class="mini-value">{projection['status']}</div>
                     </div>
 
                     <div class="mini-box">
                         <div class="mini-label">Current Pattern</div>
-                        <div class="mini-value">{projection_cluster}</div>
+                        <div class="mini-value">{projection['cluster']}</div>
                     </div>
                 </div>
             </div>
         </aside>
 
-        <main class="main-area {'profile-mode' if is_profile else ''}">
+        <main class="main-area">
             <div class="dashboard-header">
                 <div class="dashboard-title">
                     {"Dashboard" if is_dashboard else "Profile"}
@@ -1067,7 +851,11 @@ html = f"""
                 </div>
             </div>
 
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html + charts_html if is_dashboard else "<div class='profile-center'>" + profile_html + "</div>"}
+            <div class="kpi-grid">
+                {kpi_html}
+            </div>
+
+            {cluster_html}
         </main>
     </div>
 </body>
@@ -1114,4 +902,4 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-components.html(html, height=1650, scrolling=False)
+components.html(html, height=1120, scrolling=False)
