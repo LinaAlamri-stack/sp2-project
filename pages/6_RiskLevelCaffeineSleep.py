@@ -3,7 +3,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
+from risk_charts import build_caffeine_cups_fig, build_gender_fig
 
 st.set_page_config(page_title="RiskLevelCaffeineSleep | Riyalyze", layout="wide")
 
@@ -114,11 +114,11 @@ st.markdown("## User Survey Results")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### Risk level distribution")
-    fig_risk = build_risk_level_fig()
-    st.plotly_chart(fig_risk, use_container_width=True)
+    st.markdown("### Gender Distribution")
+    fig_gender = build_gender_fig()
+    st.plotly_chart(fig_gender, use_container_width=True)
 
 with col2:
-    st.markdown("### Caffeine vs Sleep Trends")
-    fig_trend = build_caffeine_sleep_fig()
-    st.plotly_chart(fig_trend, use_container_width=True)
+    st.markdown("### Daily Cups Consumption")
+    fig_cups = build_caffeine_cups_fig()
+    st.plotly_chart(fig_cups, use_container_width=True)

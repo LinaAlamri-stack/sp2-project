@@ -86,7 +86,13 @@ import streamlit.components.v1 as components
 import plotly.io as pio
 
 from database import get_user_by_id, get_user_survey, init_db, update_user_projection
-from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
+from risk_charts import (
+    build_caffeine_cups_fig,
+    build_caffeine_sleep_fig,
+    build_gender_fig,
+    get_total_user_count,
+    build_risk_level_fig,
+)
 
 st.set_page_config(
     page_title="Dashboard | Riyalyze",
@@ -188,7 +194,13 @@ except Exception as e:
     newchart_html = f"<h3 style='color:red'>Somthing went wrong</h3>"
 
 from database import get_user_by_id, get_user_survey, init_db, update_user_projection
-from risk_charts import build_caffeine_sleep_fig, build_risk_level_fig
+from risk_charts import (
+    build_caffeine_cups_fig,
+    build_caffeine_sleep_fig,
+    build_gender_fig,
+    get_total_user_count,
+    build_risk_level_fig,
+)
 
 st.set_page_config(
     page_title="Dashboard | Riyalyze",
@@ -286,7 +298,7 @@ if isinstance(risk_level, list):
     risk_level = risk_level[0] if risk_level else None
 risk_level = (risk_level or "moderate").lower()
 
-is_dashboard = True
+is_dashboard = tab == "dashboard"
 is_profile = tab == "profile"
 
 user_id = st.session_state.get("user_id")
@@ -435,6 +447,7 @@ profile_age = (user or {}).get("age") if (user or {}).get("age") is not None els
 profile_gender = (user or {}).get("gender") or "-"
 profile_weight = (user or {}).get("weight")
 profile_height = (user or {}).get("height")
+total_users_count = get_total_user_count()
 
 def _fmt_value(value):
     return "-" if value is None or value == "" else str(value)
@@ -639,13 +652,15 @@ else:
     </div>
     """
 
+fig_gender = build_gender_fig()
+fig_cups = build_caffeine_cups_fig()
 fig_risk = build_risk_level_fig()
 fig_trend = build_caffeine_sleep_fig()
 
 risk_html = pio.to_html(fig_risk, full_html=False, include_plotlyjs="cdn")
-trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs="cdn")
-
-(nchart1,nchart2) = nview.render_charts(df)
+trend_html = pio.to_html(fig_trend, full_html=False, include_plotlyjs=False)
+gender_html = pio.to_html(fig_gender, full_html=False, include_plotlyjs=False)
+cups_html = pio.to_html(fig_cups, full_html=False, include_plotlyjs=False)
 charts_html = f"""
 <div class="survey-charts">
     <div class="chart-card">
@@ -666,18 +681,16 @@ charts_html = f"""
     <div class="chart-card">
         <div class="chart-title">Gender Distribution</div>
         <div class="chart-box">
-            {nchart1}
+            {gender_html}
         </div>
     </div>
     <div class="chart-card">
-        <div class="chart-title">How many cups a Day</div>
+        <div class="chart-title">Daily Cups Consumption</div>
         <div class="chart-box">
-            {nchart2}
+            {cups_html}
         </div>
     </div>
 </div>
-
-
 """
 
 
@@ -795,6 +808,12 @@ html = f"""
         border-radius: 24px;
         border: 1px solid transparent;
         transition: all 180ms ease;
+        width: 100%;
+        background: transparent;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        font: inherit;
     }}
 
     .nav-item.active {{
@@ -921,6 +940,14 @@ html = f"""
         gap: 18px;
     }}
 
+    .tab-panel {{
+        display: none;
+    }}
+
+    .tab-panel.active {{
+        display: block;
+    }}
+
     .main-area.profile-mode {{
         align-items: stretch;
     }}
@@ -935,6 +962,44 @@ html = f"""
         display: flex;
         flex-direction: column;
         gap: 6px;
+    }}
+
+    .dashboard-topbar {{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 4px;
+        min-height: 44px;
+    }}
+
+    .dashboard-topbar.placeholder {{
+        visibility: hidden;
+    }}
+
+    .dashboard-users-chip {{
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 16px;
+        background: rgba(22, 33, 94, 0.92);
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: inset 0 0 18px rgba(255,255,255,0.03);
+    }}
+
+    .dashboard-users-label {{
+        font-size: 11px;
+        color: #9aa6d1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+    }}
+
+    .dashboard-users-value {{
+        font-size: 22px;
+        color: #ffffff;
+        font-weight: 800;
+        line-height: 1;
     }}
 
     .dashboard-title {{
@@ -1247,23 +1312,23 @@ html = f"""
             <div class="divider"></div>
 
             <div class="nav">
-                <a class="nav-item {'active' if is_dashboard else ''}" href="/Dashboard?tab=dashboard&risk={risk_level}&uid={user_id or ''}" target="_top">
+                <button type="button" class="nav-item {'active' if is_dashboard else ''}" data-tab-button="dashboard" onclick="switchTab('dashboard')">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 11.5L12 4L21 11.5V21H14.5V14.5H9.5V21H3V11.5Z" fill="white"/>
                         </svg>
                     </div>
                     <div class="nav-label">Dashboard</div>
-                </a>
+                </button>
 
-                <a class="nav-item {'active' if is_profile else ''}" href="/Dashboard?tab=profile&risk={risk_level}&uid={user_id or ''}" target="_top">
+                <button type="button" class="nav-item {'active' if is_profile else ''}" data-tab-button="profile" onclick="switchTab('profile')">
                     <div class="nav-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" fill="white"/>
                         </svg>
                     </div>
                     <div class="nav-label">Profile</div>
-                </a>
+                </button>
             </div>
 
             <div class="projection-card">
@@ -1294,19 +1359,41 @@ html = f"""
             </div>
         </aside>
 
-        <main class="main-area {'profile-mode' if is_profile else ''}">
-            <div class="dashboard-header">
-                <div class="dashboard-title">
-                    {"Dashboard" if is_dashboard else "Profile"}
+        <main class="main-area">
+            <div id="dashboard-panel" class="tab-panel {'active' if is_dashboard else ''}">
+                <div class="dashboard-header">
+                    <div class='dashboard-topbar'><div class='dashboard-users-chip'><span class='dashboard-users-label'>Total Users</span><span class='dashboard-users-value'>{total_users_count}</span></div></div>
+                    <div class="dashboard-title">Dashboard</div>
+                    <div class="dashboard-subtitle">Your analytics overview will appear here.</div>
                 </div>
-                <div class="dashboard-subtitle">
-                    {"Your analytics overview will appear here." if is_dashboard else "Your personal information will appear here."}
-                </div>
+                <div class='kpi-grid'>{kpi_html}</div>{cluster_html}{charts_html}
             </div>
-           
-            {"<div class='kpi-grid'>" + kpi_html + "</div>" + cluster_html +  charts_html  if is_dashboard else ""}
-           
+
+            <div id="profile-panel" class="tab-panel {'active' if is_profile else ''}">
+                <div class="dashboard-header">
+                    <div class='dashboard-topbar placeholder'><div class='dashboard-users-chip'><span class='dashboard-users-label'>Total Users</span><span class='dashboard-users-value'>0</span></div></div>
+                    <div class="dashboard-title">Profile</div>
+                    <div class="dashboard-subtitle">Your personal information will appear here.</div>
+                </div>
+                <div class='profile-center'>{profile_html}</div>
+            </div>
+        </main>
     </div>
+<script>
+function switchTab(tabName) {{
+    const dashboardPanel = document.getElementById('dashboard-panel');
+    const profilePanel = document.getElementById('profile-panel');
+    const tabButtons = document.querySelectorAll('[data-tab-button]');
+
+    dashboardPanel.classList.toggle('active', tabName === 'dashboard');
+    profilePanel.classList.toggle('active', tabName === 'profile');
+
+    tabButtons.forEach((button) => {{
+        const isActive = button.getAttribute('data-tab-button') === tabName;
+        button.classList.toggle('active', isActive);
+    }});
+}}
+</script>
 </body>
 </html>
 """
