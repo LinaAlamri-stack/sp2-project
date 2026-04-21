@@ -1,0 +1,238 @@
+Timestamp,Current Status,2. Age,3. Gender,caffeine_per_day,5. The most consumed type of caffeine drinks,6. Timing of caffeine consumption (most common time),caffeine_after_8pm,fast_food_per_week,9. Regularity of meal schedules,eat_after_10pm,sleep_hours,sleep_quality,physical_activity_days,screen_hours,low_energy_frequency
+2/4/2026 15:32:15,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,5.0,Semi-regular,1,9.0,3,0.0,9.0,3.0
+2/4/2026 15:34:14,Student,18 - 22,Female,0.0,tea,Afternoon,0,1.5,Irregular,1,,3,3.5,9.0,3.0
+2/4/2026 15:42:18,Employee,28 - 35,Female,1.5,"Coffee, Soft strings",Morning,1,5.0,Semi-regular,1,,2,1.5,9.0,
+2/4/2026 15:49:20,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Night,1,1.5,Irregular,2,,1,3.5,9.0,3.0
+2/4/2026 15:53:41,Student,28 - 35,Female,1.5,Coffee,Evening,1,5.0,Regular,1,,2,1.5,9.0,
+2/4/2026 15:54:53,Student,23 - 27,Female,0.0,Coffee,Afternoon,0,1.5,Irregular,2,,2,1.5,9.0,
+2/4/2026 15:56:53,Student,18 - 22,Male,1.5,"Coffee, Energy drinks",Morning,0,0.0,Regular,1,,4,5.0,,
+2/4/2026 16:10:57,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,5.0,Semi-regular,1,,2,3.5,,
+2/4/2026 16:13:56,Employee,28 - 35,Male,,Coffee,Morning,1,5.0,Irregular,2,4.0,1,5.0,9.0,3.0
+2/4/2026 16:20:15,Student,18 - 22,Male,1.5,"Coffee, tea",Morning,0,3.5,Semi-regular,1,,1,0.0,9.0,3.0
+2/4/2026 16:20:22,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,0,1.5,Regular,2,,3,3.5,,
+2/4/2026 16:22:16,Other,23 - 27,Female,1.5,Coffee,Morning,0,1.5,Semi-regular,0,,3,3.5,,3.0
+2/4/2026 16:22:57,Student,18 - 22,Male,0.0,tea,Night,1,1.5,Semi-regular,1,,3,1.5,,
+2/4/2026 16:24:19,Student,23 - 27,Male,1.5,Coffee,Morning,0,1.5,Semi-regular,1,,3,3.5,,
+2/4/2026 16:24:56,Other,23 - 27,Male,1.5,Coffee,Morning,0,3.5,Irregular,1,,1,1.5,,3.0
+2/4/2026 16:35:22,Student,18 - 22,Female,1.5,"Coffee, tea",Evening,0,0.0,Semi-regular,2,,2,1.5,,3.0
+2/4/2026 17:03:14,Student,23 - 27,Female,1.5,Coffee,Evening,0,1.5,Semi-regular,1,,2,1.5,9.0,
+2/4/2026 18:16:25,Employee,28 - 35,Female,,Coffee,Morning,1,5.0,Irregular,2,,1,0.0,,3.0
+2/4/2026 18:49:56,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Night,1,1.5,Semi-regular,1,,2,5.0,9.0,3.0
+2/4/2026 18:56:58,Employee,28 - 35,Female,0.0,tea,Night,0,3.5,Irregular,1,,4,0.0,,
+2/4/2026 18:59:33,Other,23 - 27,Female,,"Coffee, Energy drinks, Soft strings",Morning,0,3.5,Irregular,1,,2,0.0,9.0,3.0
+2/4/2026 19:02:43,Employee,23 - 27,Female,,"Coffee, Energy drinks",Morning,1,1.5,Regular,1,,2,3.5,,
+2/4/2026 19:05:54,Other,36+,Female,,"Coffee, Soft strings",Morning,0,5.0,Irregular,1,9.0,2,0.0,9.0,3.0
+2/4/2026 19:09:42,Employee,23 - 27,Female,1.5,Coffee,Morning,1,3.5,Irregular,1,,3,1.5,9.0,3.0
+2/4/2026 19:13:56,Other,23 - 27,Female,,"Coffee, Energy drinks",Morning,1,5.0,Irregular,2,,2,1.5,9.0,3.0
+2/4/2026 19:21:34,Student,18 - 22,Male,1.5,Coffee,Morning,1,5.0,Irregular,1,,2,0.0,,3.0
+2/4/2026 19:25:00,Employee,23 - 27,Female,1.5,"Coffee, Soft strings",Morning,0,3.5,Semi-regular,1,,3,0.0,,3.0
+2/4/2026 19:25:14,Student,18 - 22,Male,0.0,Soft strings,Night,1,5.0,Semi-regular,1,,3,0.0,9.0,
+2/4/2026 19:39:52,Employee,23 - 27,Female,1.5,"Coffee, Energy drinks",Evening,1,3.5,Irregular,2,9.0,3,3.5,9.0,
+2/4/2026 19:40:17,Other,23 - 27,Female,1.5,Coffee,Afternoon,0,5.0,Irregular,1,9.0,2,1.5,9.0,3.0
+2/4/2026 20:23:38,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,2,,3,0.0,,
+2/4/2026 20:45:01,Student,18 - 22,Male,1.5,Coffee,Afternoon,0,5.0,Semi-regular,2,,4,0.0,,
+2/4/2026 21:20:07,Employee,23 - 27,Female,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,1,,3,1.5,9.0,
+2/4/2026 22:06:09,Other,36+,Female,1.5,Coffee,Evening,0,1.5,Irregular,0,,1,0.0,2.0,
+2/4/2026 22:07:12,Student,23 - 27,Female,1.5,"Coffee, Energy drinks",Evening,0,1.5,Irregular,2,,2,1.5,,
+2/4/2026 22:52:39,Student,23 - 27,Female,,"Coffee, Energy drinks, Soft strings",Afternoon,1,1.5,Irregular,2,,1,3.5,9.0,3.0
+2/4/2026 23:41:59,Employee,23 - 27,Female,1.5,Coffee,Morning,0,3.5,Semi-regular,1,,4,1.5,9.0,
+2/5/2026 1:54:23,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,1.5,Irregular,1,,4,3.5,,3.0
+2/5/2026 5:05:51,Other,18 - 22,Male,1.5,"Coffee, tea",Morning,1,3.5,Semi-regular,1,,2,1.5,9.0,
+2/5/2026 13:15:03,Employee,28 - 35,Female,1.5,"Coffee, tea",Afternoon,0,1.5,Irregular,0,,2,0.0,9.0,3.0
+2/5/2026 16:10:24,Student,23 - 27,Female,1.5,Coffee,Evening,1,3.5,Irregular,2,9.0,2,1.5,,
+2/5/2026 16:13:19,Other,36+,Male,1.5,"Coffee, tea",Evening,1,1.5,Semi-regular,0,,3,3.5,,
+2/5/2026 16:14:18,Employee,28 - 35,Female,,Coffee,Morning,1,1.5,Regular,2,,2,5.0,,
+2/5/2026 16:20:48,Other,23 - 27,Female,1.5,Coffee,Morning,0,1.5,Regular,0,,3,3.5,,
+2/5/2026 16:24:56,Employee,36+,Male,1.5,"Coffee, tea",Night,1,1.5,Regular,0,,3,1.5,2.0,
+2/5/2026 16:27:11,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,0,,3,1.5,,
+2/5/2026 16:31:41,Other,36+,Male,1.5,Coffee,Morning,1,0.0,Semi-regular,0,,2,0.0,,
+2/5/2026 16:48:45,Other,36+,Male,1.5,Coffee,Evening,0,5.0,Semi-regular,2,,2,1.5,,
+2/5/2026 16:48:55,Employee,36+,Male,,"Coffee, tea",Evening,1,1.5,Irregular,2,,2,1.5,9.0,
+2/5/2026 16:49:52,Employee,36+,Male,1.5,Coffee,Morning,0,0.0,Regular,0,,3,1.5,2.0,
+2/5/2026 16:51:01,Employee,36+,Male,,"Coffee, tea",Evening,1,0.0,Semi-regular,0,,4,1.5,,
+2/5/2026 16:52:12,Student,18 - 22,Male,1.5,tea,Morning,0,1.5,Irregular,0,,2,1.5,,
+2/5/2026 16:53:16,Other,36+,Male,,tea,Evening,1,0.0,Semi-regular,1,,3,1.5,2.0,
+2/5/2026 16:53:32,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,0.0,Semi-regular,1,,3,3.5,,
+2/5/2026 16:55:15,Employee,36+,Female,1.5,Coffee,Morning,0,3.5,Irregular,0,,3,0.0,9.0,3.0
+2/5/2026 16:56:08,Employee,36+,Male,,tea,Evening,1,1.5,Irregular,0,,1,0.0,9.0,
+2/5/2026 16:57:33,Student,18 - 22,Female,1.5,Coffee,Morning,0,1.5,Semi-regular,0,,4,1.5,,
+2/5/2026 16:57:38,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Morning,1,1.5,Irregular,1,9.0,2,1.5,9.0,
+2/5/2026 17:01:04,Employee,36+,Male,1.5,tea,Morning,0,1.5,Regular,0,,4,3.5,,
+2/5/2026 17:07:05,Employee,36+,Male,1.5,Coffee,Morning,0,0.0,Regular,1,,3,0.0,,
+2/5/2026 17:07:06,Student,18 - 22,Female,1.5,Coffee,Morning,0,5.0,Semi-regular,0,,2,0.0,9.0,3.0
+2/5/2026 17:08:03,Employee,23 - 27,Female,1.5,"Coffee, Energy drinks",Morning,1,1.5,Semi-regular,0,,2,3.5,9.0,3.0
+2/5/2026 17:08:21,Other,23 - 27,Female,1.5,Coffee,Afternoon,1,1.5,Semi-regular,1,,2,0.0,9.0,
+2/5/2026 17:14:29,Other,23 - 27,Female,1.5,"Coffee, tea",Evening,0,1.5,Semi-regular,1,9.0,4,0.0,9.0,3.0
+2/5/2026 17:22:39,Employee,36+,Female,1.5,Coffee,Morning,0,1.5,Regular,1,,3,0.0,,
+2/5/2026 17:26:20,Employee,36+,Female,1.5,tea,Morning,0,3.5,Irregular,1,,2,3.5,9.0,3.0
+2/5/2026 17:26:33,Other,23 - 27,Male,1.5,Coffee,Night,1,5.0,Irregular,2,,1,0.0,,3.0
+2/5/2026 17:38:09,Student,18 - 22,Female,1.5,"tea, Soft strings",Afternoon,0,1.5,Irregular,0,,4,3.5,9.0,
+2/5/2026 17:44:10,Employee,36+,Male,1.5,"Coffee, tea",Afternoon,0,1.5,Semi-regular,0,,3,1.5,,
+2/5/2026 17:54:24,Employee,36+,Male,1.5,"Coffee, tea",Evening,1,1.5,Irregular,1,4.0,3,0.0,2.0,3.0
+2/5/2026 18:10:19,Other,36+,Male,1.5,tea,Afternoon,1,1.5,Regular,2,,3,0.0,,
+2/5/2026 18:58:29,Employee,36+,Female,1.5,Coffee,Evening,0,1.5,Semi-regular,1,,3,0.0,2.0,
+2/5/2026 18:58:54,Employee,36+,Male,1.5,"Coffee, tea",Morning,1,1.5,Irregular,1,,2,0.0,,
+2/5/2026 19:18:48,Employee,28 - 35,Male,1.5,tea,Evening,0,3.5,Irregular,0,,4,1.5,9.0,
+2/5/2026 19:31:11,Employee,36+,Male,5.0,"Coffee, tea",Afternoon,1,1.5,Semi-regular,1,,3,3.5,,
+2/5/2026 19:31:44,Employee,36+,Male,,"Coffee, tea, Soft strings",Evening,1,1.5,Semi-regular,0,,3,0.0,2.0,
+2/5/2026 19:34:31,Employee,28 - 35,Female,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,1,,2,1.5,9.0,
+2/5/2026 19:38:37,Employee,36+,Male,1.5,tea,Evening,1,5.0,Semi-regular,2,,3,1.5,9.0,
+2/5/2026 19:40:07,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Morning,1,1.5,Semi-regular,0,,2,1.5,9.0,3.0
+2/5/2026 19:48:14,Employee,36+,Male,0.0,"Coffee, tea",Evening,0,1.5,Semi-regular,0,,2,0.0,,
+2/5/2026 19:50:00,Employee,36+,Male,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,1,,2,1.5,,
+2/5/2026 19:50:02,Employee,36+,Male,,Coffee,Morning,0,1.5,Regular,0,,3,1.5,,
+2/5/2026 19:51:38,Employee,28 - 35,Male,,"Coffee, Soft strings",Morning,0,3.5,Irregular,1,,2,0.0,9.0,3.0
+2/5/2026 20:03:19,Employee,36+,Female,,"Coffee, tea",Morning,0,0.0,Irregular,1,4.0,1,0.0,9.0,3.0
+2/5/2026 20:10:24,Other,36+,Female,1.5,"Coffee, Soft strings",Morning,0,3.5,Semi-regular,1,,2,1.5,,3.0
+2/5/2026 20:19:20,Employee,36+,Male,,"Coffee, tea",Evening,1,3.5,Semi-regular,1,,2,0.0,,
+2/5/2026 20:31:48,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Regular,0,,3,0.0,,
+2/5/2026 20:34:19,Employee,28 - 35,Male,,"Coffee, tea",Morning,1,1.5,Regular,0,,3,3.5,9.0,
+2/5/2026 20:42:48,Student,18 - 22,Female,1.5,Coffee,Night,1,1.5,Irregular,1,,2,1.5,,3.0
+2/5/2026 20:43:01,Student,18 - 22,Female,1.5,"Coffee, tea",Evening,1,3.5,Semi-regular,1,,2,3.5,,
+2/5/2026 21:00:28,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Morning,1,3.5,Irregular,1,,2,1.5,,
+2/5/2026 21:08:23,Student,18 - 22,Female,1.5,"Coffee, tea",Evening,0,1.5,Semi-regular,1,,3,1.5,9.0,
+2/5/2026 21:10:39,Student,18 - 22,Female,1.5,Coffee,Evening,0,1.5,Semi-regular,1,9.0,3,5.0,9.0,
+2/5/2026 21:12:26,Student,18 - 22,Female,1.5,Coffee,Afternoon,0,1.5,Regular,1,,2,1.5,9.0,
+2/5/2026 21:12:43,Student,18 - 22,Male,1.5,"Coffee, tea",Afternoon,0,3.5,Irregular,1,,2,3.5,,
+2/5/2026 21:16:04,Student,18 - 22,Female,1.5,Coffee,Evening,0,3.5,Regular,0,,3,5.0,9.0,3.0
+2/5/2026 21:16:09,Student,18 - 22,Female,0.0,Soft strings,Night,1,3.5,Regular,1,,2,3.5,,
+2/5/2026 21:18:29,Student,18 - 22,Female,1.5,tea,Afternoon,1,1.5,Regular,1,,4,5.0,,
+2/5/2026 21:27:46,Student,18 - 22,Female,0.0,Soft strings,Evening,0,1.5,Irregular,2,,3,0.0,9.0,
+2/5/2026 21:40:23,Employee,36+,Male,,"Coffee, tea",Afternoon,1,0.0,Irregular,1,,2,0.0,,3.0
+2/5/2026 21:52:46,Student,18 - 22,Female,0.0,"Coffee, Soft strings",Evening,0,1.5,Irregular,0,,3,1.5,9.0,3.0
+2/5/2026 22:01:45,Employee,36+,Male,5.0,"Coffee, tea",Morning,1,1.5,Semi-regular,1,,4,1.5,,
+2/5/2026 22:02:45,Employee,28 - 35,Male,1.5,Coffee,Afternoon,1,5.0,Irregular,2,,3,0.0,9.0,3.0
+2/5/2026 22:02:46,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Night,1,1.5,Semi-regular,1,,2,1.5,,
+2/5/2026 22:08:46,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,2,4.0,2,3.5,,
+2/5/2026 22:11:56,Employee,36+,Male,,Coffee,Morning,1,1.5,Semi-regular,1,,1,1.5,9.0,
+2/5/2026 22:12:45,Employee,36+,Male,1.5,Coffee,Morning,0,1.5,Semi-regular,2,,2,1.5,,
+2/5/2026 22:15:34,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,0,,3,1.5,2.0,
+2/5/2026 22:16:23,Employee,36+,Male,1.5,Coffee,Morning,0,0.0,Semi-regular,0,,2,1.5,,
+2/5/2026 22:21:38,Other,36+,Male,,Coffee,Afternoon,1,3.5,Irregular,2,9.0,3,1.5,2.0,
+2/5/2026 22:27:17,Employee,36+,Male,5.0,tea,Evening,1,0.0,Semi-regular,1,,2,1.5,9.0,
+2/5/2026 22:29:38,Employee,28 - 35,Female,1.5,"Coffee, tea",Evening,1,1.5,Regular,1,,2,1.5,,3.0
+2/5/2026 22:34:36,Student,18 - 22,Female,1.5,Soft strings,Evening,1,3.5,Semi-regular,2,,2,1.5,,
+2/5/2026 22:37:03,Employee,36+,Female,,"Coffee, tea",Morning,1,0.0,Regular,1,4.0,2,3.5,,
+2/5/2026 22:37:35,Employee,23 - 27,Female,1.5,Coffee,Morning,1,3.5,Regular,2,,2,3.5,,3.0
+2/5/2026 22:37:37,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Evening,1,1.5,Semi-regular,1,,3,1.5,,
+2/5/2026 22:39:39,Student,18 - 22,Female,0.0,Coffee,Morning,0,1.5,Regular,1,9.0,3,3.5,,
+2/5/2026 22:39:47,Other,28 - 35,Female,1.5,Coffee,Afternoon,0,1.5,Semi-regular,1,,1,0.0,,
+2/5/2026 22:39:58,Employee,28 - 35,Female,1.5,"Coffee, Soft strings",Morning,0,1.5,Semi-regular,1,,4,3.5,9.0,
+2/5/2026 22:44:11,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Afternoon,0,0.0,Semi-regular,1,4.0,2,0.0,,
+2/5/2026 22:44:44,Student,18 - 22,Female,1.5,"Coffee, tea",Afternoon,0,3.5,Semi-regular,1,,3,1.5,,
+2/5/2026 22:45:38,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,1,,3,1.5,,
+2/5/2026 22:45:43,Student,18 - 22,Female,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,1,,3,1.5,,
+2/5/2026 22:45:59,Student,18 - 22,Female,1.5,"Coffee, tea",Evening,0,1.5,Semi-regular,1,9.0,4,1.5,9.0,
+2/5/2026 22:51:44,Employee,28 - 35,Male,1.5,tea,Morning,1,5.0,Semi-regular,1,,3,3.5,,
+2/5/2026 22:53:17,Other,23 - 27,Female,1.5,"Coffee, tea",Evening,1,1.5,Semi-regular,1,,2,0.0,,
+2/5/2026 22:54:49,Student,18 - 22,Female,1.5,"Coffee, tea",Night,1,1.5,Irregular,2,,1,0.0,9.0,
+2/5/2026 22:57:37,Employee,36+,Male,1.5,"Coffee, tea",Afternoon,0,0.0,Regular,0,,3,3.5,2.0,
+2/5/2026 22:59:52,Other,36+,Female,1.5,"Coffee, Energy drinks, Soft strings",Evening,1,1.5,Irregular,2,,2,0.0,,
+2/5/2026 23:08:17,Employee,36+,Female,,Coffee,Morning,0,1.5,Semi-regular,0,4.0,2,0.0,2.0,
+2/5/2026 23:13:17,Employee,36+,Female,1.5,Coffee,Morning,1,1.5,Semi-regular,1,,2,1.5,2.0,
+2/5/2026 23:19:40,Employee,36+,Male,1.5,Coffee,Evening,1,1.5,Regular,2,,3,5.0,,
+2/5/2026 23:36:01,Employee,36+,Female,,"Coffee, tea",Morning,0,0.0,Semi-regular,0,,2,1.5,,
+2/5/2026 23:37:02,Employee,28 - 35,Male,1.5,Coffee,Morning,0,1.5,Irregular,2,,2,0.0,,3.0
+2/5/2026 23:37:05,Employee,28 - 35,Female,1.5,Coffee,Morning,0,3.5,Semi-regular,0,,2,3.5,9.0,3.0
+2/5/2026 23:37:20,Employee,28 - 35,Male,1.5,"Coffee, Soft strings",Morning,0,5.0,Semi-regular,1,,2,3.5,,
+2/5/2026 23:37:30,Employee,28 - 35,Male,1.5,"Coffee, tea",Morning,1,3.5,Irregular,2,,1,1.5,,3.0
+2/5/2026 23:37:34,Employee,23 - 27,Male,1.5,"Coffee, tea, Soft strings",Morning,1,5.0,Irregular,2,,2,1.5,,
+2/5/2026 23:41:28,Other,28 - 35,Female,1.5,"Coffee, Soft strings",Afternoon,0,3.5,Irregular,1,,3,1.5,,
+2/5/2026 23:41:57,Employee,23 - 27,Male,1.5,tea,Evening,0,5.0,Regular,0,,3,1.5,,
+2/5/2026 23:41:58,Employee,36+,Male,1.5,tea,Morning,0,1.5,Semi-regular,1,,3,3.5,2.0,
+2/5/2026 23:42:15,Employee,28 - 35,Male,5.0,"Coffee, tea",Afternoon,1,5.0,Irregular,1,,2,3.5,,3.0
+2/5/2026 23:42:37,Employee,36+,Female,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,2,,2,1.5,9.0,3.0
+2/5/2026 23:43:38,Employee,28 - 35,Male,5.0,tea,Night,1,1.5,Irregular,1,,2,0.0,9.0,
+2/5/2026 23:45:25,Employee,28 - 35,Male,5.0,tea,Afternoon,1,5.0,Irregular,2,9.0,1,0.0,,
+2/5/2026 23:48:49,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,0.0,Regular,0,,3,0.0,,
+2/5/2026 23:49:07,Student,18 - 22,Female,1.5,Coffee,Evening,0,3.5,Semi-regular,2,,2,1.5,,
+2/5/2026 23:49:31,Student,18 - 22,Female,1.5,Coffee,Morning,1,1.5,Irregular,2,,4,1.5,9.0,
+2/5/2026 23:51:03,Employee,36+,Female,1.5,Coffee,Afternoon,0,1.5,Semi-regular,1,,2,0.0,,3.0
+2/5/2026 23:51:45,Other,36+,Female,1.5,"Coffee, Soft strings",Morning,1,1.5,Regular,0,,4,5.0,,
+2/5/2026 23:53:55,Employee,28 - 35,Male,1.5,Coffee,Morning,0,3.5,Semi-regular,1,,4,3.5,9.0,
+2/5/2026 23:56:24,Employee,36+,Male,5.0,"Coffee, tea",Evening,1,0.0,Semi-regular,1,4.0,1,0.0,2.0,
+2/6/2026 0:04:12,Employee,28 - 35,Male,1.5,"Coffee, tea, Soft strings",Morning,0,3.5,Semi-regular,1,,2,3.5,9.0,
+2/6/2026 0:04:44,Student,18 - 22,Female,1.5,"Coffee, Soft strings",Evening,1,3.5,Irregular,2,,3,1.5,,
+2/6/2026 0:09:32,Student,18 - 22,Female,,"Coffee, tea",Evening,0,1.5,Semi-regular,1,,2,0.0,,
+2/6/2026 0:10:11,Employee,28 - 35,Female,1.5,Coffee,Morning,0,3.5,Regular,1,,2,0.0,9.0,
+2/6/2026 0:14:05,Student,18 - 22,Female,1.5,Coffee,Morning,0,1.5,Regular,1,4.0,2,1.5,,
+2/6/2026 0:26:20,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,1,,2,1.5,,
+2/6/2026 0:29:39,Other,36+,Male,,tea,Evening,1,0.0,Irregular,1,,3,1.5,2.0,
+2/6/2026 0:55:19,Employee,28 - 35,Male,1.5,"Coffee, tea",Evening,1,3.5,Semi-regular,2,,3,1.5,,
+2/6/2026 1:10:47,Other,28 - 35,Female,1.5,Coffee,Afternoon,1,1.5,Semi-regular,1,4.0,3,0.0,,
+2/6/2026 1:21:55,Employee,28 - 35,Male,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,1,,2,1.5,,3.0
+2/6/2026 1:50:38,Other,23 - 27,Female,1.5,"Coffee, Energy drinks",Evening,1,1.5,Regular,1,,2,5.0,9.0,
+2/6/2026 2:05:43,Employee,36+,Female,1.5,tea,Evening,1,0.0,Regular,0,,2,1.5,,
+2/6/2026 2:16:19,Employee,36+,Female,1.5,Coffee,Morning,0,0.0,Semi-regular,1,,2,1.5,,
+2/6/2026 2:29:57,Employee,36+,Female,1.5,"Coffee, tea",Morning,1,0.0,Regular,1,4.0,3,0.0,2.0,
+2/6/2026 2:53:28,Employee,36+,Male,,Coffee,Morning,1,0.0,Semi-regular,1,4.0,1,3.5,,
+2/6/2026 3:40:38,Other,23 - 27,Male,1.5,Coffee,Evening,0,3.5,Semi-regular,1,,3,3.5,,
+2/6/2026 4:12:18,Other,23 - 27,Male,1.5,"Coffee, tea",Evening,0,3.5,Irregular,2,9.0,2,3.5,,3.0
+2/6/2026 4:16:34,Other,28 - 35,Female,1.5,Coffee,Evening,1,1.5,Irregular,1,4.0,2,1.5,,3.0
+2/6/2026 4:54:14,Other,28 - 35,Female,1.5,Coffee,Evening,1,1.5,Irregular,2,4.0,2,0.0,9.0,3.0
+2/6/2026 5:00:06,Employee,36+,Female,1.5,Coffee,Morning,0,3.5,Semi-regular,1,4.0,2,0.0,,
+2/6/2026 5:18:10,Student,18 - 22,Female,0.0,tea,Afternoon,0,1.5,Semi-regular,0,,4,1.5,2.0,
+2/6/2026 5:26:12,Employee,36+,Female,5.0,Coffee,Morning,1,0.0,Semi-regular,1,,3,0.0,9.0,
+2/6/2026 5:26:41,Other,23 - 27,Female,1.5,Coffee,Afternoon,1,3.5,Regular,0,,3,1.5,9.0,3.0
+2/6/2026 5:27:18,Other,23 - 27,Female,1.5,"Coffee, tea",Morning,1,1.5,Semi-regular,1,4.0,2,3.5,9.0,3.0
+2/6/2026 5:55:10,Other,36+,Female,5.0,"Coffee, tea",Morning,0,1.5,Semi-regular,1,9.0,3,1.5,,
+2/6/2026 6:18:30,Employee,36+,Female,,Coffee,Morning,0,5.0,Irregular,0,,1,0.0,2.0,
+2/6/2026 6:23:39,Employee,36+,Female,0.0,"tea, Soft strings",Evening,0,1.5,Semi-regular,0,,2,0.0,,
+2/6/2026 6:38:26,Employee,36+,Female,,Coffee,Morning,0,0.0,Irregular,1,,3,1.5,2.0,
+2/6/2026 6:50:19,Employee,23 - 27,Male,1.5,"Coffee, tea",Afternoon,0,1.5,Irregular,2,,2,0.0,,3.0
+2/6/2026 6:58:30,Employee,23 - 27,Male,0.0,tea,Afternoon,0,1.5,Semi-regular,1,,2,0.0,,3.0
+2/6/2026 8:20:30,Employee,36+,Male,1.5,"Coffee, tea",Evening,0,1.5,Regular,1,,3,1.5,,
+2/6/2026 9:38:59,Other,28 - 35,Male,1.5,Coffee,Afternoon,0,1.5,Irregular,1,9.0,2,1.5,2.0,
+2/6/2026 10:01:35,Employee,28 - 35,Male,,Coffee,Morning,1,1.5,Regular,2,,3,3.5,,
+2/6/2026 10:05:31,Other,23 - 27,Female,1.5,"Coffee, tea",Morning,0,1.5,Irregular,2,,3,1.5,,
+2/6/2026 10:24:03,Employee,28 - 35,Female,1.5,Soft strings,Evening,1,3.5,Irregular,1,,1,0.0,,
+2/6/2026 10:55:03,Student,23 - 27,Male,,tea,Morning,1,3.5,Regular,2,4.0,1,1.5,2.0,3.0
+2/6/2026 11:00:07,Employee,23 - 27,Female,1.5,"Coffee, tea",Evening,1,3.5,Irregular,1,,3,0.0,,
+2/6/2026 11:06:18,Employee,28 - 35,Male,1.5,Coffee,Evening,0,1.5,Irregular,1,,1,0.0,9.0,
+2/6/2026 11:56:16,Employee,36+,Female,0.0,tea,Morning,1,1.5,Semi-regular,1,,2,0.0,,
+2/6/2026 12:00:11,Employee,36+,Male,,Coffee,Morning,0,1.5,Irregular,1,,2,0.0,2.0,
+2/6/2026 12:11:14,Employee,28 - 35,Female,1.5,Coffee,Morning,0,0.0,Regular,0,,1,3.5,9.0,
+2/6/2026 12:15:30,Employee,23 - 27,Female,1.5,Coffee,Afternoon,1,5.0,Irregular,1,4.0,1,0.0,9.0,3.0
+2/6/2026 13:18:20,Employee,23 - 27,Male,1.5,Soft strings,Afternoon,1,3.5,Regular,0,,2,0.0,9.0,
+2/6/2026 14:15:55,Employee,28 - 35,Female,1.5,Coffee,Afternoon,0,3.5,Irregular,1,,1,0.0,,3.0
+2/6/2026 14:53:04,Employee,36+,Female,1.5,tea,Afternoon,0,5.0,Irregular,2,,1,0.0,9.0,3.0
+2/6/2026 15:25:26,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Morning,1,3.5,Semi-regular,1,9.0,3,5.0,2.0,
+2/6/2026 16:12:33,Employee,36+,Female,1.5,Coffee,Morning,0,1.5,Semi-regular,1,,2,1.5,,
+2/6/2026 17:11:00,Employee,23 - 27,Male,1.5,"Coffee, tea",Afternoon,1,5.0,Irregular,2,,2,1.5,9.0,3.0
+2/6/2026 17:26:38,Employee,36+,Male,,Coffee,Morning,0,1.5,Semi-regular,2,,3,5.0,2.0,
+2/6/2026 17:46:36,Employee,28 - 35,Male,,"Coffee, tea, Energy drinks, Soft strings",Evening,1,1.5,Irregular,2,,2,3.5,,
+2/6/2026 18:41:25,Other,36+,Female,1.5,Coffee,Morning,0,1.5,Irregular,1,,2,1.5,2.0,3.0
+2/6/2026 19:03:18,Employee,36+,Male,1.5,"Coffee, tea",Afternoon,1,1.5,Regular,1,,2,1.5,,
+2/6/2026 20:20:09,Employee,36+,Male,1.5,Coffee,Morning,1,1.5,Semi-regular,2,,2,0.0,,3.0
+2/6/2026 20:22:05,Student,18 - 22,Female,1.5,"Coffee, tea, Soft strings",Evening,1,1.5,Semi-regular,1,,2,5.0,,
+2/6/2026 20:23:03,Student,28 - 35,Female,,"Coffee, tea, Energy drinks, Soft strings",Morning,0,3.5,Regular,0,,3,3.5,,
+2/6/2026 20:36:41,Employee,36+,Male,1.5,"Coffee, tea",Evening,1,1.5,Semi-regular,0,4.0,2,0.0,9.0,3.0
+2/6/2026 21:29:39,Employee,28 - 35,Male,5.0,Coffee,Morning,1,1.5,Semi-regular,0,,4,5.0,9.0,
+2/6/2026 22:50:47,Employee,36+,Male,1.5,"Coffee, tea",Evening,0,0.0,Semi-regular,1,,2,0.0,9.0,
+2/6/2026 23:12:12,Other,28 - 35,Male,,"Coffee, tea",Evening,1,1.5,Semi-regular,2,,2,0.0,9.0,3.0
+2/6/2026 23:12:45,Employee,36+,Male,1.5,"Coffee, tea",Morning,0,1.5,Semi-regular,1,,2,0.0,2.0,
+2/7/2026 0:31:58,Employee,36+,Male,,"Coffee, tea",Morning,0,1.5,Semi-regular,2,,3,0.0,9.0,
+2/7/2026 0:57:54,Other,23 - 27,Male,0.0,tea,Evening,0,1.5,Semi-regular,0,,3,3.5,9.0,
+2/7/2026 3:11:04,Student,18 - 22,Male,1.5,"Coffee, Energy drinks, Soft strings",Evening,0,1.5,Semi-regular,2,,1,5.0,,
+2/7/2026 3:35:01,Employee,18 - 22,Female,0.0,Energy drinks,Morning,0,1.5,Regular,1,4.0,1,5.0,2.0,3.0
+2/7/2026 3:41:38,Employee,18 - 22,Female,1.5,"Coffee, tea, Soft strings",Evening,1,5.0,Irregular,2,9.0,3,0.0,,3.0
+2/7/2026 10:02:41,Employee,36+,Male,0.0,Coffee,Morning,0,0.0,Irregular,1,,4,0.0,,
+2/7/2026 14:02:07,Student,18 - 22,Female,1.5,"Coffee, tea, Soft strings",Night,1,1.5,Irregular,2,4.0,1,1.5,9.0,3.0
+2/7/2026 15:02:10,Student,18 - 22,Female,,"Coffee, Energy drinks",Afternoon,1,5.0,Irregular,2,,2,3.5,9.0,3.0
+2/7/2026 21:46:25,Employee,28 - 35,Female,1.5,"Coffee, Soft strings",Morning,0,1.5,Semi-regular,1,,2,0.0,2.0,
+2/8/2026 7:22:15,Other,23 - 27,Female,,tea,Morning,0,1.5,Semi-regular,1,,1,0.0,,3.0
+2/8/2026 7:50:43,Employee,36+,Female,5.0,"Coffee, tea, Soft strings",Morning,0,5.0,Regular,0,4.0,2,3.5,,3.0
+2/8/2026 18:43:24,Student,18 - 22,Female,0.0,tea,Evening,1,1.5,Irregular,1,,3,1.5,2.0,
+2/12/2026 19:52:33,Other,28 - 35,Female,1.5,"Coffee, tea",Evening,0,1.5,Semi-regular,1,4.0,2,3.5,,3.0
+2/12/2026 22:57:55,Student,18 - 22,Female,1.5,Coffee,Morning,0,5.0,Irregular,1,,1,0.0,9.0,3.0
+2/17/2026 15:22:22,Student,18 - 22,Female,1.5,"Coffee, Energy drinks",Night,1,3.5,Irregular,2,,1,3.5,9.0,3.0
+2/17/2026 15:26:01,Student,23 - 27,Female,1.5,tea,Afternoon,0,1.5,Regular,1,,4,3.5,9.0,
+2/17/2026 15:34:46,Student,18 - 22,Female,,"Coffee, tea, Soft strings",Afternoon,1,3.5,Semi-regular,2,9.0,2,0.0,9.0,
+2/17/2026 15:41:49,Student,18 - 22,Female,1.5,Coffee,Morning,0,1.5,Semi-regular,1,,2,1.5,9.0,
+2/17/2026 15:53:10,Student,18 - 22,Female,0.0,"Coffee, Soft strings",Afternoon,1,1.5,Regular,1,9.0,4,1.5,9.0,3.0
+2/17/2026 16:31:10,Student,23 - 27,Female,1.5,Coffee,Afternoon,0,0.0,Semi-regular,2,,2,1.5,,
+2/18/2026 1:31:05,Other,23 - 27,Female,1.5,"Coffee, tea",Evening,1,1.5,Semi-regular,1,,2,1.5,,
+2/19/2026 5:35:09,Student,18 - 22,Male,1.5,Coffee,Morning,0,3.5,Semi-regular,2,,4,0.0,,
+2/23/2026 21:08:39,Student,23 - 27,Male,1.5,"Coffee, Energy drinks",Evening,1,1.5,Semi-regular,2,,2,5.0,9.0,
+2/27/2026 13:00:28,Employee,36+,Female,1.5,"Coffee, tea",Morning,1,0.0,Irregular,1,,2,1.5,2.0,3.0
+3/1/2026 18:45:21,Employee,28 - 35,Male,1.5,Coffee,Morning,0,3.5,Semi-regular,1,4.0,1,3.5,9.0,
