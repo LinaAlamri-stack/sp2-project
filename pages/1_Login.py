@@ -312,23 +312,44 @@ with left_col:
 
 with right_col:
     st.markdown('<h1 class="hero-title">Nice to see you!</h1>', unsafe_allow_html=True)
+
     st.markdown(
         '<p class="form-note">Enter your Email and password to Log In</p>',
         unsafe_allow_html=True,
     )
+
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
 
+    st.markdown(
+        """
+        <div style="width:min(480px,80vw); text-align:right; margin-top:-6px; margin-bottom:10px;">
+            <a href="/ResetPassword"
+            target="_self"
+            style="
+                color:#A735D9;
+                text-decoration:none;
+                font-weight:600;
+                font-size:14px;
+            ">
+                Forgot Password?
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     if st.button("Log In"):
         user = verify_user(email, password)
+
         if user:
             st.session_state.user_id = user["id"]
             st.session_state.user_email = user["email"]
-            st.query_params["uid"] = str(user["id"])
             st.success("Logged in successfully.")
-            st.switch_page("pages/3_Dashboard.py")
+            st.switch_page("pages/5_survey.py")
         else:
             st.error("Invalid email or password.")
+    
 
 st.markdown(
     """

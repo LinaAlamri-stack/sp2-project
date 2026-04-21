@@ -319,3 +319,17 @@ def update_user_projection(
             values,
         )
         conn.commit()
+def update_password(email, new_password):
+    password_hash, password_salt = _hash_password(new_password)
+
+    with _get_conn() as conn:
+        cur = conn.execute(
+            """
+            UPDATE users
+            SET password_hash = ?, password_salt = ?
+            WHERE email = ?
+            """,
+            (password_hash, password_salt, email.lower()),
+        )
+        conn.commit()
+        return cur.rowcount > 0
