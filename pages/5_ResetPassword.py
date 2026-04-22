@@ -170,6 +170,31 @@ div.stButton > button:hover {{
     filter:brightness(1.05);
 }}
 
+.auth-link-wrap {{
+    width:min(480px,80vw);
+    text-align:right;
+    margin-top:12px;
+}}
+
+.auth-link,
+.auth-link:visited,
+.auth-link:active,
+.auth-link:focus {{
+    color:#A735D9;
+    text-decoration:none !important;
+    border-bottom:none !important;
+    box-shadow:none !important;
+    font-weight:600;
+    font-size:14px;
+}}
+
+.auth-link:hover {{
+    color:#A735D9;
+    text-decoration:none !important;
+    border-bottom:none !important;
+    box-shadow:none !important;
+}}
+
 .footer {{
     position:fixed;
     bottom:24px;
@@ -238,8 +263,14 @@ with right_col:
             else:
                 st.error("Email not found.")
 
-    if st.button("Back to Login"):
-        st.switch_page("pages/1_Login.py")
+    st.markdown(
+        """
+        <div class="auth-link-wrap">
+            <a href="/Login" target="_self" class="auth-link">Back to Log In</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 st.markdown(
     """
