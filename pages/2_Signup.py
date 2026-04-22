@@ -307,6 +307,23 @@ with left_col:
     )
 
 with right_col:
+    st.markdown(
+    """
+    <div style="margin-bottom:10px;">
+        <a href="/"
+        target="_self"
+        style="
+            color:white;
+            text-decoration:none;
+            font-size:24px;
+            font-weight:bold;
+        ">
+            ←
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
     st.markdown('<h1 class="hero-title">Nice to see you!</h1>', unsafe_allow_html=True)
     if st.session_state.signup_step == "email":
         st.markdown(
@@ -335,16 +352,17 @@ with right_col:
             else:
                 name_guess = email.split("@")[0].replace(".", " ").title() if email else "User"
                 user_id = create_user(name_guess, email, password)
+
                 if user_id is None:
-                    st.error("Email already exists. Please use another email.")
+                 st.error("Email already exists. Please use another email.")
                 else:
-                    st.success("Account created successfully.")
+                 st.session_state.user_id = user_id
+                 st.session_state.user_email = email
 
+                st.success("Account created successfully.")
+                st.switch_page("pages/5_survey.py")
 with right_col:
-    if st.button("→ Go to Login", key="go_login"):
-        st.switch_page("pages/1_Login.py")
-
-st.markdown(
+ st.markdown(
     """
     <div class="footer">
         <span>© 2026, Made by Riyalyze Team</span>

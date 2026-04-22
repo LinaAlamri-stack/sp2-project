@@ -311,6 +311,23 @@ with left_col:
     )
 
 with right_col:
+    st.markdown(
+    """
+    <div style="margin-bottom:10px;">
+        <a href="/"
+        target="_self"
+        style="
+            color:white;
+            text-decoration:none;
+            font-size:24px;
+            font-weight:bold;
+        ">
+            ←
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
     st.markdown('<h1 class="hero-title">Nice to see you!</h1>', unsafe_allow_html=True)
 
     st.markdown(
@@ -346,7 +363,7 @@ with right_col:
             st.session_state.user_id = user["id"]
             st.session_state.user_email = user["email"]
             st.success("Logged in successfully.")
-            st.switch_page("pages/5_survey.py")
+            st.switch_page("pages/3_Dashboard.py")
         else:
             st.error("Invalid email or password.")
     
