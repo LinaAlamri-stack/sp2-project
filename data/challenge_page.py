@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(page_title="Riyalyze", layout="wide")
 
 # =========================
-# CSS (احترافي)
+# CSS 
 # =========================
 st.markdown("""
 <style>
@@ -24,15 +24,20 @@ body {
     font-size: 40px;
     font-weight: 800;
     color: white;
+        text-align: center;
+
 }
 
 .subtitle {
     color: #94A3B8;
     margin-bottom: 25px;
+        text-align: center;
+
 }
 
 /* Cards */
 .card {
+        text-align: center;
     background: linear-gradient(145deg, #1E293B, #0F172A);
     padding: 20px;
     border-radius: 20px;
@@ -46,6 +51,11 @@ body {
     box-shadow: 0 0 20px rgba(79,139,249,0.2);
 }
 
+.block-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 /* Buttons */
 .stButton>button {
     background: linear-gradient(90deg, #4F8BF9, #9333EA);
@@ -54,6 +64,10 @@ body {
     height: 45px;
     font-weight: 600;
     border: none;
+}
+
+.center {
+    text-align: center;
 }
 
 /* Chat bubble */
@@ -82,7 +96,7 @@ col1, col2 = st.columns(2)
 # LEFT - PREDICTION
 # =========================
 with col1:
-    st.markdown('<div class="card glow">', unsafe_allow_html=True)
+    
     st.subheader("Your AI Prediction")
 
     st.markdown("### 🔥 Moderate Risk")
@@ -93,31 +107,27 @@ with col1:
     st.write("- Low activity")
     st.write("- Late caffeine intake")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    
+    
 
 # =========================
 # RIGHT - QUICK STATS
 # =========================
 with col2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Quick Stats")
 
     st.metric("Caffeine Intake", "1.0 Cups/day")
     st.metric("Screen Time", "9 hrs")
     st.metric("Sleep", "5 hrs")
 
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================
 # SECOND ROW
 # =========================
-col3, col4 = st.columns(2)
-
-# =========================
+col3, col4 = st.columns([1,1], gap="small")# =========================
 # CHALLENGE
 # =========================
 with col3:
-    st.markdown('<div class="card glow">', unsafe_allow_html=True)
     st.subheader("🔥 Live Challenge")
 
     st.write("Goal: Reduce Screen Time")
@@ -129,13 +139,11 @@ with col3:
 
     st.button("View Challenge")
 
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================
 # CHATBOT
 # =========================
 with col4:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("🤖 AI Health Chatbot")
 
     if "messages" not in st.session_state:
@@ -163,19 +171,4 @@ with col4:
 
         st.session_state.messages.append({"role": "assistant", "content": reply})
 
-    st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================
-# RECOMMENDATIONS
-# =========================
-st.markdown('<div class="card">', unsafe_allow_html=True)
-st.subheader("📌 Recommendations")
-
-st.write("""
-- Reduce screen time to less than 6 hours/day  
-- Sleep at least 7 hours  
-- Exercise 3 times a week  
-- Avoid caffeine after 8 PM  
-""")
-
-st.markdown('</div>', unsafe_allow_html=True)

@@ -15,10 +15,221 @@ import pages.NewChart.view as nview
 
 import streamlit as st
 
+import sqlite3
+from typing import Optional
+from database import DB_PATH
+
+def get_conn() -> sqlite3.Connection:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def get_all_users_with_surveys() -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            """
+            SELECT
+                u.id,
+                u.name,
+                u.email,
+                u.gender,
+                u.weight,
+                u.height,
+                s.full_name,
+                s.age,
+                s.caffeine_per_day,
+                s.fast_food_per_week,
+                s.sleep_hours,
+                s.physical_activity_days,
+                s.screen_hours,
+                s.sleep_quality,
+                s.eat_after_10pm,
+                s.caffeine_after_8pm,
+                s.low_energy_frequency,
+                s.risk_score,
+                s.risk_level,
+                s.projection_title,
+                s.projection_status,
+                s.projection_cluster,
+                s.updated_at
+            FROM users u
+            LEFT JOIN user_surveys s
+                ON u.id = s.user_id
+            ORDER BY u.id
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+def get_user_with_survey(user_id: int) -> Optional[dict]:
+    with get_conn() as conn:
+        row = conn.execute(
+            """
+            SELECT
+                u.id,
+                u.name,
+                u.email,
+                u.gender,
+                u.weight,
+                u.height,
+                s.full_name,
+                s.age,
+                s.caffeine_per_day,
+                s.fast_food_per_week,
+                s.sleep_hours,
+                s.physical_activity_days,
+                s.screen_hours,
+                s.sleep_quality,
+                s.eat_after_10pm,
+                s.caffeine_after_8pm,
+                s.low_energy_frequency,
+                s.risk_score,
+                s.risk_level,
+                s.projection_title,
+                s.projection_status,
+                s.projection_cluster,
+                s.updated_at
+            FROM users u
+            LEFT JOIN user_surveys s
+                ON u.id = s.user_id
+            WHERE u.id = ?
+            """,
+            (user_id,)
+        ).fetchone()
+        return dict(row) if row else None
+
+def compute_health_score(user: dict) -> int:
+    score = 100
+    sleep_hours = user.get("sleep_hours") or 0
+    physical_days = user.get("physical_activity_days") or 0
+    screen_hours = user.get("screen_hours") or 0
+    caffeine_per_day = user.get("caffeine_per_day") or 0
+    fast_food_per_week = user.get("fast_food_per_week") or 0
+    eat_after_10pm = user.get("eat_after_10pm") or 0
+    caffeine_after_8pm = user.get("caffeine_after_8pm") or 0
+
+    if sleep_hours < 6:
+        score -= 20
+    elif sleep_hours < 7:
+        score -= 10
+
+    if physical_days < 2:
+        score -= 15
+    elif physical_days < 4:
+        score -= 8
+
+    if screen_hours > 8:
+        score -= 15
+    elif screen_hours > 6:
+        score -= 8
+
+    if caffeine_per_day >= 3:
+        score -= 10
+    elif caffeine_per_day == 2:
+        score -= 5
+
+    if fast_food_per_week >= 5:
+        score -= 12
+    elif fast_food_per_week >= 3:
+        score -= 6
+
+    if eat_after_10pm == 1:
+        score -= 8
+
+    if caffeine_after_8pm == 1:
+        score -= 8
+
+    return max(0, min(100, score))
+
+def choose_goal(user: dict) -> str:
+    sleep_hours = user.get("sleep_hours") or 0
+    screen_hours = user.get("screen_hours") or 0
+    physical_days = user.get("physical_activity_days") or 0
+    caffeine_per_day = user.get("caffeine_per_day") or 0
+    risk_level = (user.get("risk_level") or "").strip().lower()
+    cluster = (user.get("projection_cluster") or "").strip()
+
+    if screen_hours >= 8:
+        return "Reduce Screen Time"
+    if sleep_hours < 6:
+        return "Improve Sleep"
+    if physical_days < 2:
+        return "Increase Physical Activity"
+    if caffeine_per_day >= 3:
+        return "Reduce Caffeine Intake"
+    if cluster:
+        return f"Compete within {cluster}"
+    if risk_level == "high":
+        return "Improve Lifestyle Risk"
+    return "Maintain Healthy Lifestyle"
+
+def find_match(current_user: dict, users: list[dict]) -> Optional[dict]:
+    current_id = current_user["id"]
+    current_goal = choose_goal(current_user)
+    current_cluster = (current_user.get("projection_cluster") or "").strip().lower()
+    current_risk = (current_user.get("risk_level") or "").strip().lower()
+    current_score = compute_health_score(current_user)
+
+    same_goal = [u for u in users if u["id"] != current_id and choose_goal(u) == current_goal]
+    if same_goal:
+        same_goal.sort(key=lambda x: abs(compute_health_score(x) - current_score))
+        return same_goal[0]
+
+    same_cluster = [
+        u for u in users
+        if u["id"] != current_id
+        and (u.get("projection_cluster") or "").strip().lower() == current_cluster
+        and current_cluster != ""
+    ]
+    if same_cluster:
+        same_cluster.sort(key=lambda x: abs(compute_health_score(x) - current_score))
+        return same_cluster[0]
+
+    same_risk = [
+        u for u in users
+        if u["id"] != current_id
+        and (u.get("risk_level") or "").strip().lower() == current_risk
+        and current_risk != ""
+    ]
+    if same_risk:
+        same_risk.sort(key=lambda x: abs(compute_health_score(x) - current_score))
+        return same_risk[0]
+
+    others = [u for u in users if u["id"] != current_id]
+    if others:
+        others.sort(key=lambda x: abs(compute_health_score(x) - current_score))
+        return others[0]
+
+    return None
+
+challenge_user_name = "You"
+challenge_match_name = "No match yet 💪 — join now!"
+challenge_current_score = 0
+challenge_match_score = 0
+
+all_users_for_challenge = get_all_users_with_surveys()
+
+if "user_id" in st.session_state:
+    current_user_for_challenge = get_user_with_survey(st.session_state["user_id"])
+
+    if current_user_for_challenge:
+        matched_user_for_challenge = find_match(current_user_for_challenge, all_users_for_challenge)
+        challenge_current_score = compute_health_score(current_user_for_challenge)
+
+        if matched_user_for_challenge:
+            challenge_match_name = (
+                matched_user_for_challenge.get("full_name")
+                or matched_user_for_challenge.get("name")
+                or "No Match"
+            )
+            challenge_match_score = compute_health_score(matched_user_for_challenge)
+
+    
 page = st.query_params.get("page")
 
 if page in {"challenge", "2_challenge_match"}:
     st.switch_page("pages/2_Challenge_Match.py")
+    
+    
 st.set_page_config(
     page_title="Riyalyze | Dietary Habits Dashboard",
     layout="wide",
@@ -1396,52 +1607,46 @@ html = f"""
                 </div>
             </div>
 <!-- ====== CARD ====== -->
+
+<!-- ====== CARD ====== -->
 <div style="
     width:100%;
-    background: linear-gradient(145deg, #2f3cff, #1a237e);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
     border-radius:18px;
-    padding:5px;
-    margin-top:5px;
+    padding:20px;
+    margin-top:10px;
     color:white;
 ">
 
 <b>🔥 Challenge Match</b>
 
-<div style="margin-top:10px; background:rgba(255,255,255,0.05); padding:8px; border-radius:10px;">
-    Huda
-    <div style="height:6px; background:#1a1f60; border-radius:10px; margin:5px 0;">
-        <div style="width:72%; height:100%; background:linear-gradient(90deg,#b44cff,#ec4899); border-radius:10px;"></div>
+<!-- YOU -->
+<div style="margin-top:10px; background: rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+    <b>{challenge_user_name}</b>
+    <div style="height:6px; background:#1a1f60; border-radius:10px; margin:6px 0;">
+        <div style="width:{challenge_current_score}%; height:100%; background:linear-gradient(90deg,#b44cff,#ec4899); border-radius:10px;"></div>
     </div>
-    72%
+    {challenge_current_score}%
 </div>
 
-<div style="text-align:center; margin:6px 0;">VS ⚔️</div>
+<!-- VS -->
+<div style="text-align:center; margin:10px 0;">VS ⚔️</div>
 
-<div style="background:rgba(255,255,255,0.05); padding:8px; border-radius:10px;">
-    Sara
-    <div style="height:6px; background:#1a1f60; border-radius:10px; margin:5px 0;">
-        <div style="width:58%; height:100%; background:linear-gradient(90deg,#b44cff,#ec4899); border-radius:10px;"></div>
+<!-- MATCH -->
+<div style="background: rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+    <b>{challenge_match_name}</b>
+    <div style="height:6px; background:#1a1f60; border-radius:10px; margin:6px 0;">
+        <div style="width:{challenge_match_score}%; height:100%; background:linear-gradient(90deg,#b44cff,#ec4899); border-radius:10px;"></div>
     </div>
-    58%
+    {challenge_match_score}%
 </div>
 
-<a href="?page=challenge" style="
-display:block;
-margin-top:10px;
-padding:8px;
-text-align:center;
-border-radius:10px;
-background:linear-gradient(90deg,#8b5cf6,#ec4899);
-color:white;
-text-decoration:none;
-font-size:12px;
-font-weight:bold;
-">
-Start Challenge 🚀
-</a>
-
 </div>
-            <div class="chatbot-card">
+
+
+            <div class="chatbot-card" style="margin-top:40px;">
                 <div class="chatbot-header">
                     <div class="chatbot-icon">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1475,6 +1680,7 @@ Start Challenge 🚀
             </div>
 
         </aside>
+        
 
         <main class="main-area">
             <div id="dashboard-panel" class="tab-panel {'active' if is_dashboard else ''}">
@@ -1496,6 +1702,7 @@ Start Challenge 🚀
             </div>
         </main>
     </div>
+    
 <script>
 function switchTab(tabName) {{
     const dashboardPanel = document.getElementById('dashboard-panel');
@@ -1607,3 +1814,32 @@ footer {visibility: hidden;}
  
  
 components.html(html, height=1650, scrolling=False)
+
+st.markdown("""
+<style>
+div.stButton {
+    position: relative;
+    top: -460px;             
+    left: 50%;
+transform: translateX(5%);
+width: fit-content;
+    z-index: 999;
+}
+
+div.stButton > button {
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: linear-gradient(90deg,#8b5cf6,#ec4899);
+    color: white;
+    font-weight: bold;
+    border: none;
+    font-size: 13px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("Start Challenge 🚀"):
+    st.switch_page("pages/2_Challenge_Match.py")
+    
+    

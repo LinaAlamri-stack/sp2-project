@@ -2,20 +2,30 @@ import sqlite3
 from typing import Optional
 
 import streamlit as st
-
+st.set_page_config(
+    page_title="Riyalyze | Challenge Match",
+    layout="wide"
+)
 from database import DB_PATH, init_db
 
 # ==========================================
 # PAGE CONFIG
 # ==========================================
-st.set_page_config(
-    page_title="Riyalyze | Challenge Match",
-    layout="wide"
-)
+params = st.query_params
+uid_param = params.get("uid")
+
+if isinstance(uid_param, list):
+    uid_param = uid_param[0] if uid_param else None
+
+if "user_id" not in st.session_state and uid_param and str(uid_param).isdigit():
+    st.session_state["user_id"] = int(uid_param)
+    
+
 
 # ==========================================
 # INIT DB
 # ==========================================
+
 init_db()
 
 # ==========================================
@@ -56,7 +66,7 @@ def get_all_users_with_surveys() -> list[dict]:
                 s.projection_cluster,
                 s.updated_at
             FROM users u
-            JOIN user_surveys s
+            LEFT JOIN user_surveys s
                 ON u.id = s.user_id
             ORDER BY u.id
             """
@@ -93,7 +103,7 @@ def get_user_with_survey(user_id: int) -> Optional[dict]:
                 s.projection_cluster,
                 s.updated_at
             FROM users u
-            JOIN user_surveys s
+            LEFT JOIN user_surveys s
                 ON u.id = s.user_id
             WHERE u.id = ?
             """,
@@ -172,10 +182,19 @@ def choose_goal(user: dict) -> str:
 
 def find_match(current_user: dict, users: list[dict]) -> Optional[dict]:
     current_id = current_user["id"]
+    current_goal = choose_goal(current_user)
     current_cluster = (current_user.get("projection_cluster") or "").strip().lower()
     current_risk = (current_user.get("risk_level") or "").strip().lower()
+    current_score = compute_health_score(current_user)
 
-    # 1) Prefer same cluster
+    same_goal = [
+        u for u in users
+        if u["id"] != current_id and choose_goal(u) == current_goal
+    ]
+    if same_goal:
+        same_goal.sort(key=lambda x: abs(compute_health_score(x) - current_score))
+        return same_goal[0]
+
     same_cluster = [
         u for u in users
         if u["id"] != current_id
@@ -183,10 +202,9 @@ def find_match(current_user: dict, users: list[dict]) -> Optional[dict]:
         and current_cluster != ""
     ]
     if same_cluster:
-        same_cluster.sort(key=lambda x: abs(compute_health_score(x) - compute_health_score(current_user)))
+        same_cluster.sort(key=lambda x: abs(compute_health_score(x) - current_score))
         return same_cluster[0]
 
-    # 2) Then same risk level
     same_risk = [
         u for u in users
         if u["id"] != current_id
@@ -194,13 +212,12 @@ def find_match(current_user: dict, users: list[dict]) -> Optional[dict]:
         and current_risk != ""
     ]
     if same_risk:
-        same_risk.sort(key=lambda x: abs(compute_health_score(x) - compute_health_score(current_user)))
+        same_risk.sort(key=lambda x: abs(compute_health_score(x) - current_score))
         return same_risk[0]
 
-    # 3) Then nearest score
     others = [u for u in users if u["id"] != current_id]
     if others:
-        others.sort(key=lambda x: abs(compute_health_score(x) - compute_health_score(current_user)))
+        others.sort(key=lambda x: abs(compute_health_score(x) - current_score))
         return others[0]
 
     return None
@@ -215,175 +232,246 @@ def metric_tag(label: str, value: str) -> str:
     """
 
 
+def progress_bar_html(value: int) -> str:
+    safe_value = max(0, min(100, value))
+    return f"""
+    <div class="progress-wrap">
+        <div class="progress-fill" style="width:{safe_value}%;"></div>
+    </div>
+    """
+
+
 # ==========================================
 # STYLE
 # ==========================================
+if st.button("⬅️ Back to Dashboard"):
+    st.switch_page("pages/3_Dashboard.py")
 st.markdown("""
 <style>
     .stApp {
-        background: radial-gradient(circle at top left, #1b1453 0%, #0b1028 38%, #070b1b 100%);
-        color: #f3f4ff;
+        background: radial-gradient(circle at top left, #17124a 0%, #081033 42%, #03081f 100%);
+        color: #f4f6ff;
     }
 
     .block-container {
         padding-top: 2rem;
         padding-bottom: 2rem;
-        max-width: 1300px;
+        max-width: 1280px;
+    }
+
+    [data-testid="stMetric"] {
+        background: linear-gradient(145deg, rgba(19, 24, 59, 0.98), rgba(11, 15, 38, 0.98));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 20px 22px;
+        min-height: 145px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.20);
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #aeb7de;
+        font-size: 14px;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 800;
     }
 
     .hero-card {
-        background: linear-gradient(145deg, rgba(21, 28, 63, 0.96), rgba(9, 13, 39, 0.96));
-        border: 1px solid rgba(135, 109, 255, 0.25);
-        border-radius: 24px;
-        padding: 28px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.30);
-        margin-bottom: 22px;
+        background: linear-gradient(145deg, rgba(18, 24, 58, 0.97), rgba(8, 12, 32, 0.97));
+        border: 1px solid rgba(125, 105, 255, 0.20);
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+        margin-bottom: 20px;
     }
 
     .section-card {
-        background: linear-gradient(145deg, rgba(18, 24, 56, 0.96), rgba(10, 14, 33, 0.96));
+        background: linear-gradient(145deg, rgba(16, 21, 50, 0.98), rgba(9, 12, 30, 0.98));
         border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 22px;
-        padding: 22px;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.24);
-        height: 100%;
+        border-radius: 28px;
+        padding: 26px;
+        box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+        min-height: 100%;
     }
 
     .title {
-        font-size: 42px;
-        font-weight: 800;
-        margin-bottom: 6px;
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 10px;
         color: #ffffff;
+        letter-spacing: -0.5px;
     }
 
     .subtitle {
-        font-size: 17px;
-        color: #aab2d6;
+        font-size: 18px;
+        color: #b4bcdf;
         margin-bottom: 0;
+        line-height: 1.6;
     }
 
     .card-title {
-        font-size: 24px;
-        font-weight: 700;
+        font-size: 22px;
+        font-weight: 800;
         color: #ffffff;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     .card-subtitle {
         font-size: 14px;
-        color: #9ea7d3;
+        color: #99a4d1;
         margin-bottom: 18px;
+        line-height: 1.6;
     }
 
     .player-name {
         font-size: 28px;
-        font-weight: 800;
+        font-weight: 900;
         color: #ffffff;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
+        line-height: 1.2;
+        word-break: break-word;
     }
 
     .goal-badge {
         display: inline-block;
-        padding: 8px 14px;
+        padding: 10px 18px;
         border-radius: 999px;
-        background: linear-gradient(90deg, #7c3aed, #ec4899);
+        background: linear-gradient(90deg, #8b5cf6, #ec4899);
         color: white;
         font-size: 13px;
-        font-weight: 700;
-        margin-bottom: 16px;
+        font-weight: 800;
+        margin-bottom: 18px;
+        box-shadow: 0 8px 20px rgba(200, 90, 255, 0.18);
     }
 
     .metric-pill {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 14px;
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 14px;
-        padding: 10px 14px;
+        border-radius: 16px;
+        padding: 12px 15px;
         margin-bottom: 10px;
     }
 
     .metric-label {
-        color: #bfc7ea;
+        color: #c1c9ea;
         font-size: 14px;
     }
 
     .metric-value {
         color: #ffffff;
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 800;
+        text-align: right;
     }
 
     .score-box {
-        background: linear-gradient(145deg, rgba(77, 101, 255, 0.18), rgba(190, 60, 255, 0.14));
-        border: 1px solid rgba(125, 105, 255, 0.28);
-        border-radius: 18px;
-        padding: 18px;
-        margin-top: 16px;
-        margin-bottom: 18px;
+        background: linear-gradient(145deg, rgba(75, 96, 255, 0.20), rgba(216, 67, 255, 0.14));
+        border: 1px solid rgba(125, 105, 255, 0.30);
+        border-radius: 20px;
+        padding: 20px;
+        margin-top: 18px;
+        margin-bottom: 14px;
         text-align: center;
     }
 
     .score-number {
-        font-size: 40px;
+        font-size: 42px;
         font-weight: 900;
         color: #ffffff;
         line-height: 1;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     .score-text {
-        color: #aab2d6;
+        color: #b4bcdf;
         font-size: 14px;
+        font-weight: 600;
+    }
+
+    .progress-wrap {
+        width: 100%;
+        height: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 6px;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #7c3aed 0%, #c026d3 55%, #ec4899 100%);
+        box-shadow: 0 0 18px rgba(192, 38, 211, 0.35);
     }
 
     .vs-box {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100%;
-        min-height: 240px;
-        font-size: 34px;
+        min-height: 100%;
+        font-size: 38px;
         font-weight: 900;
-        color: #d8ccff;
+        color: #e6ddff;
+        padding-top: 30px;
     }
 
     .winner-box {
         background: linear-gradient(90deg, rgba(16, 185, 129, 0.16), rgba(59, 130, 246, 0.16));
         border: 1px solid rgba(91, 211, 165, 0.30);
-        border-radius: 18px;
+        border-radius: 20px;
         padding: 18px;
         color: #f8fffb;
         font-size: 18px;
-        font-weight: 700;
-        margin-top: 10px;
+        font-weight: 800;
+        margin-top: 12px;
     }
 
     .hint-box {
         background: rgba(255,255,255,0.04);
         border-left: 4px solid #8b5cf6;
         padding: 14px 16px;
-        border-radius: 12px;
-        color: #d4daf8;
-        margin-top: 12px;
-    }
-
-    div[data-testid="stMetric"] {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 14px;
-        border-radius: 16px;
+        border-radius: 14px;
+        color: #d6dcf8;
+        margin-top: 14px;
+        line-height: 1.7;
     }
 
     .stButton > button {
         width: 100%;
-        border-radius: 14px;
+        border-radius: 16px;
         border: none;
         background: linear-gradient(90deg, #7c3aed, #ec4899);
         color: white;
-        font-weight: 700;
-        height: 46px;
+        font-weight: 800;
+        height: 48px;
+        margin-top: 10px;
+    }
+
+    div[data-testid="column"] {
+        align-self: stretch;
+    }
+
+    @media (max-width: 900px) {
+        .title {
+            font-size: 38px;
+        }
+
+        .player-name {
+            font-size: 24px;
+        }
+
+        [data-testid="stMetric"] {
+            min-height: 120px;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -393,7 +481,6 @@ st.markdown("""
 # ==========================================
 all_users = get_all_users_with_surveys()
 
-st.markdown('<div class="hero-card">', unsafe_allow_html=True)
 st.markdown('<div class="title">🔥 Challenge Match</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="subtitle">Match users with similar goals and let them compete to improve their lifestyle habits.</div>',
@@ -402,58 +489,61 @@ st.markdown(
 st.markdown('</div>', unsafe_allow_html=True)
 
 if not all_users:
-    st.warning("No users with survey data were found yet. Make sure at least one user has completed the survey.")
+    st.warning("No users with survey data were found yet.")
     st.stop()
 
 # ==========================================
-# USER SELECTOR
-# ==========================================
-user_options = {
-    f'{u["id"]} - {u.get("full_name") or u.get("name") or u.get("email")}': u["id"]
-    for u in all_users
-}
+# CURRENT USER
+if "user_id" not in st.session_state:
+    st.error("Please login first.")
+    st.stop()
 
-selected_label = st.selectbox(
-    "Choose a user to generate a challenge match",
-    options=list(user_options.keys())
-)
-
-selected_user_id = user_options[selected_label]
-current_user = get_user_with_survey(selected_user_id)
+current_user = get_user_with_survey(st.session_state["user_id"])
 
 if not current_user:
-    st.error("Selected user was not found.")
+    st.error("No user data found for the logged-in user.")
     st.stop()
+# ==========================================
 
 matched_user = find_match(current_user, all_users)
 goal = choose_goal(current_user)
-
 current_score = compute_health_score(current_user)
 match_score = compute_health_score(matched_user) if matched_user else 0
-
-current_progress = current_score / 100
-match_progress = match_score / 100 if matched_user else 0
 
 # ==========================================
 # TOP SUMMARY
 # ==========================================
 summary_col1, summary_col2, summary_col3 = st.columns(3)
+
 with summary_col1:
-    st.metric("Selected User", current_user.get("full_name") or current_user.get("name") or "User")
+    st.metric(
+        "Selected User",
+        current_user.get("full_name") or current_user.get("name") or "User"
+    )
+
 with summary_col2:
     st.metric("Challenge Goal", goal)
+
 with summary_col3:
-    st.metric("Matched User", matched_user.get("full_name") or matched_user.get("name") if matched_user else "No Match")
+    st.metric(
+        "Matched User",
+        (matched_user.get("full_name") or matched_user.get("name") or "No Match")
+        if matched_user else "No Match"
+    )
+
+st.markdown("<div style='height:18px;'></div>", unsafe_allow_html=True)
 
 # ==========================================
 # PLAYER CARDS
 # ==========================================
-col1, col_mid, col2 = st.columns([1.2, 0.4, 1.2])
+col1, col_mid, col2 = st.columns([1.15, 0.35, 1.15])
 
 with col1:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.markdown('<div class="card-title">Your Profile</div>', unsafe_allow_html=True)
-    st.markdown('<div class="player-name">{}</div>'.format(current_user.get("full_name") or current_user.get("name") or "User"), unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="player-name">{current_user.get("full_name") or current_user.get("name") or "User"}</div>',
+        unsafe_allow_html=True
+    )
     st.markdown(f'<div class="goal-badge">{goal}</div>', unsafe_allow_html=True)
 
     st.markdown(metric_tag("Risk Level", str(current_user.get("risk_level") or "N/A").title()), unsafe_allow_html=True)
@@ -463,27 +553,24 @@ with col1:
     st.markdown(metric_tag("Activity Days", str(current_user.get("physical_activity_days") or "N/A")), unsafe_allow_html=True)
     st.markdown(metric_tag("Caffeine / Day", str(current_user.get("caffeine_per_day") or "N/A")), unsafe_allow_html=True)
 
-    st.markdown(f"""
+    st.markdown(f'''
     <div class="score-box">
         <div class="score-number">{current_score}</div>
         <div class="score-text">Health Score</div>
     </div>
-    """, unsafe_allow_html=True)
-    st.progress(current_progress)
-    st.markdown('</div>', unsafe_allow_html=True)
+    ''', unsafe_allow_html=True)
+
+    st.markdown(progress_bar_html(current_score), unsafe_allow_html=True)
 
 with col_mid:
     st.markdown('<div class="vs-box">VS ⚔️</div>', unsafe_allow_html=True)
 
 with col2:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.markdown('<div class="card-title">Matched User</div>', unsafe_allow_html=True)
 
     if matched_user:
         st.markdown(
-            '<div class="player-name">{}</div>'.format(
-                matched_user.get("full_name") or matched_user.get("name") or "User"
-            ),
+            f'<div class="player-name">{matched_user.get("full_name") or matched_user.get("name") or "User"}</div>',
             unsafe_allow_html=True
         )
         st.markdown(f'<div class="goal-badge">{goal}</div>', unsafe_allow_html=True)
@@ -495,24 +582,23 @@ with col2:
         st.markdown(metric_tag("Activity Days", str(matched_user.get("physical_activity_days") or "N/A")), unsafe_allow_html=True)
         st.markdown(metric_tag("Caffeine / Day", str(matched_user.get("caffeine_per_day") or "N/A")), unsafe_allow_html=True)
 
-        st.markdown(f"""
+        st.markdown(f'''
         <div class="score-box">
             <div class="score-number">{match_score}</div>
             <div class="score-text">Health Score</div>
         </div>
-        """, unsafe_allow_html=True)
-        st.progress(match_progress)
+        ''', unsafe_allow_html=True)
+
+        st.markdown(progress_bar_html(match_score), unsafe_allow_html=True)
     else:
         st.info("No suitable match found yet.")
-    st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 # ==========================================
 # WINNER + DETAILS
 # ==========================================
-bottom1, bottom2 = st.columns([1.2, 1])
 
-with bottom1:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.markdown('<div class="card-title">🏆 Challenge Status</div>', unsafe_allow_html=True)
     st.markdown('<div class="card-subtitle">Live comparison based on current health score.</div>', unsafe_allow_html=True)
 
@@ -531,21 +617,16 @@ with bottom1:
     st.markdown(
         """
         <div class="hint-box">
-        <b>Challenge rule:</b> The user with the healthier lifestyle score leads the challenge.
-        Future versions can use daily check-ins, streaks, and live progress updates.
+            <b>Challenge rule:</b> The user with the healthier lifestyle score leads the challenge.
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    if st.button("Start Challenge 🚀"):
-        st.success("Challenge started successfully! You can now use this page as your challenge overview.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
-with bottom2:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
+
     st.markdown('<div class="card-title">📌 Challenge Details</div>', unsafe_allow_html=True)
-    st.markdown('<div class="card-subtitle">Automatically generated based on the selected user profile.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="card-subtitle">Automatically generated based on the current user profile.</div>', unsafe_allow_html=True)
 
     st.write(f"**Goal:** {goal}")
     st.write(f"**Projection Title:** {current_user.get('projection_title') or 'N/A'}")
@@ -555,6 +636,7 @@ with bottom2:
 
     st.markdown("---")
     st.write("**Suggested challenge objective:**")
+
     if goal == "Reduce Screen Time":
         st.write("- Keep daily screen time below 6 hours.")
     elif goal == "Improve Sleep":
@@ -565,4 +647,44 @@ with bottom2:
         st.write("- Limit caffeine intake and avoid it late at night.")
     else:
         st.write("- Maintain a balanced and healthy lifestyle pattern.")
-    st.markdown('</div>', unsafe_allow_html=True)
+
+tips = []
+
+if goal == "Reduce Screen Time":
+    tips = [
+        "Try a 1-hour no-phone time before sleep 📵",
+        "Replace screen time with a short walk 🚶‍♀️",
+        "Use app limits to control usage ⏳"
+    ]
+elif goal == "Improve Sleep":
+    tips = [
+        "Sleep at the same time every day 🌙",
+        "Avoid caffeine after 8 PM ☕",
+        "Keep your room dark and quiet 💤"
+    ]
+elif goal == "Increase Physical Activity":
+    tips = [
+        "Start with just 10 minutes a day 💪",
+        "Walk instead of short drives 🚶",
+        "Find an activity you enjoy 🎯"
+    ]
+elif goal == "Reduce Caffeine Intake":
+    tips = [
+        "Switch one coffee to water 💧",
+        "Avoid caffeine late in the day 🌙",
+        "Track your daily intake 📊"
+    ]
+else:
+    tips = [
+        "Small changes lead to big results 🌱",
+        "Stay consistent, not perfect ✨",
+        "Your future self will thank you 💖"
+    ]
+
+st.markdown("### ✨ Stay Motivated")
+st.markdown("Small daily habits make a big difference.")
+
+for tip in tips:
+    st.markdown(f"- {tip}")
+
+st.info("Keep going — you're doing better than you think 🚀")
