@@ -310,7 +310,7 @@ with right_col:
     st.markdown(
     """
     <div style="margin-bottom:10px;">
-        <a href="/"
+        <a href="/?page=home"
         target="_self"
         style="
             color:white;
@@ -354,13 +354,12 @@ with right_col:
                 user_id = create_user(name_guess, email, password)
 
                 if user_id is None:
-                 st.error("Email already exists. Please use another email.")
+                    st.error("Email already exists. Please use another email.")
                 else:
-                 st.session_state.user_id = user_id
-                 st.session_state.user_email = email
-
-                st.success("Account created successfully.")
-                st.switch_page("pages/5_survey.py")
+                    st.session_state.user_id = user_id
+                    st.session_state.user_email = email
+                    st.success("Account created successfully.")
+                    st.switch_page("pages/5_survey.py")
 with right_col:
  st.markdown(
     """

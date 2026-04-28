@@ -314,7 +314,7 @@ with right_col:
     st.markdown(
     """
     <div style="margin-bottom:10px;">
-        <a href="/"
+        <a href="/?page=home"
         target="_self"
         style="
             color:white;
@@ -341,7 +341,7 @@ with right_col:
     st.markdown(
         """
         <div style="width:min(480px,80vw); text-align:right; margin-top:-6px; margin-bottom:10px;">
-            <a href="/ResetPassword"
+            <a href="/?page=reset-password"
             target="_self"
             style="
                 color:#A735D9;

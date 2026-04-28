@@ -266,7 +266,7 @@ with right_col:
     st.markdown(
         """
         <div class="auth-link-wrap">
-            <a href="/Login" target="_self" class="auth-link">Back to Log In</a>
+            <a href="/?page=login" target="_self" class="auth-link">Back to Log In</a>
         </div>
         """,
         unsafe_allow_html=True,

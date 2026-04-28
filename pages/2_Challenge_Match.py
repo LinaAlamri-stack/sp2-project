@@ -2,6 +2,7 @@ import sqlite3
 from typing import Optional
 
 import streamlit as st
+import streamlit.components.v1 as components
 st.set_page_config(
     page_title="Riyalyze | Challenge Match",
     layout="wide"
@@ -27,6 +28,22 @@ if "user_id" not in st.session_state and uid_param and str(uid_param).isdigit():
 # ==========================================
 
 init_db()
+
+components.html(
+    """
+    <script>
+        const scrollTopNow = () => {
+            window.parent.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        };
+        scrollTopNow();
+        setTimeout(scrollTopNow, 50);
+        setTimeout(scrollTopNow, 200);
+    </script>
+    """,
+    height=0,
+)
 
 # ==========================================
 # HELPERS
@@ -244,19 +261,46 @@ def progress_bar_html(value: int) -> str:
 # ==========================================
 # STYLE
 # ==========================================
-if st.button("⬅️ Back to Dashboard"):
-    st.switch_page("pages/3_Dashboard.py")
 st.markdown("""
 <style>
+    header, footer,
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarNav"],
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
+
     .stApp {
         background: radial-gradient(circle at top left, #17124a 0%, #081033 42%, #03081f 100%);
         color: #f4f6ff;
     }
 
     .block-container {
-        padding-top: 2rem;
+        padding-top: 0.9rem !important;
         padding-bottom: 2rem;
         max-width: 1280px;
+    }
+
+    .back-wrap {
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+    }
+
+    .back-wrap div[data-testid="stButton"] {
+        width: auto;
+        margin: 0;
+    }
+
+    .back-wrap div[data-testid="stButton"] > button {
+        width: auto;
+        min-width: 0;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        color: #f4f6ff;
+        box-shadow: none;
+        margin-top: 0;
     }
 
     [data-testid="stMetric"] {
@@ -476,6 +520,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown('<div class="back-wrap">', unsafe_allow_html=True)
+if st.button("⬅️ Back to Dashboard"):
+    st.switch_page("pages/3_Dashboard.py")
+st.markdown("</div>", unsafe_allow_html=True)
+
 # ==========================================
 # LOAD USERS
 # ==========================================
@@ -486,7 +535,6 @@ st.markdown(
     '<div class="subtitle">Match users with similar goals and let them compete to improve their lifestyle habits.</div>',
     unsafe_allow_html=True
 )
-st.markdown('</div>', unsafe_allow_html=True)
 
 if not all_users:
     st.warning("No users with survey data were found yet.")

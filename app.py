@@ -16,10 +16,23 @@ page = params.get("page")
 if isinstance(page, list):
     page = page[0] if page else None
 page = (page or "").strip().lower()
+uid = params.get("uid")
+if isinstance(uid, list):
+    uid = uid[0] if uid else None
+if uid and str(uid).isdigit():
+    st.session_state.user_id = int(uid)
 if page in {"login", "1_login"}:
     st.switch_page("pages/1_Login.py")
 if page in {"signup", "sign-up", "2_signup"}:
     st.switch_page("pages/2_Signup.py")
+if page in {"reset", "reset-password", "forgot-password", "5_resetpassword"}:
+    st.switch_page("pages/5_ResetPassword.py")
+if page in {"survey", "5_survey"}:
+    st.switch_page("pages/5_survey.py")
+if page in {"dashboard", "profile", "3_dashboard", "4_profile"}:
+    st.switch_page("pages/3_Dashboard.py")
+if page in {"challenge", "challenge-match", "2_challenge_match"}:
+    st.switch_page("pages/2_Challenge_Match.py")
 
 
 PROJECT_DIR = Path(__file__).parent

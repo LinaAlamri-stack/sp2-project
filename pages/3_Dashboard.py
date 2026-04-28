@@ -1643,6 +1643,24 @@ html = f"""
     {challenge_match_score}%
 </div>
 
+<div style="display:flex; justify-content:center; margin-top:16px;">
+    <a href="/?page=challenge&uid={user_id or ''}" target="_top" style="
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        padding:12px 22px;
+        border-radius:999px;
+        background:linear-gradient(90deg,#8b5cf6,#ec4899);
+        color:white;
+        font-weight:700;
+        font-size:13px;
+        text-decoration:none;
+        box-shadow:0 10px 24px rgba(139, 92, 246, 0.28);
+    ">
+        Start Challenge 🚀
+    </a>
+</div>
+
 </div>
 
 
@@ -1776,7 +1794,7 @@ function togglePlaceholder() {{
 
 """
 
-st.markdown(""""
+st.markdown("""
 <style>
 html, body, [class*="css"] {
     background-color: #0F123B !important;
@@ -1814,32 +1832,5 @@ footer {visibility: hidden;}
  
  
 components.html(html, height=1650, scrolling=False)
-
-st.markdown("""
-<style>
-div.stButton {
-    position: relative;
-    top: -460px;             
-    left: 50%;
-transform: translateX(5%);
-width: fit-content;
-    z-index: 999;
-}
-
-div.stButton > button {
-    width: auto;
-    padding: 10px 20px;
-    border-radius: 999px;
-    background: linear-gradient(90deg,#8b5cf6,#ec4899);
-    color: white;
-    font-weight: bold;
-    border: none;
-    font-size: 13px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-if st.button("Start Challenge 🚀"):
-    st.switch_page("pages/2_Challenge_Match.py")
     
     
