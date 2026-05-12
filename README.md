@@ -1,9 +1,10 @@
-# Riyalyze
+# Riyalyze <img width="241" height="206" alt="Frame 1000005772" src="https://github.com/user-attachments/assets/337c5e9d-5b69-4ec0-80b2-6638d3164127" />
+ 
 ### A Data-Driven System for Analyzing and Visualizing Lifestyle Impact
-![Bnner](<img width="1270" height="708" alt="Screenshot 1447-11-25 at 12 17 32 PM" src="https://github.com/user-attachments/assets/8a0247e2-93b0-4994-9b72-42dc802ac008" />)
+<img width="1707" height="975" alt="Screenshot 1447-11-25 at 12 39 19 PM" src="https://github.com/user-attachments/assets/3aebe27a-a58a-47c0-851a-25387404aee6" />
 
 ## Live Website
-[Visit Riyalyze](![Uploading Screenshot 1447-11-25 at 12.33.42 PM.png…]())
+[Visit Riyalyze](https://riyalyze.streamlit.app)
 
 ## Demo Video
 [Watch the Demo](https://drive.google.com/file/d/1SILUYy8FBu6tPhyAhPqfbKopGFOQRfn_/view?usp=sharing)
