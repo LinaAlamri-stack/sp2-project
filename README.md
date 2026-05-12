@@ -11,48 +11,98 @@
 [Watch the Demo](https://drive.google.com/file/d/1SILUYy8FBu6tPhyAhPqfbKopGFOQRfn_/view?usp=sharing)
 
 ## Overview
-
-Riyalyze is an intelligent, data-driven web application developed to analyze lifestyle behaviors and visualize their long-term impact on health and daily performance.
-
-The platform focuses on:
-
-- Caffeine consumption
-- Sleep quality
-- Fast-food intake
-- Screen time
-- Physical activity
-
-Using machine learning, predictive analytics, and interactive visualizations, Riyalyze transforms raw behavioral data into personalized insights that help users make healthier lifestyle decisions.
-
+Riyalyze is an intelligent, data-driven web application developed to analyze lifestyle behaviors and visualize their long-term impact on health and daily performance. The platform focuses on key lifestyle factors including caffeine consumption, fast-food intake, sleep quality, screen time, and physical activity.
+Using machine learning, predictive analytics, and interactive visualizations, Riyalyze transforms raw behavioral data into personalized insights that help users better understand their habits and make healthier lifestyle decisions.
+Developed as a senior graduation project at the Saudi Electronic University, the system combines health analytics, clustering algorithms, predictive modeling, and personalized recommendations within a unified digital ecosystem.
 
 ## Key Features
 
 ### Intelligent Lifestyle Analysis
 
 - Collects user lifestyle data through structured surveys
-- Uses clustering algorithms to identify behavioral patterns
-- Generates personalized health insights
+- Analyzes behavioral patterns using clustering algorithms
+- Identifies user lifestyle categories and risk profiles 
 
 ### Interactive Dashboard
 
 - Real-time visual analytics
 - Dynamic charts and trend analysis
-- Lifestyle comparison tools
+- Lifestyle comparison tools and habit distribution analytics 
 
 ### Predictive Health Projection
 
-- Simulates long-term health outcomes
-- Visualizes future lifestyle impact
-- Provides behavioral awareness
-
+- Simulates potential long-term health outcomes over a 10-year period
+- Visualizes lifestyle impact using interactive models and projections
+- Helps users understand the future consequences of current habits
+  
 ### Health Risk Assessment
 
 - Detects unhealthy behavioral patterns
 - Calculates personalized lifestyle risk levels
 - Provides data-driven health awareness indicators
 
-### AI-Powered Chatbot
+### AI-Powered Personalized Recommendations
 
-- Personalized recommendations
+- Rule-based intelligent chatbot
 - Adaptive responses based on user behavior
-- Interactive conversational support
+- Personalized recommendations for sleep, diet, and caffeine management
+
+### Challenge Your Match
+- Matches users with others who share similar lifestyle goals
+- Encourages engagement through comparison and lifestyle challenges
+
+## Technologies Used
+### Backend & Data Science
+  ● Python
+	●	Pandas
+	●	NumPy
+	●	Scikit-learn
+	●	PyCaret
+	●	MediaPipe
+
+### Database & Infrastructure
+  ● SQLite
+	●	GitHub
+  
+### UI/UX Design
+  ●	Figma
+
+
+## Machine Learning & Data Analytics
+The analytical core of Riyalyze is powered by unsupervised machine learning techniques.
+Clustering Model
+### The system uses K-Means Clustering to identify distinct lifestyle behavior groups based on:
+  ●	Caffeine intake
+	●	Sleep duration
+	●	Fast-food consumption
+	●	Screen time
+	●	Physical activity
+	●	Daily routines
+
+### Data Processing Pipeline
+  ●	Data cleaning and preprocessing
+	●	Z-score normalization
+	●	Categorical encoding
+	●	Outlier detection
+	●	Feature standardization
+  
+### Predictive Insights
+The platform generates personalized health projections and behavioral insights based on accumulated lifestyle patterns.
+
+## Security & Privacy
+  ●	User data anonymization
+	●	Secure authentication system
+	●	Encrypted password storage
+	●	Privacy-conscious data handling
+	●	Compliance with Saudi data privacy considerations
+
+## Team
+### Developed by:
+  ●	Huda Almadi
+	●	Raghad Aljuid
+	●	Rana Olayan
+	●	Sara Almudlaj
+	●	Linah Alamari
+	●	Bashayer Alghamdi
+### Under the supervision of:
+Dr. Samah Alhazmi
