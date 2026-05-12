@@ -1,5 +1,6 @@
-# Riyalyze <img width="241" height="206" alt="Frame 1000005772" src="https://github.com/user-attachments/assets/337c5e9d-5b69-4ec0-80b2-6638d3164127" />
- 
+# Riyalyze 
+<img width="241" height="206" alt="Frame 1000005772" src="https://github.com/user-attachments/assets/337c5e9d-5b69-4ec0-80b2-6638d3164127" />
+
 ### A Data-Driven System for Analyzing and Visualizing Lifestyle Impact
 <img width="1707" height="975" alt="Screenshot 1447-11-25 at 12 39 19 PM" src="https://github.com/user-attachments/assets/3aebe27a-a58a-47c0-851a-25387404aee6" />
 
