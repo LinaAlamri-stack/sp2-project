@@ -53,56 +53,56 @@ Developed as a senior graduation project at the Saudi Electronic University, the
 
 ## Technologies Used
 ### Backend & Data Science
-  ● Python
-	●	Pandas
-	●	NumPy
-	●	Scikit-learn
-	●	PyCaret
-	●	MediaPipe
+- Python
+- Pandas
+- NumPy
+- cikit-learn
+- PyCaret
+- MediaPipe
 
 ### Database & Infrastructure
-  ● SQLite
-	●	GitHub
+- SQLite
+- GitHub
   
 ### UI/UX Design
-  ●	Figma
+ - Figma
 
 
 ## Machine Learning & Data Analytics
 The analytical core of Riyalyze is powered by unsupervised machine learning techniques.
 Clustering Model
 ### The system uses K-Means Clustering to identify distinct lifestyle behavior groups based on:
-  ●	Caffeine intake
-	●	Sleep duration
-	●	Fast-food consumption
-	●	Screen time
-	●	Physical activity
-	●	Daily routines
+- Caffeine intake
+- Sleep duration
+- Fast-food consumption
+- Screen time
+- Physical activity
+- Daily routines
 
 ### Data Processing Pipeline
-  ●	Data cleaning and preprocessing
-	●	Z-score normalization
-	●	Categorical encoding
-	●	Outlier detection
-	●	Feature standardization
+- Data cleaning and preprocessing
+- Z-score normalization
+- Categorical encoding
+- Outlier detection
+- Feature standardization
   
 ### Predictive Insights
 The platform generates personalized health projections and behavioral insights based on accumulated lifestyle patterns.
 
 ## Security & Privacy
-  ●	User data anonymization
-	●	Secure authentication system
-	●	Encrypted password storage
-	●	Privacy-conscious data handling
-	●	Compliance with Saudi data privacy considerations
+- User data anonymization
+- Secure authentication system
+- Encrypted password storage
+- Privacy-conscious data handling
+- Compliance with Saudi data privacy considerations
 
 ## Team
 ### Developed by:
-  ●	Huda Almadi
-	●	Raghad Aljuid
-	●	Rana Olayan
-	●	Sara Almudlaj
-	●	Linah Alamari
-	●	Bashayer Alghamdi
+- Huda Almadi
+- Raghad Aljuid
+- Rana Olayan
+- Sara Almudlaj
+- Linah Alamari
+- Bashayer Alghamdi
 ### Under the supervision of:
 Dr. Samah Alhazmi
