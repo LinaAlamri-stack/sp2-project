@@ -56,7 +56,7 @@ Developed as a senior graduation project at the Saudi Electronic University, the
 - Python
 - Pandas
 - NumPy
-- cikit-learn
+- Scikit-learn
 - PyCaret
 - MediaPipe
 
